@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="b.js"></script>
+</head>
+<body>
+Hello
+<button onclick="hide(this,true);debug('hide button 1');">Hide1</button>
+<button onclick="hide(this);debug('hide button 2');">Hide2</button>
+World
+<script>
+	window.onload=function(){
+		var images=document.getElementsByTagNames("img");
+		for (var i = 0; i < images.length; i++) {
+			var image=images[i];
+			if(image.addEventListener)
+				image.addEventListener("click",hide,false);
+		}else{
+			image.attachEvent("onclick",hide);
+		}
+		function hide(event){
+			event.target.style.visibility="hidden";
+		}
+
+	}
+
+
+</script>
+	
+</body>
+</html>

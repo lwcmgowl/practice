@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <a href="#actions">testActions</a>
+  <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="http://cdn.bootcss.com/backbone.js/1.2.3/backbone-min.js"></script>
+  <script type="text/javascript">
+  (function($) {
+    Book = Backbone.Model.extend({
+      defaults: {
+        title: 'default'
+      },
+      initialize: function() {
+
+      }
+    });
+    BookShelf = Backbone.Collection.extend({
+      model: Book
+    });
+    var book1 = new Book({
+      title: 'book1'
+    });
+
+    var book2 = new Book({
+      title: 'book2'
+    });
+
+    var book3 = new Book({
+      title: 'book3'
+    });
+    var bookShelf = new BookShelf;
+
+    bookShelf.add(book1);
+
+    bookShelf.add(book2);
+
+    bookShelf.add(book3);
+
+    bookShelf.remove(book3);
+    bookShelf.each(function(book) {
+
+      alert(book.get('title'));
+
+    });
+    var AppRouter = Backbone.Router.extend({
+
+      routes: {
+
+        "*actions": "defaultRoute"
+
+      },
+
+      defaultRoute: function(actions) {
+
+        alert(actions);
+
+      }
+
+    });
+
+    var app_router = new AppRouter;
+
+    Backbone.history.start();
+  })(jQuery);
+  </script>
+</body>
+
+</html>

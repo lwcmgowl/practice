@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+      
+     <script src="http://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+	<script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+	<script src="http://cdn.bootcss.com/backbone.js/1.2.3/backbone-min.js"></script>
+	<samp>ae</samp>
+     <script type="text/javascript">
+     	// _.each([1, 2, 3], alert);
+      //   _.each({one:1,two:2,three:3},alert)
+      // console.log( _.map([1,2,3],function(num){return num*3;}));
+      // console.log( _.invoke([[5, 1, 7], [3, 2, 1]], 'sort'));
+         
+      // console.log(_.find([]))
+      var stooges = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+console.log(_.indexBy(stooges, 'age'));
+       console.log(_.countBy([1, 2, 3, 4, 5], function(num) {
+  return num % 2 == 0 ? 'even': 'odd';
+}));
+       console.log(_.shuffle([1,2,3,4,5,6,7]))
+       function tzone(ts) { this.ct = new Date(1456372902); this.ts = ts; console.log(this.ct)}
+            tzone();
+            var object={};
+            _.extend(object,Backbone.Events);
+            object.on("alert",function (msg){
+            	alert("Triggered"+msg);
+            })
+            object.trigger('alert',"an event")
+            var Chapter = Backbone.Model.extend({
+  validate: function(attrs, options) {
+    if (attrs.end < attrs.start) {
+      return "can't end before it starts";
+    }
+  }
+});
+
+var one = new Chapter({
+  title : "Chapter One: The Beginning"
+});
+
+one.on("invalid", function(model, error) {
+  alert(model.get("title") + " " + error);
+});
+
+one.save({
+  start: 15,
+  end:   10
+});
+     </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+  <div id="search_container"></div>
+
+    <script type="text/template" id="search_template">
+        <label></label>
+        <input type="text" id="search_input" />
+        <input type="button" id="search_button" value="Search" />
+    </script>
+    </body>
+	 <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+  <script src="http://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="http://cdn.bootcss.com/backbone.js/1.2.3/backbone-min.js"></script>
+   <script type="text/javascript">
+   	(function ($) {
+            SearchView=Backbone.View.extend({
+            	initialize:function(){
+            		this.render();
+            	},
+            	render:function(){
+            		var template=_.template($("#search_template").html(),{});
+            		$(this.el).html(template);
+            	},
+            	events:{
+            		'click input[type=button]' :'doSearch'
+            	},
+            	doSearch:function(event){
+                   alert("search for"+$("#search_input").val())  
+            	}
+            });
+            var searchView=new SearchView({el: $("#search_container")});
+            // searchView.render();
+})(jQuery);
+   </script>
+</html>

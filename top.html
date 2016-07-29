@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+.W_gotop {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ccc;
+    border-radius: 3px 3px 3px 3px;
+    bottom: 100px;
+    display: block;
+    font-family: Arial;
+    text-decoration: none;
+    font-size:12px;
+    left: 50%;
+    line-height: 14px;
+    margin-left: 476px;
+    padding: 5px 3px 5px;
+    position: fixed;
+    text-align: center;
+    width: 20px;
+    /*下面兼容ie6*/
+     _position: absolute; /*IE6 用absolute模拟fixed*/
+ 	_top: expression(documentElement.scrollTop + 300 + 'px'); /*IE6 动态设置top位置*/
+    _left: expression(documentElement.scrollLeft + 666 + 'px'); /*IE6 动态设置left位置*/
+}
+.W_gotop:hover {
+    background-color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+.W_gotop span {
+	color:#9CBED3;
+}
+.W_gotop span em.sj {
+    display: block;
+    font-size: 28px;
+    height: 8px;
+    margin: 0 0 0 3px;
+    overflow: hidden;
+    text-align: left;
+}
+.W_gotop span em.fk {
+    display: block;
+    font-size: 11px;
+    height: 5px;
+    margin: -1px 0 2px 4px;
+    overflow: hidden;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+<a class="W_gotop" href="javascript:;" style="display:none;" onclick="$('html,body').animate({'scrollTop':0},'slow')">
+		<span><em class="sj">?</em><em class="fk">?</em>返回顶部</span>
+	</a>
+<p>
+test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />test<br />
+</p>
+
+<script src="https://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(window).scroll(function(){
+		var stop = $(this).scrollTop();
+		if (stop === 0) {
+			$('.W_gotop').fadeOut(500);
+		}
+		else {
+			$('.W_gotop').fadeIn(500);
+		}
+	})
+})
+
+
+
+</script>
+</body>
+</html>

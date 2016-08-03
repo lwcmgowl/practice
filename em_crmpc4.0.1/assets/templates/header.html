@@ -1,0 +1,152 @@
+<style>
+    .titlecss {
+        float: left;
+        margin-left: 20px;
+        font-size: 18px;
+        color: #fff;
+        line-height: 50px;
+    }
+    .label-danger {
+        position: absolute;
+        top: 9px;
+        right: 2px;
+        text-align: center;
+        font-size: 9px;
+        padding: 2px 3px;
+        line-height: .9;
+    }
+</style>
+<link href="assets/css/dashboard.css">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <font class="titlecss">CRM应用平台 </font>
+        <div class="toogle" style="" title="菜单栏">
+            <a href="#" style="color:#FFFFFF"><i class="iconfont icon-list"></i></a>
+        </div>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right" style="margin-right: 0px;">
+            <li class="dropdown notifications-menu" title="提醒">
+                <a href="remind.html#menuList"> <i class="fa fa-bell-o"></i> <span class="label label-danger" id="tips"></span> </a>
+            </li>
+            <li class="dropdown user user-menu">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="background-color: #3679D3;"><span id="userIcon">
+                    
+                </span><span class="f-mgr-10" id="user_" style="margin-left: 5px;"></span><i class="fa fa-caret-down"></i></a>
+                <ul class="dropdown-menu" style="min-width: 160px;">
+                    <li class="user-body">
+                        <a class=" btn-sign-out" href="javascript:;" onclick="editpwd();"><i class="fa fa-key out"></i> 修改密码</a>
+                        <a class="btn-sign-out" href="javascript:;" onclick="logout();"><i class="fa fa-sign-out out"></i> 退出</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</div>
+<script id="editpwd" type="text/template">
+        <section class="container-fluid">
+
+        <div class="row">
+
+        <div class="col-md-12 col-sm-12">
+        <div class="panel-body">
+        <form class="form-horizontal" id="editPwd_FORM">
+        <div class="form-group">
+        <label class="col-sm-2 control-label">原密码: </label>
+        <div class="col-sm-6">
+        <input type="password" class="form-control" id="oldPassword">
+        </div>
+        </div>
+        <div class="form-group">
+        <label class="col-sm-2 control-label">新密码: </label>
+        <div class="col-sm-6">
+        <input type="password" class="form-control" id="password">
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label class="col-sm-2 control-label">再次输入新密码: </label>
+        <div class="col-sm-6">
+        <input type="password" class="form-control" id="password1">
+        </div>
+        </div>
+        </form>
+
+        </div>
+        </div>
+        </div>
+
+        </section>
+    </script>
+<script src="js/assets/common/bootbox.js"></script>
+<script src="js/assets/common/jquery.form.js"></script>
+<script>
+    $(".toogle").click(function() {
+        $(".sidebar").toggle("normal");
+        if ($(".toogle").data("showSideBar")) {
+            $(".main").addClass("col-md-10 col-md-offset-2");
+            $(".toogle").data("showSideBar", false)
+
+        } else {
+            $(".main").removeClass("col-md-10 col-md-offset-2");
+            $(".toogle").data("showSideBar", true)
+        }
+
+    });
+    function editpwd(){
+        bootbox.dialog({
+                message: $("#editpwd").html(),
+                title: '修改密码',
+                className: "",
+                buttons: {
+                    ok: {
+                        label: "提交",
+                        className: "btn-success",
+                        callback: function () {
+                            var oldPassword = $("#oldPassword").val();
+                            var password = $("#password").val();
+                            var password1 = $("#password1").val();
+                            if(oldPassword==''){
+                                $.danger("原密码不能为空!");
+                                return false;
+                            }else if( password=='' || password1==''){
+                                $.danger("新密码不能为空!")
+                                return false;
+                            }
+                            if(password != password1){
+                                $.danger("两次新密码输入不一致！", null, null, function() {
+                                });
+                                return false;
+                            }
+                            var data={
+                                "loginName":appcanUserInfo.loginName,
+                                "loginPass" : oldPassword,
+                                "loginPass1" : password,
+                                "loginPass2":password1
+                            }
+                             ajax({
+                                url : "/uc/edit",
+                                data : data,
+                                success : function(data) {
+                                    $.success("修改成功！", null, null, function() {
+                                        window.location.href = "login.html";
+                                    }); 
+                                }
+                            });
+                        }
+                    },
+                    "cancel": {
+                        label: "取消",
+                        className: "btn-default",
+                        callback: function () {
+                        }
+                    }
+                },
+                complete: function(){
+                    
+                }
+            }); 
+    }
+
+</script>

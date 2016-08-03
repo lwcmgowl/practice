@@ -1,0 +1,259 @@
+table.dataTable th, table.dataTable td {
+  white-space: nowrap;
+  /*padding-right: 100px !important;*/
+  border-bottom: none !important;
+}
+.table  td {
+  max-width: 200px;
+}
+h1{
+  font-size: 16px;
+  margin-top: 10px;
+  font-family: microsoft yahei;
+}
+.alert-fixed{
+  position: fixed;
+  top: 0;
+  z-index: 99999;
+  width: 100%;
+  text-align: center;
+  animation: disappear forwards  1s;
+  -moz-animation: disappear forwards  1s;
+  -webkit-animation: disappear forwards  1s;
+  -o-animation: disappear forwards  1s;
+}
+.alert-fixed-ie{
+  position: fixed;
+  top:0;
+  z-index: 999;
+  width: 100%;
+  text-align: center;
+}
+@keyframes disappear {
+  from{top:-100px}
+  to{top: 0;}
+}
+@-webkit-keyframes disappear {
+  from{top:-100px}
+  to{top: 0;}
+}
+@-ms-keyframes disappear {
+  from{top:-100px}
+  to{top: 0;}
+}
+@-moz-keyframes disappear {
+  from{top:-100px}
+  to{top: 0;}
+}
+@-o-keyframes disappear {
+  from{top:-100px}
+  to{top: 0;}
+}
+.pagination>.active>a{
+    z-index: 0 !important;
+}
+.purple {
+  color: #000!important;
+}
+
+.modal-dialog {
+  padding-top: 120px;
+}
+*{
+  font-family: microsoft yahei;
+}
+.dataTables_info {
+  clear: both;
+  float: left;
+  padding-top: 1.75em;
+}
+.pagination-pos{
+  float: right;
+}
+.loading{
+  position: fixed;
+  z-index:99999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  margin: 300px auto;
+}
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: bounce 2.0s infinite ease-in-out;
+  -ms-animation: bounce 2.0s infinite ease-in-out;
+  animation: bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  -ms-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@-ms-keyframes bounce {
+  0%, 100% { -ms-transform: scale(0.0) }
+  50% { -ms-transform: scale(1.0) }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
+}
+table.dataTable th, table.dataTable td {
+  white-space: nowrap;
+  padding-right: 100px !important;
+  border-bottom: none !important;
+}
+.container-fluid {
+  width: 100%;
+  padding: 0 10px;
+  /*overflow: hidden;*/
+}
+
+.tcwith{
+     
+    width: 1000px;
+    outline: none;
+    margin: 0 auto;
+    
+}
+.tcwith > .modal-dialog {
+    width: 100%;
+    height: 100%;
+    outline: 0;
+}
+
+.modal{
+    overflow: hidden;
+    overflow-y: hidden;
+}
+.xskuang{
+    height: 300px;
+    border: 1px solid #ddd;
+}
+.modal-dialog {
+    padding-top: 30px;
+}
+.sidebar_li{
+    padding: 0;
+    list-style: none;
+}
+ul{
+    padding: 0;
+}
+.disblock{
+    display: block;
+}
+.disnone{
+    display: none;
+}
+/*table tr td{
+    text-align: center;
+}*/
+/*table tr th:first-child{
+    text-align: center;
+}*/
+
+ ::-webkit-scrollbar-track-piece {
+                background-color: #fff;
+                -webkit-border-radius: 0;
+            }
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar:horizontal {
+                width: 8px;
+                height: 16px;
+            }
+            ::-webkit-scrollbar-thumb {
+                height: 50px;
+                background-color: #999;
+                -webkit-border-radius: 4px;
+                outline: 2px solid #fff;
+                outline-offset: -2px;
+                border: 2px solid #fff;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                height: 50px;
+                background-color: #9f9f9f;
+                -webkit-border-radius: 4px;
+            }
+.info{
+    font-size: 14px;
+}
+.center{
+    text-align:center;   
+     min-width: 66px;
+}
+.center a{
+    display: block;
+}
+.wel-word {
+            font-family: "microsoft yahei";
+            font-size: 2em;
+            font-weight: bold;
+            color: rgb(60, 141, 188);
+            width: 800px;
+            margin: 20% auto;
+            text-align: center;
+            -webkit-animation: bounce 2.0s ease-in-out;
+            -ms-animation: bounce 2.0s ease-in-out;
+            animation: bounce 2.0s ease-in-out;
+        }
+
+        @-webkit-keyframes bounce {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+         @-moz-keyframes bounce {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @-ms-keyframes bounce {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .form-group {
+    border-bottom: 1px solid #eff2f7;
+   
+}
+.form-control1{
+     margin-top: 8px;
+}
+.control-label {
+  color: #666;
+  font-weight: 500;
+  text-align: left;
+}

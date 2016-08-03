@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="renderer" content="webkit">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>协同办公-动态跟踪</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="assets/css/dashboard.css" rel="stylesheet">
+        <link href="assets/css/sidebar.css" rel="stylesheet">
+        <link href="assets/css/staff.css" rel="stylesheet">
+        <link href="assets/css/fonts/iconfont.css" rel="stylesheet">
+
+        <link href="assets/css/fa/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="assets/css/fa/css/font-awesome.css" rel="stylesheet" />
+        <link href="assets/css/init.css" rel="stylesheet">
+        <link href="assets/css/style-responsive.css" rel="stylesheet" />
+
+        <!-- <script src="js/require.js" data-main="assets/main/index.require"></script> -->
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <!-- <script src="../assets/js/ie-emulation-modes-warning.js"></script> -->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            body {
+                background: #f0f5f7;
+            }
+            .btn-default {
+                min-width: 50px;
+            }
+            .text-primary {
+                color: #15baff;
+            }
+            .day-color {
+                color: #ffffff;
+                position: absolute;
+                margin-left: -26px;
+                display: inline-block;
+                height: 24px;
+                line-height: 24px;
+                font-size: 14px;
+            }
+            .day-color:before {
+                content: "";
+                position: absolute;
+                top: -10px;
+                border: 5px solid transparent;
+                border-bottom-width: 5px;
+                border-right-color: #ca8b1e;
+                border-bottom-color: #ca8b1e;
+            }
+            .day-color-other {
+                color: #ff0000;
+                position: absolute;
+                margin-left: -26px;
+                display: inline-block;
+                height: 24px;
+                line-height: 24px;
+                font-size: 14px;
+            }
+            .day-color-other:before {
+                content: "";
+                position: absolute;
+                top: -10px;
+                border: 5px solid transparent;
+                border-bottom-width: 5px;
+                border-right-color: #737373;
+                border-bottom-color: #737373;
+            }
+            .text-danger {
+                color: #ff5050;
+            }
+            a {
+                color: #15baff;
+            }
+            .row {
+                margin-top: 10px;
+            }
+            .list-group-item {
+                background: #f5f5f5;
+            }
+            #edit .col-sm-12 {
+                padding: 0 56px 0 15px;
+            }
+
+            .fa {
+                color: #fff;
+                font-size: 14px;
+            }
+            #main {
+                height: 100%;
+                /* margin-left: 225px; */
+            }
+            .out {
+                color: #333;
+            }
+            .dropdown-toggle {
+                color: #fff;
+                padding: 10px 15px;
+            }
+            .dropdown-toggle:hover, .dropdown-toggle:link {
+                color: #fff;
+                text-decoration: none;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse   navbar-fixed-top" ></nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 sidebar nav-collapse " data-import="assets/templates/sidebar.html"></div>
+                <div id="main_content" class="col-md-10 col-md-offset-2 main" data-import="assets/templates/customer/dynamicEdit.html"></div>
+            </div>
+        </div>
+        <div  id="appshow" style="display: none; z-index:10000; text-align: right; background: #FFFFFF;margin-left:200px; width: 250px;border-top:1px solid #A2A2A2;border-bottom:1px solid #A2A2A2;border-left:1px solid #A2A2A2;border-right:1px solid #A2A2A2;"></div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/lib/jquery.js"></script>
+        <script src="js/lib/underscore.js"></script>
+        <script src="js/lib/backbone.js"></script>
+        <script src="js/lib/backbone.stickit.js"></script>
+        <script src='js/lib/jquery.cookie.js'></script>
+        <script src='js/lib/jquery.hoverIntent.minified.js'></script>
+        <script src="js/lib/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="js/lib/jquery.scrollTo.min.js"></script>
+        <script src="js/lib/jquery.md5.js"></script>
+        <script src="js/lib/template.import.js"></script>
+        <script src="js/lib/lazyload.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="assets/routers/customer/customerListMainRouter.js"></script>
+        <script src="js/assets/common/localStorage.js"></script>
+        <script src="assets/global.js"></script>
+        <script src="js/assets/common/init.js"></script>
+    </body>
+    <script type="text/javascript" charset="utf-8">
+        //获取用户信息
+        getLocVal();
+        $("#user_").html('【当前用户：' + appcanUserInfo.userName + ' 】');
+    </script>
+</html>

@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-10 col-sm-10">
+                        <h1>跟进动态&nbsp;&nbsp;<small><span id="titlee1"> </span></small></h1>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <a href="javascript:history.back();" class="btn btn-default" style="
+                                    float: right;">返回</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal hide" id="edit">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" cols="30" rows="5" id="dynamicContent"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+                        </div>
+                        <div >
+                            <label class="col-sm-2 control-label">类型 : <span style="color:red">（*）</span></label>
+                            <div class="col-sm-2">
+                                <select class="form-control" id="dynamicType1">
+                                    <option value="00">请选择</option>
+                                </select>
+                             </div>
+                        </div>
+                        <div class="col-sm-1 ">
+                            <button class="btn btn-info" type="button" id="submit" onclick="addDynamic()">
+                                            发布
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="panel " >
+                    <div class="panel-heading"></div>
+                    <div id="list1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

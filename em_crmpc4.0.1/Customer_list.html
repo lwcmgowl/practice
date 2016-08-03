@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="renderer" content="webkit">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>协同办公-客户</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="assets/css/dashboard.css" rel="stylesheet">
+        <link href="assets/css/sidebar.css" rel="stylesheet">
+        <link href="assets/css/staff.css" rel="stylesheet">
+        <link href="assets/css/fonts/iconfont.css" rel="stylesheet">
+
+        <link href="assets/css/fa/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="assets/css/fa/css/font-awesome.css" rel="stylesheet" />
+        <link href="assets/css/init.css" rel="stylesheet">
+        <link href="assets/css/style-responsive.css" rel="stylesheet" />
+
+        <!-- <script src="js/require.js" data-main="assets/main/index.require"></script> -->
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <!-- <script src="../assets/js/ie-emulation-modes-warning.js"></script> -->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style type="text/css">
+            th {
+                text-align: center;
+            }
+            table {
+                text-align: center;
+            }
+            .col-xs-2 {
+                width: 14.666667%;
+            }
+            .td-ell {
+                width: 100%;
+                word-break: keep-all;/* 不换行 */
+                white-space: nowrap;/* 不换行 */
+                overflow: hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+                text-overflow: ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一 起使用。*/
+            }
+            /*.dropdown-menu {
+                min-width: 66px;
+            }*/
+            .dropdown-menu a {
+                display: block;
+            }
+        </style>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top" data-import="assets/templates/header.html"></nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 sidebar nav-collapse " data-import="assets/templates/sidebar.html"></div>
+                <div id="main_content" class="col-md-10 col-md-offset-2 main" data-import="assets/templates/customer/customerListMainTemplate1.html"></div>
+            </div>
+        </div>
+        <div  id="appshow" style="display: none; z-index:10000; text-align: right; background: #FFFFFF;margin-left:200px; width: 250px;border-top:1px solid #A2A2A2;border-bottom:1px solid #A2A2A2;border-left:1px solid #A2A2A2;border-right:1px solid #A2A2A2;"></div>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/lib/jquery.js"></script>
+        <script src="js/lib/underscore.js"></script>
+        <script src="js/lib/backbone.js"></script>
+        <script src="js/lib/backbone.stickit.js"></script>
+        <script src='js/lib/jquery.cookie.js'></script>
+        <script src='js/lib/jquery.hoverIntent.minified.js'></script>
+        <script src="js/lib/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="js/lib/jquery.scrollTo.min.js"></script>
+        <script src="js/lib/jquery.md5.js"></script>
+        <script src="js/lib/template.import.js"></script>
+        <script src="js/lib/lazyload.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/assets/common/localStorage.js"></script>
+        <script src="assets/global.js"></script>
+        <script src="js/assets/common/init.js"></script>
+        <script src="js/assets/common/dynamicInit.js"></script>
+        <script src="js/assets/common/index.js"></script>
+        <script src="js/assets/common/jquery.tree.js"></script>
+        <script src="assets/views/siderbar.js"></script>
+        <script>
+            routerType = "loadCustomerList";
+        </script>
+        <script src="assets/routers/customer/customerListMainRouter.js"></script>
+        <script src="assets/routers/staff.js"></script>
+    </body>
+    <script>
+        getLocVal();
+            $("#user_").html('【当前用户：'+appcanUserInfo.userName+' 】');
+    </script>
+</html>

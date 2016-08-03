@@ -1,0 +1,68 @@
+<style type="text/css">
+	.dropdown-menu{
+	    min-width: 66px;
+	}
+</style>
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <select class="form-control" id="industrycategory">
+                    <option value="">选择行业类别</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <select class="form-control" id="bigRegions">
+                    <option value="">选择所属团队</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <input class="form-control" placeholder="客户名称/联系人" type="text" id="csmName"/>
+        </div>
+        <div class="col-xs-1">
+            <button type="button" class="btn btn-default" onclick="search();">
+                <i class="fa fa-search"></i> 查询
+            </button>
+        </div>
+        <div id="btnWrapper"></div>
+    </div>
+    <div class="panel-body">
+        <table id="datatable" class="table table-bordered table-responsive table-hover "
+        style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;"></table>
+    </div>
+  </section>
+    <script id="organizationTemplate" type="text/template">
+        <div class="panel-body">
+        <form class="form-horizontal">
+        <div class="form-group">
+        <label class="col-sm-3 control-label">客户名称 : </label>
+        <div class="col-sm-7 u-word" id="companyName1"></div>
+        </div>
+        <div class="form-group" id="ptype">
+        <label class="col-sm-3 control-label">所属团队 : </label>
+        <div class="col-sm-6">
+        <select class="form-control" id="team" disabled>
+        </select>
+        </div>
+        </div>
+        <div class="form-group" id="ptype">
+        <label class="col-sm-3 control-label">行业类别 : </label>
+        <div class="col-sm-6">
+        <select class="form-control" id="productType" disabled>
+        </select>
+        </div>
+        </div>
+
+        <div class="form-group">
+        <label class="col-sm-3 control-label">分配给 : </label>
+        <div class="col-sm-6">
+        <select class="form-control" id="assigner" >
+        <option value="00">请选择线索分配人</option>
+        </select>
+        </div>
+        </form>
+        </div>
+    </script>

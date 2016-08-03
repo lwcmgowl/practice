@@ -1,0 +1,33 @@
+* {
+  font-family: microsoft yahei;
+}
+/*.container {
+  width: 100%;
+}
+.panel-heading  h1{
+  font-size: 20px;
+  margin-top : 8px;
+  margin-bottom: 8px;
+}
+.form-group{
+  border-bottom: 1px solid #eff2f7;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}*/
+.btn-success,.btn-default {
+  /*min-width: 100px;*/
+}
+
+/*.u-word {
+  padding-top: 7px;
+}
+.control-label {
+  color: #666;
+}
+.applicationformtop{
+    width: 100%;font-size: 30px;
+}
+.trheight{
+  height:60px  ;
+ 
+}*/

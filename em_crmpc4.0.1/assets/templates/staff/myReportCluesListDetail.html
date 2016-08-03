@@ -1,0 +1,289 @@
+<style type="text/css">
+.col-sm-2 {
+  padding-right: 0px;
+}
+
+
+
+#edit .control-label {
+  text-align: left;
+}
+
+.col-sm-2 {
+  padding-right: 0px;
+}
+#editpart .form-group{
+    padding-left: 28px;
+}
+.fa-pencil-square-o {
+    font-size: 1em;
+    color: #3C8DBC;
+    margin-top: 10px;
+}
+.field_edit_pen{
+    font-size: 12px;
+    color:#999999;
+}
+</style>
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal" id="editpart">
+          <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+            <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+            <label class="col-sm-2 control-label" style="color: #3C8DBC;">基本信息 </label>
+            <label class="col-sm-2 control-label" style="float: right;"><a href="javascript:;" class="field_edit_pen"><i class="fa fa-pencil" aria-hidden="true"></i>更多信息</a> </label>
+          </div>
+          <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">线索负责人: </label>
+        <div class="col-sm-6">
+            <div id="salesUserName">
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+         <label class="col-sm-2 control-label">联系人 : </label>
+          <div class="col-sm-6">
+         <a href="javascript:;" id="contactName" data-type="text"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" style="background-color: rgba(0, 0, 0, 0);"></a>
+         </div> 
+        </div>
+       <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">手机: </label>
+        <div class="col-sm-6">
+         <a href="javascript:;" id="mobile" data-type="text"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" style="background-color: rgba(0, 0, 0, 0);"></a>  
+        <!-- <input type="text" required class="form-control" id="businessName" maxlength="40" placeholder="商机名称字符个数不能超过40个" name="businessName"> -->
+        </div>
+        </div>
+        <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">电话: </label>
+        <div class="col-sm-6">
+         <a href="javascript:;" id="teleNo" data-type="text"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" style="background-color: rgba(0, 0, 0, 0);"></a>  
+        <!-- <input type="text" required class="form-control" id="businessName" maxlength="40" placeholder="商机名称字符个数不能超过40个" name="businessName"> -->
+          </div>
+        </div>
+        <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">客户名称: </label>
+        <div class="col-sm-6">
+         <a href="javascript:;" id="companyName" data-type="text"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" style="background-color: rgba(0, 0, 0, 0);"></a>  
+        <!-- <input type="text" required class="form-control" id="businessName" maxlength="40" placeholder="商机名称字符个数不能超过40个" name="businessName"> -->
+          </div>
+        </div>
+        <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">行业类别: </label>
+        <div class="col-sm-6">
+         <a href="#" id="profession" data-type="select"  data-placement="right" data-placeholder="Required" data-title="Enter your firstname" class="editable editable-click" data-original-title="" title="" style="background-color: rgba(0, 0, 0, 0);"></a>
+        </div>
+        </div>
+        <div class="form-group">
+        <span class="" style="float: left; margin-top: 10px;color: #FFFFFF">*</span>
+        <label class="col-sm-2 control-label">所属省份: </label>
+        <div class="col-sm-6">
+        <a href="#" id="province" data-type="select" data-placement="right" data-title="When you want vacation to start?" class="editable editable-click"></a>
+        </div>
+        </div>
+        <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">所属团队: </label>
+        <div class="col-sm-6">
+       <a href="#" id="c_region" data-type="select"  data-placeholder="Required" data-pk="1" data-placement="right" data-title="When you want vacation to start?" class="editable editable-click"></a>
+        </div>
+        </div>
+        <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">线索状态: </label>
+        <div class="col-sm-6">
+        <div id="clueState1">
+            
+        </div>
+        </div>
+        </div>
+          <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+            <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+            <label class="col-sm-2 control-label" style="color: #3C8DBC;">扩展信息 </label>
+          </div>
+          <div class="form-group">
+        <label class="col-sm-2 control-label qi">部门 :  </label>
+        <div class="col-sm-6 qii">
+          <a href="#" id="department" data-type="text"  data-title="" class="editable editable-click" style="display: inline;"></a>
+        </div>
+        </div>
+        <div class="form-group" id="e_conferenceName">
+        <label class="col-sm-2 control-label">职务 : </label>
+        <div class="col-sm-6">
+        <a href="#" id="post" data-type="text"  data-placement="right" data-placeholder=""  class="editable editable-click editable-empty" style="display: inline;">Empty</a>
+        </div>
+        </div>
+        <div class="form-group">
+        <label class="col-sm-2 control-label qi">邮箱 :  </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="email" data-type="text"  data-title="" class="editable editable-click" style="display: inline;"></a>
+        </div>
+        </div>
+        <div class="form-group">
+        <label class="col-sm-2 control-label qi">QQ : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="qq" data-type="text" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">微信 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="weChat" data-type="text" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">客户级别 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="level" data-type="select" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">客户性质 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="csmNature" data-type="select" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">客户规模 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="csmScale" data-type="select" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">地址 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="address" data-type="text" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">邮编 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="postcode" data-type="text" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">官网 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="website" data-type="text" class="editable editable-click"> </a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">传真 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="fax" data-type="text" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">数据来源 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="c_dataSource" data-type="select" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group hide" id="c_conferenceName">
+        <label class="col-sm-2 control-label qi">会议名称 : </label>
+        <div class="col-sm-8 qii">
+         <a href="#" id="conferenceName" data-type="text" data-placeholder="必填" class="editable editable-click"></a><small class="help-block" data-bv-validator="notEmpty" data-bv-for="businessName" data-bv-result="INVALID" style="display: inline;color: #a94442;padding-left: 20px;" id="tip">会议名称不能为空!</small>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">产品类型 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="c_productType" data-type="select" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">备注需求 : </label>
+        <div class="col-sm-6 qii">
+        <a href="#" id="remark" data-type="textarea" class="editable editable-click"></a>
+        </div>
+        </div>
+         <div class="form-group">
+        <label class="col-sm-2 control-label qi">创建时间 : </label>
+        <div class="col-sm-6 qii">
+            <div id="createdAt">
+                
+            </div>
+           </div>
+        </div>
+        <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+            <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+            <label class="col-sm-2 control-label" style="color: #3C8DBC;">分配信息 </label>
+          </div>
+          <div class="form-group">
+        <label class="col-sm-2 control-label qi">分配状态 : </label>
+        <div class="col-sm-6 qii">
+            <div id="submitState">
+                
+            </div>
+           </div>
+        </div>
+        <div class="form-group">
+        <label class="col-sm-2 control-label qi">线索上报人 : </label>
+        <div class="col-sm-6 qii">
+            <div id="marketUserName">
+                
+            </div>
+           </div>
+        </div>
+        <div class="form-group">
+        <label class="col-sm-2 control-label qi">上报时间 : </label>
+        <div class="col-sm-6 qii">
+            <div id="submitTime">
+                
+            </div>
+           </div>
+        </div>
+        <div class="form-group">
+        <label class="col-sm-2 control-label qi">线索分配人 : </label>
+        <div class="col-sm-6 qii">
+            <div id="assignerName">
+                
+            </div>
+           </div>
+        </div>
+        <div class="form-group">
+        <label class="col-sm-2 control-label qi">分配时间 : </label>
+        <div class="col-sm-6 qii">
+            <div id="distributionTime">
+                
+            </div>
+           </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 分配伙伴 -->
+<script id="organizationTemplate" type="text/template">
+  <div class="panel-body">
+    <form class="form-horizontal">
+      <div class="form-group uhide">
+        <div class="form-group uhide">
+          <label class="col-sm-3 control-label">所属团队 : </label>
+          <div class="col-sm-6">
+            <select class="form-control" data-info="" id="tmplTeam">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">转交给 : </label>
+          <div class="col-sm-6">
+            <select class="form-control" id="tmplAssigner">
+            </select>
+          </div>
+        </div>
+    </form>
+    </div>
+</script>
+<!-- <link href="assets/css/select2.min.css" rel="stylesheet">
+<script src="js/assets/common/select2.min.js"></script> -->
+

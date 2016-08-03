@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="renderer" content="webkit">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>CRM应用平台</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="assets/css/dashboard.css" rel="stylesheet">
+        <link href="assets/css/sidebar.css" rel="stylesheet">
+        <link href="assets/css/staff.css" rel="stylesheet">
+        <link href="assets/css/fonts/iconfont.css" rel="stylesheet">
+
+        <link href="assets/css/fa/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="assets/css/fa/css/font-awesome.css" rel="stylesheet" />
+        <link href="assets/css/init.css" rel="stylesheet">
+        <link href="assets/css/style-responsive.css" rel="stylesheet" />
+        <link href="assets/css/index.css" rel="stylesheet" />
+
+        <!-- <script src="js/require.js" data-main="assets/main/index.require"></script> -->
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <!-- <script src="../assets/js/ie-emulation-modes-warning.js"></script> -->
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse   navbar-fixed-top" data-import="assets/templates/header.html"></nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 sidebar nav-collapse " id="sidebardiv" data-import="assets/templates/sidebar.html"></div>
+                <div id="main_content" class="col-md-10 col-md-offset-2 main" data-import="assets/templates/staff.html"></div>
+            </div>
+        </div>
+        <div  id="appshow" style="display: none; z-index:10000; text-align: right; background: #FFFFFF;margin-left:200px; width: 250px;border-top:1px solid #A2A2A2;border-bottom:1px solid #A2A2A2;border-left:1px solid #A2A2A2;border-right:1px solid #A2A2A2;"></div>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/lib/jquery.js"></script>
+        <script src="js/lib/underscore.js"></script>
+        <script src="js/lib/backbone.js"></script>
+        <script src="js/lib/backbone.stickit.js"></script>
+        <script src='js/lib/jquery.cookie.js'></script>
+        <script src="js/lib/template.import.js"></script>
+        <script src='js/lib/jquery.hoverIntent.minified.js'></script>
+        <script src="js/lib/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="js/lib/jquery.scrollTo.min.js"></script>
+        <script src="js/lib/jquery.md5.js"></script>
+        <script src="js/lib/lazyload.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="assets/routers/staff.js"></script>
+        <script src="js/assets/common/localStorage.js"></script>
+        <script src="assets/global.js"></script>
+        <script src="js/assets/common/init.js"></script>
+        <script src="js/assets/common/index.js"></script>
+        <script src="js/assets/common/jquery.tree.js"></script>
+        <!-- <script src="assets/views/siderbar.js"></script> -->
+        <script type="text/javascript" charset="utf-8">
+            //获取用户信息
+            getLocVal();
+            $("#user_").html(appcanUserInfo.userName);
+            $("#userIcon").html('<img src="/attachment/file'+'/'+appcanUserInfo.userIcon+'" alt=""" class="img-circle" width="30px" height="30px">');
+            var self = this;
+            var t = $.tree('tree');
+            var menus = appcanUserInfo.menus;
+            for (var i = 0,
+                len = menus.length; i < len; i++) {
+                var m = menus[i];
+                t.add(m.id, m.pid, m.name, m);
+            }
+            var $nav = $('#nav-accordion');
+            $nav.append(t.toString());
+            var anyLeaf = $('#nav-accordion .leaf');
+            anyLeaf.click(function() {
+                anyLeaf.removeClass('active');
+                $(this).addClass('active');
+                localStorage.setItem('crmpc_menu', $nav.html());
+                window.location = $(this).data('href');
+            });
+
+            $('#nav-accordion').dcAccordion({
+                eventType : 'click',
+                autoClose : true,
+                saveState : true,
+                disableLink : true,
+                speed : 'slow',
+                showCount : false,
+                autoExpand : true,
+                classExpand : 'dcjq-current-parent'
+            });
+
+        </script>
+    </body>
+</html>

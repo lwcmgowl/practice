@@ -1,0 +1,343 @@
+<style type="text/css">
+    .ut-s {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap !important;
+        outline: 0 !important;
+        word-break: break-all;
+    }
+    .modal-body {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+    .file {
+        position: relative;
+        display: inline-block;
+        background: #D0EEFF;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        padding: 4px 12px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 20px;
+    }
+    .col-sm-2 {
+        padding-right: 0px;
+    }
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+    .hvr-underline-from-left.active::before {
+        right: 0;
+    }
+    table {
+        table-layout: fixed;
+    }
+    td {
+        white-space: nowrap;/*控制单行显示*/
+        overflow: hidden;/*超出隐藏*/
+        text-overflow: ellipsis;/*隐藏的字符用省略号表示*/
+    }
+    .city {
+        display: inline-block;
+        width: 48%;
+    }
+    .remark {
+        display: inline-block;
+        width: 68%;
+    }
+</style>
+<div class="row">
+    <div class="tab-content">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> 我负责的伙伴 </h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul id="myTab" class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#enterprise" > 企业伙伴</a>
+                            </li>
+                            <li>
+                                <a href="#individual" >个人伙伴</a>
+                            </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade in active" id="enterprise">
+
+                            </div>
+                            <div class="tab-pane fade" id="individual">
+                                <div class="panel">
+                                    <div class="col-sm-12" style="margin-top: 12px;">
+
+                                        <div class="row" style="margin-top: 12px;">
+                                            <div class="col-md-4">
+                                                <input class="form-control" placeholder="联系人/负责人" type="text" id="contactName">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <select class="form-control" id="region">
+                                                        <option value="">选择所属团队</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <button type="button" class="btn btn-default" id='searchmy'>
+                                                    <i class="fa fa-search"></i> 查询
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="btnWrapper" style="margin-bottom: 10px;">
+
+                                        </div>
+                                    </div>
+                                    <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="pushRight">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-title">
+                                                <div class="row">
+                                                    <div class="col-md-8 col-sm-8">
+                                                        <h4 id="title"></h4>
+                                                        <span>类型:</span><span class="">个人伙伴</span>
+                                                        <span>内部负责人:</span><span id="partnerUserName" class="">企业伙伴</span>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4" id="buttons" style="margin-top: 10px;text-align: center;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ibox-content">
+                                            <ul class="list-unstyled list-inline" style="border-bottom: 1px solid #eaeaea;">
+
+                                                <li class="">
+                                                    <a href="javascript:;"><span id="partner" class="hvr-underline-from-left active" style="padding-bottom: 10px;"> 伙伴信息 </span></a>
+                                                </li>
+
+                                            </ul>
+                                            <div class="" id="partnerDetail">
+                                                <div id="detailpartdiv"></div>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <div id="maskIndividual" class="mask"></div>
+                                    <div class="tab-content">
+                                        <div class="panel-body">
+                                            <table id="datatableindividual" class="table table-striped table-responsive table-hover" style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;">
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="delState" type="text/template">
+    <div class="panel-body" style="font-size: 16px;">
+    确定要删除吗？
+    </div>
+</script>
+<script id="transfer1" type="text/template">
+    <div class="panel-body">
+    <form class="form-horizontal">
+    <div class="form-group ">
+    <label class="col-sm-3 control-label">客户名称 : </label>
+    <div class="col-sm-6">
+    <div class="form-control1" id="tmplCompanyName">
+
+    </div>
+    </div>
+    </div>
+    <div class="form-group ">
+    <label class="col-sm-3 control-label">所属团队 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" data-info="" id="transferTeam">
+    </select>
+    </div>
+    </div>
+    <div class="form-group ">
+    <label class="col-sm-3 control-label">行业类别 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" data-info="" id="transferProductType" >
+    </select>
+
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-3 control-label">分配给 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" id="transferPerson">
+    <!-- <option value="00">请选择营销数据负责人</option> -->
+    </select>
+    </div>
+    </div>
+    </form>
+    </div>
+</script>
+<script id="enterprisePartner" type="text/template">
+    <div class="panel-body">
+    <form class="form-horizontal" id="personalPartner">
+    <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+    <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+    <label class="col-sm-2 control-label" style="color: #3C8DBC;">基本信息 </label>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-2 control-label">联系人: </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" id="pcontactName" placeholder="姓名字符个数不能超过40个" maxlength="40" name="contactName">
+    </div>
+    <!-- <span class="text-danger">*(姓名字符个数不能超过40个!)</span> -->
+    </div>
+    <div class="form-group">
+    <label class="col-sm-2 control-label">手机: </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" id="mobile" placeholder="必填" name="mobile">
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-2 control-label">电话: </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" id="teleNo" placeholder="必填" name="teleNo">
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-2 control-label" style="padding-right:6px;">所属团队 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" id="__region" required onchange="javascript:getInd()" name="__region">
+    <option value="">选择所属团队</option>
+    </select>
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-2 control-label" style="padding-right:6px;">所在地区 : </label>
+    <div class="col-sm-6">
+    <div id="city_1">
+    <select class="prov form-control" style="display: inline-block;width:50%;" name="prov"></select>
+    <select class="city form-control city" disabled="disabled" name="city"></select>
+    </div>
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">联系地址: </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" / id="address" name="address">
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">邮编: </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" / id="postcode" name="postcode">
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">授权地区: </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" / id="authorizedArea" name="authorizedArea">
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">授权行业: </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" / id="licensingIndustry" name="licensingIndustry">
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">授权期限: </label>
+    <div class="col-sm-6">
+    <div class="input-group input-daterange">
+    <input type="text" class="form-control" id="startTime" name="startTime" style="padding: 6px 8px;">
+    <span class="input-group-addon">至</span>
+    <input type="text" class="form-control" id="endTime" name="endTime" style="padding: 6px 8px;">
+    </div>
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">代理授权: </label>
+    <div class="col-sm-6">
+    <select  class="form-control" id="authorization" name="authorization">
+
+    </select>
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">保证金: </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" / id="bond" name="bond">
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">产品折扣: </label>
+    <div class="col-sm-6">
+    <select class="form-control" style="display: inline-block;width: 30%;" id="discount" name="discount">
+
+    </select>
+    <input type="text" class="form-control remark" / id="remark" placeholder="备注情况可说明">
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label" >价格 : </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" / id="price" name="price">
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">任务额 : </label>
+    <div class="col-sm-6">
+    <input type="text" class="form-control" / id="taskAmount" name="taskAmount">
+    </div>
+    </div>
+    <div class="form-group" style=" ">
+    <label class="col-sm-2 control-label">合同类型 : </label>
+    <div class="col-sm-7">
+    <label class="checkbox-inline">
+    <input type="radio" name="optionsRadiosinline" id="standard"
+    value="0" checked>标准渠道协议
+    </label>
+    <label class="checkbox-inline">
+    <input type="radio" name="optionsRadiosinline" id="frame"
+    value="1"> 框架合同协议
+    </label>
+    </div>
+    </div>
+    <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+    <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+    <label class="col-sm-2 control-label" style="color: #3C8DBC;">资质附件 </label>
+    </div>
+    </form>
+    <div class="form-group" style=" margin-left: -6px;">
+    <div class="col-sm-10" id="uppictr" align="left"></div>
+    <a href="javascript:;" class="file">选择文件
+    <div id="upload" >
+    <span id="uploadSpan">
+    <form method="post" action="" id="imgForm" enctype="multipart/form-data" >
+    <input type="file" name="uploadFile" id="imgFile" onchange="individualViewInstance.preview(this.value)" accept="image/*"/>
+    </form>
+    </span>
+    </div>
+    </a>
+    </div>
+    </div>
+</script>
+<script src="js/assets/common/bootbox.js"></script>
+<script src="js/assets/common/jquery.form.js"></script>
+

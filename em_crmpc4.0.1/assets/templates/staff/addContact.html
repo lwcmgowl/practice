@@ -1,0 +1,139 @@
+<div class="row">
+
+        <div class="col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h1 id="title">添加联系人</h1>
+                        </div>
+                        <!-- <div class="col-sm-1 col-sm-offset-2">
+                                    <button class="btn btn-success" type="button" id="addInfo">提交</button>
+                                </div>
+                                <div class="col-md-1 col-sm-2">
+                                    <a href="javascript:history.back();" class="btn btn-default">取消</a>
+                                </div> -->
+                    </div>
+                </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">联系人: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="contactName" size="70" maxlength="40"></div>
+                                <span class="text-danger">*(姓名字符个数不能超过40个!)</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手机: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="mobile"></div>
+                                <span class="text-danger">*(手机、电话任选其一，必填)</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">电话: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control"  id="teleNo"></div>
+                               
+                                 <span class="text-danger">*(手机、电话任选其一，必填)</span>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">客户名称: </label>
+                                <div class="col-sm-6" id="companys">
+                                    <select class="form-control selectpicker" id="customId" data-live-search="true">
+                                    </select>
+                                </div>
+                                <span class="text-danger" id="company">*(必选!)</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">角色关系 : </label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="contactTypeId">
+                                     <option value="00">请选择</option>
+                                    </select>
+                                </div>
+                                <span class="text-danger">*(必选!)</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">性别 : </label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="sexId">
+                                            <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">出生日期: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="birthDay"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">部门: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control"  id="department"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">职务: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control"  id="post"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">邮箱: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control"  id="mail"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">QQ: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="qq"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">微信: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="weChat"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属省份 : </label>
+                                <div class="col-sm-6">
+                                    <select id="s_province" name="s_province" selectedindex="0" required class="form-control">
+                                                 
+                                    </select>
+                                </div>
+                                <!-- <div class="col-sm-2">
+                                    <select id="s_city" name="s_city" selectedindex="0" required class="form-control col-xs-2">
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select id="s_county" name="s_county" selectedindex="0" required class="form-control col-xs-2">
+                                    </select>
+                                </div> -->
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">地址: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control"  id="address"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">邮编: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control"  id="postcode"></div>
+                            </div>
+                            
+                           
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">备注/需求 : </label>
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" cols="30" rows="5" id="remark"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-1 col-sm-offset-2">
+                                    <button class="btn btn-success" type="button" id="addInfo">提交</button>
+                                </div>
+                                <div class="col-md-1 col-sm-2">
+                                    <a href="javascript:history.back();" class="btn btn-default">取消</a>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+    <link href="assets/css/bootstrap-select.min.css" rel="stylesheet">
+   <link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
+   <script src="js/assets/common/bootstrap-select.min.js"></script>
+    <script src="js/assets/common/bootstrap-datepicker.js"></script>
+    

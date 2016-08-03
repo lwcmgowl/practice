@@ -1,0 +1,426 @@
+<style>
+      table{
+        table-layout: fixed;
+    }
+     td{   
+            white-space: nowrap;/*控制单行显示*/   
+            overflow: hidden;/*超出隐藏*/   
+            text-overflow: ellipsis;/*隐藏的字符用省略号表示*/   
+        }   
+    .dropdown-menu {
+        min-width: 66px;
+    }
+    .dropdown-menu a {
+        display: block;
+    }
+    .date {
+        position: absolute;
+        top: 6px;
+        left: 82%;
+    }
+    .col-xs-1 {
+        width: 23.333333%;
+    }
+    .right {
+        float: right;
+        margin-right: 4px;
+    }
+    .panel {
+        margin-top: 15px;
+    }
+    .form-group {
+        padding: 4px;
+    }
+    .form-horizontal .control-label {
+        text-align: center;
+        padding-right: 0px;
+    }
+    .col-sm-4 {
+        padding-left: 0px;
+    }
+    .modal-footer{
+        display: none;
+    }
+</style>
+ <link href="assets/css/timeline.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="panel">
+            <div class="row" id="btnWrapper1">
+                <div class="col-md-1">
+                    <div class="dropdown">
+                        <a  class="btn btn-default dropdown-toggle" id="dropdownMenu1"  data-toggle="dropdown"> 查询 <span class="caret"></span> </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="min-width: 680px;padding-right: 22px;">
+                            <li role="presentation">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">创建时间:</label>
+                                        <div class="col-sm-4">
+                                            <input class="form-control" placeholder="" type="text" id="startDate" style="width: 49%;float: left;margin-right: 4px;">
+                                            <input class="form-control" placeholder="" type="text" id="sttlDate" style="width: 49%;float: left;">
+                                        </div>
+                                        <label for="inputPassword3" class="col-sm-2 control-label">客户名称:</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="customer" placeholder="客户名称">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- <label for="inputPassword3" class="col-sm-2 control-label">任务类型:</label>
+                                        <div class="col-sm-4">
+                                        <select class="form-control" id="type">
+                                        <option value="">全部类型</option>
+                                        </select>
+                                        </div> -->
+
+                                        <label for="inputPassword3" class="col-sm-2 control-label">所属团队:</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control" id="region"></select>
+                                        </div>
+                                        <label for="inputPassword3" class="col-sm-2 control-label">行业类别:</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control" id="profession">
+                                                <option value="">行业类别</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- <label for="inputPassword3" class="col-sm-2 control-label">行业类别:</label>
+                                        <div class="col-sm-4">
+                                        <select class="form-control" id="profession">
+                                        <option value="">行业类别</option>
+                                        </select>
+                                        </div> -->
+                                        <label for="inputPassword3" class="col-sm-2 control-label">客户性质:</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control" id="csmNature"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
+                                            <button type="button" class="btn btn-success" id="show-chance">
+                                                查询
+                                            </button>
+                                            <button type="button" class="btn btn-warning" id="clear">
+                                                重置
+                                            </button>
+                                            <button type="button" class="btn btn-default" id="cancel">
+                                                取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-5 " id="btnWrapper"></div>
+            </div>
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-2">
+                    跟进动态数量:<span id="dynamicCount"></span>
+                </div>
+                <div class="col-md-2">
+                    跟进客户数量:<span id="total"></span>
+                </div>
+            </div>
+            <div class="panel-body" style="padding-left: 0px;">
+                <table class="table table-responsive table-striped table-hover " id="summarytable">
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script id="dynamic" type="text/template">
+    <!-- <table class="table table-responsive table-bordered table-hover" id="table">
+    </table> -->
+        <section class="content">
+          <!-- row -->
+          <div class="row">
+            <div class="col-md-12">
+              <!-- The time line -->
+              <ul class="timeline">
+              </ul>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+</script>
+<link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
+<script src="js/assets/common/bootstrap-datepicker.js"></script>
+<script src="js/assets/common/bootbox.js"></script>
+<script type="text/javascript" charset="utf-8">
+    String.prototype.format = function() {
+        var vs = arguments;
+        return this.replace(/\{(\d+)\}/g, function() {
+            return vs[parseInt(arguments[1])];
+        });
+    };
+
+    Date.prototype.format = function(formatString) {
+        with (this) {
+            return (formatString || "{0}-{1}-{2} {3}:{4}:{5}").format(getFullYear(), ("0" + (getMonth() + 1)).slice(-2), ("0" + getDate()).slice(-2), ("0" + getHours()).slice(-2), ("0" + getMinutes()).slice(-2), ("0" + getSeconds()).slice(-2));
+        }
+    };
+
+    // 声明Summary类
+    var Summary = (function($) {// 自执行函数，确保jquery已加载
+
+        // 返回类
+        return function() {
+
+            // 私有方法，获取本周一和周末日期
+            var getWeek = function(theDay) {
+                var monday = new Date(theDay.getTime());
+                var sunday = new Date(theDay.getTime());
+                monday.setDate(monday.getDate() + 1 - monday.getDay());
+                sunday.setDate(sunday.getDate() + 7 - sunday.getDay());
+                return {
+                    monday : monday,
+                    sunday : sunday
+                };
+            };
+
+            // 用来初始化类
+            this.init = function() {
+                this.config();
+                this.setDatePicker();
+            };
+
+            // 设置需要用到的成员属性
+            this.config = function() {
+                this.$startDate = $('#startDate');
+                this.$sttlDate = $('#sttlDate');
+            };
+
+            // 设置日期插件
+            this.setDatePicker = function() {
+                var date = new Date();
+                week = getWeek(date);
+                this.$startDate.val(week.monday.format("{0}-{1}-{2}"));
+                this.$sttlDate.val(week.sunday.format("{0}-{1}-{2}"));
+
+                this.$startDate.datepicker({
+                    format : 'yyyy-mm-dd',
+                    weekStart : 0,
+                    todayHighlight : true,
+                    autoclose : true,
+                });
+
+                this.$sttlDate.datepicker({
+                    format : 'yyyy-mm-dd',
+                    weekStart : 0,
+                    todayHighlight : true,
+                    autoclose : true,
+                });
+            };
+        }
+    })(jQuery || $);
+
+    // 声明Pager类
+    var Pager = (function($) {
+
+        // 返回类
+        return function() {
+
+            // 私有方法，用来执行ajax回调操作
+            var getChanceSuccess = function(Pager, res) {// Pager这里代表Pager类自身，即当前类的上下文
+                var list = res && res.msg && res.msg.list,
+                    total = res && res.msg && res.msg.total,
+                    $caption = $('<caption></caption>'),
+                    $thead = $('<thead></thead>'),
+                    $tbody = $('<tbody></tbody>'),
+                    $tr,
+                    dynamic,
+                    dy = '';
+                // 清空table内容
+                Pager.$table.empty();
+
+                // 建议写在html中
+                $caption.text('客户情况汇总');
+                $thead.html('<th>负责人</th><th>机会名称</th><th>客户名称</th><th>机会来源</th><th>预计签单日期</th><th>机会阶段</th>');
+
+                // 插入caption和thead
+                Pager.$table.append($caption).append($thead);
+
+                // 显示下一个、上一个机会
+                Pager.$prev.removeClass('hide');
+                Pager.$next.removeClass('hide');
+
+                // 如果有0条记录，隐藏全部按钮
+                if (total == 0) {
+                    Pager.$prev.addClass('hide');
+                    Pager.$next.addClass('hide');
+                }
+
+                // 如果当前是第一页，则隐藏上一个机会按钮
+                if (Pager.options.pageNo == 1) {
+                    Pager.$prev.addClass('hide');
+                }
+
+                // 如果当前页数大于等于总页数，那么隐藏下一个机会按钮
+                if (Pager.options.pageNo >= total) {
+                    Pager.$next.addClass('hide');
+                }
+
+                // 判断list为空
+                if (list.length < 1) {
+                    $tbody.html('<tr><td class="align" colspan="6">暂无数据</td></tr>');
+
+                    // 插入tbody
+                    Pager.$table.append($tbody);
+
+                    return;
+                }
+
+                // 遍历list
+                $.each(list, function(index, item) {
+                    $tr = $('<tr></tr>');
+                    $tr.append($('<td class="align">' + item.salesUserName + '</td>')).append($('<td class="align">' + item.opptTtl + '</td>')).append($('<td class="align">' + item.csmName + '</td>')).append($('<td class="align">' + (item.dataSourceName || '') + '</td>')).append($('<td class="align">' + item.sttlDate + '</td>')).append($('<td class="align">' + item.opptStatName + '</td>'));
+
+                    $tbody.append($tr).append($('<tr><td class="align" colspan="6">跟进动态</td></tr>'));
+
+                    $.each(item.dynamicList, function(sub_index, sub_item) {
+                        $tr = $('<tr></tr>');
+                        $tr.append($('<td colspan="6"></td>'));
+                        $tr.children().append($('<span>' + toDateString(sub_item.createdAt) + '</span>')).append($('<span style="padding:6px;">' + sub_item.userName + '</span>')).append($('<span style="padding:6px;" >' + appcan.dynamicType[sub_item.dynamicType] + '</span>')).append($('<div style="margin-top:10px;">' + sub_item.dynamicContent + '</div>'))
+
+                        $tbody.append($tr);
+                    });
+                });
+
+                Pager.$table.append($tbody);
+            };
+
+            // 用来初始化类
+            this.init = function(options) {// options是用来设置初始化信息
+
+                // 执行config成员方法
+                // this.config();
+
+                // 扩展并覆盖this.options的属性
+                $.extend(this.options, options || {});
+
+                // 执行bind成员方法
+                this.bind();
+
+                // 执行showChance成员方法
+                // this.showChance();
+            };
+
+            // 加载类所需的成员属性
+            this.config = function() {
+
+                // 这里的this上下文代表当前类，即Paper
+                this.$csmName = $('#csmName');
+                this.$startDate = $('#startDate');
+                this.$sttlDate = $('#sttlDate');
+                this.$table = $('#table');
+                this.$next = $('#next-chance');
+                this.$prev = $('#prev-chance');
+                this.$showChance = $('#show-chance');
+
+                this.options = {
+                    pageNo : 1,
+                    pageSize : 1,
+                    csmName : $.trim(this.$csmName.val()),
+                    salesUserId : appcanUserInfo.userId,
+                    beforeDate : $.trim(this.$startDate.val()),
+                    afterDate : $.trim(this.$sttlDate.val())
+                };
+
+                // 导出excel的接口数组
+                // this.exportUrl = ['/statistics/exportAll', '/statistics/exportCurrent'];
+
+            };
+
+            // 请求数据
+            this.showChance = function(options) {
+
+                // 因js函数作用域问题，函数内的函数中使用this，指向全局对象（window || global）
+                // 所以如果想继续使用当前上下文，则需要单独声明变量来引用
+                var Pager = this;
+
+                // 扩展并覆盖this.options
+                $.extend(this.options, options || {});
+
+                // 因为每次请求数据时，日期及csmName都会变化，所以需要重新读取一次数据
+                // 这里建议单独声明一套对象字面量，共Summary和Paper共享
+                this.options.beforeDate = $.trim(this.$startDate.val());
+                this.options.afterDate = $.trim(this.$sttlDate.val());
+                this.options.csmName = $.trim(this.$csmName.val());
+
+                ajax({
+                    url : '/statistics/pageOpptDyn',
+                    data : this.options,
+                    success : function(res) {
+                        // console.info(res);
+                        getChanceSuccess(Pager, res);
+                        $('#pagger').empty();
+                    }
+                });
+            };
+
+            // 导出excel
+            this.export = function(data) {
+                var options = {};
+                // 扩展options
+                $.extend(options, this.options, data || {});
+
+                ajax({
+                    url : this.exportUrl[options.type],
+                    data : options,
+                    success : function(data) {
+                        var url = urlIp + '/excel/out?path=' + encodeURIComponent(data.msg.message);
+                        window.location = url;
+                    }
+                })
+            };
+
+            // 绑定dom元素事件
+            this.bind = function() {
+                var Pager = this;
+
+                this.$showChance.on('click', function() {
+                    Pager.showChance({
+                        pageNo : 1
+                    });
+                });
+
+                this.$next.on('click', function() {
+                    Pager.showChance({
+                        pageNo : Pager.options.pageNo += 1
+                    });
+                });
+
+                this.$prev.on('click', function() {
+                    Pager.showChance({
+                        pageNo : Pager.options.pageNo -= 1
+                    });
+                });
+
+                $('#exportCurrent').on('click', function() {
+                    Pager.export({
+                        type : 1
+                    });
+                });
+
+                $('#exportAll').on('click', function() {
+                    Pager.export({
+                        type : 0
+                    });
+                });
+
+            };
+        };
+    })(jQuery || $);
+
+    $(document).ready(function() {
+        handlerTop('btnWrapper');
+        var summary = new Summary(),
+            pager = new Pager();
+        summary.init();
+        // pager.init();
+
+    }); 
+</script>

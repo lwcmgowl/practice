@@ -1,0 +1,119 @@
+<style type="text/css">
+    .center {
+        text-align: center;
+        min-width: 94px;
+    }
+</style>
+<div class="row">
+
+    <div class="col-md-12 col-sm-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>销售机会</h1>
+                <div class="row" id="btnWrapper">
+                    <div class="col-md-1" style="">
+                        <div class="dropdown">
+                            <a  class="btn btn-default dropdown-toggle" id="dropdownMenu1"  data-toggle="dropdown"> 查询 <span class="caret"></span> </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="min-width: 710px;padding-right: 22px;">
+                                <li role="presentation">
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">商机名称:</label>
+                                            <div class="col-sm-4" style="padding-right: 0px;">
+                                                <input type="text" class="form-control" id="business" placeholder="商机名称">
+                                            </div>
+                                            <label for="inputPassword3" class="col-sm-2 control-label">客户名称:</label>
+                                            <div class="col-sm-4" style="padding-right: 0px;">
+                                                <input type="text" class="form-control" id="customer" placeholder="客户名称">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="">
+                                            <label for="inputPassword3" class="col-sm-2 control-label">商机阶段:</label>
+                                            <div class="col-sm-4" style="padding-right: 0px;">
+                                                <select name="" id="opptStatId" class="form-control">
+                                                    <option value="">选择商机阶段</option>
+                                                </select>
+                                            </div>
+                                             <label for="inputPassword3" class="col-sm-2 control-label">负责人:</label>
+                                            <div class="col-sm-4" style="padding-right: 0px;">
+                                                <input type="text" class="form-control" id="salesUserName" placeholder="负责人">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="update">
+                                            <label for="inputEmail3" class="col-sm-2 control-label">发现日期:</label>
+                                            <div class="col-sm-4 input-daterange" style="padding-right: 0px;">
+                                                <input class="form-control" placeholder="" type="text" id="findDate" style="width: 49%;float: left;margin-right: 4px;" name="start">
+                                                <input class="form-control" placeholder="" type="text" id="findEndDate" style="width: 49%;float: left;" name="end">
+                                            </div>
+                                             <label for="inputEmail3" class="col-sm-2 control-label">预计签单日期:</label>
+                                            <div class="col-sm-4 input-daterange" style="padding-right: 0px;">
+                                                <input class="form-control" placeholder="" type="text" id="signingDate" style="width: 49%;float: left;margin-right: 4px;">
+                                                <input class="form-control" placeholder="" type="text" id="signingEndDate" style="width: 49%;float: left;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="sandbox-container">
+                                             <label for="inputPassword3" class="col-sm-2 control-label">所属团队:</label>
+                                            <div class="col-sm-4" style="padding-right: 0px;">
+                                                <select name="" id="bigRegion" class="form-control">
+                                                </select>
+                                            </div>
+                                            <label for="inputEmail3" class="col-sm-2 control-label">创建时间:</label>
+                                            <div class="col-sm-4 input-daterange" style="padding-right: 0px;">
+                                                <input class="form-control" placeholder="" type="text" id="updateDate" style="width: 49%;float: left;margin-right: 4px;">
+                                                <input class="form-control" placeholder="" type="text" id="updateEndDate" style="width: 49%;float: left;">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
+                                                <button type="button" class="btn btn-success" id="searchbtn">
+                                                    查询
+                                                </button>
+                                                <button type="button" class="btn btn-warning" id="clear">
+                                                    重置
+                                                </button>
+                                                <button type="button" class="btn btn-default" id="cancel">
+                                                    取消
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table id="datatable" class="table table-bordered table-responsive table-hover"
+                style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;"></table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script id="organizationTemplate" type="text/template">
+    <div class="panel-body">
+    <form class="form-horizontal">
+
+    <div class="form-group">
+    <label class="col-sm-3 control-label">客户名称 : </label>
+    <div class="col-sm-7 u-word" id="csmName1" style="margin-top:8px;"></div>
+    </div>
+
+    <div class="form-group">
+    <label class="col-sm-3 control-label">机会阶段 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" id="opptStatId1">
+
+    </select>
+    </div>
+    </div>
+    </form>
+    </div>
+</script>
+<script src="js/assets/common/bootbox.js"></script>
+<script src="js/assets/common/jquery.form.js"></script>
+<link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
+ <script src="js/assets/common/bootstrap-datepicker.js"></script>

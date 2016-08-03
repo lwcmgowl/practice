@@ -1,0 +1,158 @@
+<style>
+    .hiding{
+        display: none;
+    }
+</style>
+<div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h1 id="title">添加机会</h1>
+                        </div>
+                    </div>
+                </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">机会名称 : </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="opptTtl" maxlength="40"></div>
+                                <span class="text-danger">*(机会名称字符个数不能超过40个!)</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">机会阶段 :  </label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="opptStatId">
+                                    <option value="00">请选择</option>
+                                    </select>
+                                </div>
+                                <!-- <span class="text-danger">*（必填）</span> -->
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">预计金额:  </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="vndtAmt" placeholder="单位(元)"></div>
+                                <div class="col-sm-2" style="padding-top: 6px;">
+                                <span class="text-danger">*（必填）</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label qi">发现日期 : </label>
+                                <div class="col-sm-6 qii"><input type="text" class="form-control" id="startDate"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">预计签单日期 :  </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="sttlDate"></div>
+                                <span class="text-danger">*（必填）</span>
+                            </div>
+                            <div class="form-group" id="customId1">
+                                <label class="col-sm-2 control-label">客户名称 :  </label>
+                                <div class="col-sm-3">
+                                    <select class="form-control selectpicker" id="customId" data-live-search="true">
+                                    </select>
+                                </div>
+                                <span class="text-danger" id="customer">*（必选）</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label qi">机会来源 :  </label>
+                                <div class="col-sm-3 qii">
+                                    <select class="form-control" id="dataSource">
+                                    <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group hide" id="conferenceName">
+                               <label class="col-sm-2 control-label">会议名称 : <span class="text-danger">（*）</span> </label>
+                              <div class="col-sm-4">
+                                <input type="text" class="form-control" id="meeting"/>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label qi">产品类型 :  </label>
+                                <div class="col-sm-3 qii">
+                                    <select class="form-control" id="productType">
+                                    <option value="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label qi">备注/需求 : </label>
+                                <div class="col-sm-6 qii">
+                                    <textarea class="form-control" cols="30" rows="5" id="remark"></textarea>
+                                </div>
+                            </div>
+                             <div class="form-group" id="contactC">
+                                  <label class="col-sm-2 control-label">联系人: </label>
+                                 <label class="checkbox-inline">
+                              <input type="radio" name="optionsRadiosinline" id="newContact" 
+                                 value="0"> 新建联系人
+                           </label>
+                           <label class="checkbox-inline">
+                              <input type="radio" name="optionsRadiosinline" id="existingContacts" 
+                                checked="checked" value="1"> 选择已有联系人
+                           </label>
+                              <label class="checkbox-inline" id="change">
+                                    <select class="form-control" id="selectContact" multiple style="width:282px;">
+                                    </select>
+                               </label> 
+                               <span class="text-danger">*（必选或者新建）</span> 
+                            </div>
+                             <div class="form-group hiding">
+                                <label class="col-sm-2 control-label">姓名: <span class="text-danger">（*）</span></label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="contactName" size="70" maxlength="40"></div>
+                                <span class="text-danger">*(姓名字符个数不能超过40个!)</span>
+                            </div>
+                            <div class="form-group hiding">
+                                <label class="col-sm-2 control-label">手机: <span class="text-danger">（*）</span></label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="mobile"></div>
+                                <span class="text-danger">*(手机、电话任选其一，必填)</span>
+                            </div>
+                            <div class="form-group hiding">
+                                <label class="col-sm-2 control-label">电话: <span class="text-danger">（*）</span></label>
+                                <div class="col-sm-6"><input type="text" class="form-control"  id="teleNo"></div>
+                               
+                                 <span class="text-danger">*(手机、电话任选其一，必填)</span>
+                            </div>
+                             <div class="form-group hiding">
+                                <label class="col-sm-2 control-label">角色关系 : <span class="text-danger">（*）</span></label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="contactTypeId">
+                                     <option value="00">请选择</option>
+                                    </select>
+                                </div>
+                                <span class="text-danger">*(必选!)</span>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-1 col-sm-offset-2">
+                                    <button class="btn btn-success" type="button" id="addOpport">提交</button>
+                                </div>
+                                <div class="col-md-1 col-sm-2">
+                                    <a href="javascript:history.back();" class="btn btn-default">取消</a>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+    <link href="assets/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="assets/css/select2.4.0.min.css" rel="stylesheet">
+   <link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
+   <script src="js/assets/common/bootstrap-select.min.js"></script>
+   <script src="js/assets/common/select2.4.0.min.js"></script>
+    <script src="js/assets/common/bootstrap-datepicker.js"></script>
+     <script type="text/javascript" charset="utf-8">
+                    function fm(t) {
+                      var stmp = "";
+                      if(t.value==stmp) return;
+                      var ms = t.value.replace(/[^\d\.]/g,"").replace(/(\.\d{2}).+$/,"$1").replace(/^0+([1-9])/,"$1").replace(/^0+$/,"0");
+                      var txt = ms.split(".");
+                      while(/\d{4}(,|$)/.test(txt[0]))
+                        txt[0] = txt[0].replace(/(\d)(\d{3}(,|$))/,"$1,$2");
+                      t.value = stmp = txt[0]+(txt.length>1?"."+txt[1]:"");
+                    }
+                </script>

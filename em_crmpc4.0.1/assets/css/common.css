@@ -1,0 +1,185 @@
+* {
+  font-family: "microsoft yahei";
+}
+.s-fc {
+  color: #333;
+}
+.s-hd-bgc {
+  background-color: #2A3443;
+}
+.s-ft-bgc {
+  background-color: #DDD;
+}
+.s-nav-bgc {
+  background-color: #3b4d5f;
+}
+.f-mgr-10 {
+  margin-right: 10px;
+}
+.f-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.btn-sign-out {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #4D86B9;
+  color: #fff;
+}
+.btn-sign-out:hover {
+  color: #fff;
+  background-color: #3981C1;
+}
+/* 背景图最长边撑满 */
+.u-bgi-1 {
+  -webkit-background-size:contain;
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+}
+/* 背景图最短边撑满 */
+.u-bgi-2 {
+  -webkit-background-size:cover;
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position:center;
+}
+/* 背景图宽度（X轴）撑满 */
+.u-bgi-3 {
+  -webkit-background-size:100% auto;
+  background-size:100% auto;
+  background-repeat:no-repeat;
+  background-position:center;
+}
+/* 背景图长度（Y轴）撑满 */
+.u-bgi-4 {
+  -webkit-background-size: auto 100%;
+  background-size: auto 100%;
+  background-repeat:no-repeat;
+  background-position:center;
+}
+/* 背景图长度宽度（X轴，Y轴）撑满 */
+.u-bgi-5 {
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  background-repeat:no-repeat;
+  background-position:center;
+}
+/* 背景图自身大小显示 */
+.u-bgi-6 {
+  background-repeat:no-repeat;
+  background-position:center;
+}
+
+.g-hd {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+}
+.g-hd > .u-logo {
+  float: left;
+  margin-left: 20px;
+  font-size: 18px;
+  color: #fff;
+  line-height: 50px;
+}
+.g-hd > .u-user {
+  float: right;
+  margin-right: 20px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 50px;
+}
+.u-user {
+  float: right;
+  margin-right: 20px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 50px;
+}
+.g-ft {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+.g-bd {
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+.g-sdl {
+  position: relative;
+  height: 100%;
+  width: 150px;
+  float: left;
+  margin-right: -150px;
+}
+.g-frm-box {
+  height: 100%;
+  width: 100%;
+  float: right;
+  background-color: #dddddd;
+}
+.g-frm-box > .g-frm-cnt {
+  height: 100%;
+  margin-left: 150px;
+}
+.u-frame {
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+.m-title {
+  padding-left: 10px;
+  width: 100%;
+  line-height: 40px;
+  color: #fff;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+.m-nav-collapse{
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+.m-nav-collapse ul {
+  list-style: none;
+}
+.m-nav-collapse ul li{
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+}
+.m-nav-collapse ul li a{
+  text-decoration: none;
+  color: #fff;
+}
+.m-nav-collapse ul li a:hover {
+  color: red;
+}
+.m-sidebar-menu .sub-menu {
+  margin-left: 20px;
+  min-height: 40px;
+}
+.m-sidebar-menu .sub-menu > a {
+  line-height: 40px;
+}
+
+@media screen and (max-width: 800px) {
+  .g-sdl {
+    display: none;
+  }
+  .g-frm-box > .g-frm-cnt {
+    margin-left: auto;
+  }
+}
+.fontColor{
+   color:blue; 
+}

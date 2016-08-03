@@ -1,0 +1,208 @@
+<style type="text/css">
+    #loading {
+        display: none;
+    }
+</style>
+<div id="loading" class="loading">
+    <div class="spinner">
+        <div class="double-bounce1"></div><div class="double-bounce2"></div>
+    </div>
+</div>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-md-12 col-sm-12">
+
+        <div class="panel panel-default">
+
+            <ol class="breadcrumb">
+                <li>
+                    <h1><small>添加营销数据</small></h1>
+                </li>
+            </ol>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">客户名称: </label>
+                    <div class="col-sm-6">
+                        <input type="text" required class="form-control" id="_companyName" maxlength="40">
+                    </div>
+                    <span class="text-danger">*(客户名称字符个数不能超过40个!)</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">联系人: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="contactName" maxlength="40">
+                    </div>
+                    <span class="text-danger">*(姓名字符个数不能超过40个!)</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">手机: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="mobile">
+                    </div>
+                    <span class="text-danger">*(手机和座机任选一个必填)</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">电话: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="teleNo">
+                    </div>
+                    <span class="text-danger">*(手机和座机任选一个必填)</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">所属团队 : </label>
+                    <div class="col-sm-6">
+                        <select class="form-control" id="_region" required onchange="javascript:getInd()">
+                            <option value="">选择所属团队</option>
+                        </select>
+                    </div>
+                    <span class="text-danger">*(必选!)</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">行业类别 : </label>
+                    <div class="col-sm-6">
+                        <select class="form-control" id="_profession" required>
+                            <option value="">选择行业类别</option>
+                        </select>
+                    </div>
+                    <span class="text-danger">*(必选!)</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">所属省份 : </label>
+                    <div class="col-sm-6">
+                        <select id="s_province" name="s_province" selectedindex="0" required class="form-control col-xs-2">
+                            <!-- <option value="">选择省</option> -->
+                        </select>
+                    </div>
+                    <span class="text-danger">*(必选!)</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">QQ: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="QQ">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">微信: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="weChat">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">邮箱: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">部门: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="department">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">职务: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="post">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">数据来源 : </label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="dataSource" onchange="javascript:industryHuiyi();">
+                            <option value="00">选择数据来源 </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="meeting" style="display: none;">
+                    <label class="col-sm-2 control-label">会议名称: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="meetingName"/>
+                    </div>
+                    <span class="text-danger">*（必填）</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">产品类型 : </label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="productType">
+                            <option value="00">选择产品类型</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">客户级别 : </label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="Customerlevel">
+                            <option value="00">选择客户级别</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">客户性质 : </label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="csmNature">
+                            <option value="00">选择客户性质</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">客户规模 : </label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="csmScale">
+                            <option value="00">选择客户规模</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">地址: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"/ id="address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">邮编: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"/ id="postcode">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">官网: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"/ id="website">
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                <label class="col-sm-2 control-label">公司电话: </label>
+                <div class="col-sm-6"><input type="text" class="form-control"/ id="companyTeleNo"></div>
+                </div> -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">传真: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control"/ id="fax">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">备注/需求 : </label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" cols="30" rows="5" id="remark"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-1 col-sm-offset-2">
+                        <button class="btn btn-success" type="button" id="addInfo">
+                            提交
+                        </button>
+                    </div>
+                    <div class="col-md-1 col-sm-2">
+                        <a href="javascript:history.back();" class="btn btn-default">取消</a>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+</div>

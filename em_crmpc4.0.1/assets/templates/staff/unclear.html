@@ -1,0 +1,102 @@
+<div class="panel">
+  
+        <div class="col-sm-12" style="margin-top: 12px;">
+           
+            <div class="row" style="margin-top: 12px;">
+                <div class="col-md-2" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <select class="form-control" id="clueSource1">
+                            <option value="">选择数据来源</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <select class="form-control" id="profession1">
+                            <option value="">选择行业类别</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <select class="form-control" id="region1">
+                            <option value="">选择所属团队</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2" style="padding-right: 0px;">
+                    <div class="form-group">
+                        <select class="form-control" id="province1">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2" style="padding-right: 0px;">
+                    <input class="form-control" placeholder="客户名称/联系人/会议名称" type="text" id="companyName1"/>
+                </div>
+                <div class="col-md-1" style="padding-right: 0px;">
+                    <input class="form-control" placeholder="负责人" type="text" id="principal1"/>
+                </div>
+                <div class="col-xs-1" style="padding-right: 0px;">
+                    <button type="button" class="btn btn-default" id='searchbtn'>
+                        <i class="fa fa-search"></i> 查询
+                    </button>
+                </div>
+            </div>
+            <div class="row" id="btnWrapper" style="margin-bottom: 10px;">
+
+            </div>
+        </div>
+        <div class="tab-content">
+                 <div class="panel-body">
+                            <table id="datatablePending" class="table table-bordered table-responsive table-hover" style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;">
+
+                            </table>
+                        </div>
+        </div>
+    </div>
+    <script id="delState" type="text/template">
+    <div class="panel-body" style="font-size: 16px;">
+    确定要删除吗？
+    </div>
+</script>
+<script id="transfer1" type="text/template">
+                <div class="panel-body">
+                <form class="form-horizontal">
+                <div class="form-group ">
+                <label class="col-sm-3 control-label">客户名称 : </label>
+                <div class="col-sm-6">
+                <div class="form-control1" id="tmplCompanyName">
+
+                </div>
+                </div>
+                </div>
+                <div class="form-group ">
+                <label class="col-sm-3 control-label">所属团队 : </label>
+                <div class="col-sm-6">
+                <select class="form-control" data-info="" id="transferTeam">
+                </select>
+                </div>
+                </div>
+                <div class="form-group ">
+                <label class="col-sm-3 control-label">行业类别 : </label>
+                <div class="col-sm-6">
+                <select class="form-control" data-info="" id="transferProductType" >
+                </select>
+
+                </div>
+                </div>
+                <div class="form-group">
+                <label class="col-sm-3 control-label">分配给 : </label>
+                <div class="col-sm-6">
+                <select class="form-control" id="transferPerson">
+                   <!-- <option value="00">请选择营销数据负责人</option> -->
+                </select>
+                </div>
+                </div>
+                </form>
+                </div>
+            </script>
+<script src="js/assets/common/bootbox.js"></script>
+<script src="js/assets/common/jquery.form.js"></script>
+

@@ -1,0 +1,12 @@
+.dataTables_length label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: normal;
+}
+.dataTables_wrapper .row:first-child {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.dataTables_wrapper .row {
+    margin: 0 !important;
+}

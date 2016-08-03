@@ -1,0 +1,213 @@
+
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <h1>我负责的线索</h1>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <div class="form-group">
+                                    <select class="form-control" id="clueType">
+                                        <option value="">选择线索类型</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="form-group">
+                                    <select class="form-control" id="profession">
+                                        <option value="">选择行业类别</option>
+                                    </select>
+                            </div>
+                        </div>
+                         <div class="col-md-2">
+                            <div class="form-group">
+                                    <select class="form-control" id="bigRegions">
+                                        <option value="">选择所属团队</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="form-group">
+                                    <select class="form-control" id="clueState">
+                                        <option value="">选择线索状态</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <input class="form-control" placeholder="客户名称/联系人" type="text" id="csmName"/>
+                        </div>
+                        <div class="col-xs-1">
+                            <button type="button" class="btn btn-default" id="searchbtn"><i class="fa fa-search"></i> 查询
+                            </button>
+                        </div>
+                        
+                    </div>
+                    <div class="row" id="btnWrapper">
+                    </div>
+                    
+                </div>
+                <div class="panel-body">
+                    <table id="datatable" class="table table-bordered table-responsive table-hover"
+                           style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all">
+                    </table>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="intoChange" type="text/template">
+    <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">客户信息</div>
+                <div class="form-group">
+                    <label class="col-sm-3">客户名称 : </label>
+                    <div class="col-sm-7 u-word" id="companyName2"></div>
+                </div>
+                <div class="form-group">联系人信息</div>
+                <div class="form-group">
+                    <label class="col-sm-3">联系人 : </label>
+                    <div class="col-sm-7 u-word" id="contactName2"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-5 fontColor">系统将自动创建此联系人信息</label>
+                </div>
+                    <div class="form-group">销售机会</div>
+                     <div class="form-group">
+                        <label class="col-sm-3 control-label">机会名称: </label>
+                        <div class="col-sm-6"><input type="text" required class="form-control"/ id="opptTtl"></div>
+                        <span class="text-danger">*（必填）</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"> 机会阶段: </label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="opptStatId" disabled="disabled">
+                            </select>
+                        </div>
+                        <span class="text-danger">*（必填）</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">预计金额: </label>
+                        <div class="col-sm-6"><input type="text" required class="form-control" id="vndtAmt" placeholder="单位(元)"></div>
+                        <div class="col-sm-3" style="padding-top: 6px;">
+                        <span class="text-danger">*（必填）</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label sTime" >发现日期:</label>
+                        <div class="col-sm-6 sTimee" ><input type="text" class="form-control" id="startDate"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" id="sttlDate1">预计签单日期:  </label>
+                        <div class="col-sm-6"><input type="text" class="form-control" id="sttlDate"></div>
+                        <span class="text-danger">*（必填）</span>
+                    </div>
+                     <div class="form-group">
+                                <label class="col-sm-3 control-label">线索来源 : </label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="dataSource">
+                                        <option value="00">选择线索来源 </option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div class=" form-group" id="conferenceName">
+                               <label class="col-sm-3 control-label">会议名称 :</label>
+                              <div class="col-sm-6">
+                              <input type="text" class="form-control" id="meeting"/>
+                              </div>
+                               <span class="text-danger">*（必填!）</span>
+                           </div>
+                             <div class="form-group">
+                                <label class="col-sm-3 control-label">产品类型 : </label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="productType">
+                                        <option value="00">选择产品类型</option>
+                                    </select>
+                                </div>
+                            </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注 : </label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" cols="30" rows="5" id="remark" resize="none"></textarea>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </script>
+     <script id="transfer1" type="text/template">
+                <div class="panel-body">
+                <form class="form-horizontal">
+                <div class="form-group uhide">
+                <label class="col-sm-3 control-label">客户名称 : </label>
+                <div class="col-sm-6">
+                <div class="form-control1" id="tmplCompanyName" style="margin-top: 6px;">
+
+                </div>
+                </div>
+                </div>
+                <div class="form-group uhide">
+                <label class="col-sm-3 control-label">所属团队 : </label>
+                <div class="col-sm-6">
+                <select class="form-control" data-info="" id="transferTeam" disabled="disabled">
+                </select>
+
+                </div>
+                </div>
+                <div class="form-group uhide">
+                <label class="col-sm-3 control-label">行业类别 : </label>
+                <div class="col-sm-6">
+                <select class="form-control" data-info="" id="transferProductType" disabled="disabled">
+                </select>
+
+                </div>
+                </div>
+                <div class="form-group">
+                <label class="col-sm-3 control-label">转移给 : </label>
+                <div class="col-sm-6">
+                <select class="form-control" id="transferPerson">
+                   <option value="00">请选择线索负责人</option>
+                </select>
+                </div>
+                </div>
+                </form>
+                </div>
+            </script>
+            <script id="organizationTemplate" type="text/template">
+            <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">联系人 : </label>
+                    <div class="col-sm-7 u-word" id="contactName1" style="margin-top: 6px;"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">客户名称 : </label>
+                    <div class="col-sm-7 u-word" id="companyName1" style="margin-top: 6px;"></div>
+                </div>
+                
+                 <div class="form-group">
+                    <label class="col-sm-3 control-label">线索状态 : </label>
+                    <div class="col-sm-6">
+                        <select class="form-control" id="_clueState">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="closeReason2">
+                    <label class="col-sm-3 control-label">不合格原因 : </label>
+                    <div class="col-sm-6">
+                        <select class="form-control" id="closeReason1">
+                            <option value="00">选择不合格原因</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+ <link href="assets/css/bootstrap-select.min.css" rel="stylesheet">
+   <link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
+   <script src="js/assets/common/bootstrap-select.min.js"></script>
+    <script src="js/assets/common/bootstrap-datepicker.js"></script>
+<script src="js/assets/common/bootbox.js"></script>
+<script src="js/assets/common/jquery.form.js"></script>
+	          

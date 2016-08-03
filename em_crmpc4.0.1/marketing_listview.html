@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="renderer" content="webkit">
+        <link rel="icon" href="../../favicon.ico">
+
+        <title>CRM应用平台</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="assets/css/dashboard.css" rel="stylesheet">
+        <link href="assets/css/sidebar.css" rel="stylesheet">
+        <link href="assets/css/staff.css" rel="stylesheet">
+        <link href="assets/css/fonts/iconfont.css" rel="stylesheet">
+        
+        <link href="assets/css/fa/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="assets/css/fa/css/font-awesome.css" rel="stylesheet" />
+        <link href="assets/css/init.css" rel="stylesheet">
+        <link href="assets/css/style-responsive.css" rel="stylesheet" />
+        <link href="assets/css/index.css" rel="stylesheet" />
+       
+      
+      
+    </head>
+    <body>
+
+        <nav class="navbar navbar-inverse   navbar-fixed-top" data-import="assets/templates/header.html">
+        </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 sidebar nav-collapse " data-import="assets/templates/sidebar.html"></div>
+                  <div id="main_content" class="col-md-10 col-md-offset-2 main" data-import="assets/templates/marketing_listview.html">
+                </div>
+            </div>
+        </div>
+        <div  id="appshow" style="display: none; z-index:10000; text-align: right; background: #FFFFFF;margin-left:200px; width: 250px;border-top:1px solid #A2A2A2;border-bottom:1px solid #A2A2A2;border-left:1px solid #A2A2A2;border-right:1px solid #A2A2A2;">
+                  </div> 
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/lib/jquery.js"></script>
+        <script src="js/lib/underscore.js"></script>
+        <script src="js/lib/backbone.js"></script>
+        <script src="js/lib/backbone.stickit.js"></script>
+        <script src='js/lib/jquery.cookie.js'></script>
+        <script src='js/lib/jquery.hoverIntent.minified.js'></script>
+        <script src="js/lib/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="js/lib/jquery.scrollTo.min.js"></script>
+        <script src="js/lib/jquery.md5.js"></script>
+        <script src="js/lib/template.import.js"></script>
+        <script src="js/lib/lazyload.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/assets/common/localStorage.js"></script>
+         <script src="assets/global.js"></script>
+        <script src="js/assets/common/init.js"></script>
+        <script src="js/assets/common/index.js"></script>
+        <script src="js/assets/common/jquery.tree.js"></script>
+        <script src="assets/views/siderbar.js"></script>
+          <script>
+             routerType = "listview";
+        </script>
+        <script src="assets/routers/market.js"></script>
+        <script src="assets/models/baseTableModel.js"></script>
+        <script src="assets/routers/staff.js"></script>
+         <script type="text/javascript" charset="utf-8">
+          //获取用户信息
+             getLocVal();
+            $("#user_").html('【当前用户：'+appcanUserInfo.userName+' 】');
+       </script>
+    </body>
+</html>

@@ -1,0 +1,170 @@
+<div class="row">
+
+            <div class="col-md-12 col-sm-12">
+                <div class="panel panel-default">
+
+                    <!-- 标题 -->
+                     <ol class="breadcrumb">
+                            <li>
+                                <h1><small>查看销售线索</small></h1>
+                            </li>
+                            <li style="float: right; padding-top: 12px;">
+                                <a href="javascript:;" onclick="back()">返回</a>
+                            </li>
+                        </ol>
+                    <!-- <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-10">
+                                <h4>查看销售线索</h4>
+                            </div>
+                             <div class="col-md-2">
+                                <a href="javascript:history.back();" class="btn btn-default">返回</a>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- 主体内容 -->
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">客户名称 : </label>
+                                <div class="col-sm-10 u-word" id="companyName"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">联系人 : </label>
+                                <div class="col-sm-10 u-word" id="contactName"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手机 : </label>
+                                <div class="col-sm-10 u-word" id="mobile"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">电话 : </label>
+                                <div class="col-sm-10 u-word" id="teleNo"></div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">所属团队 : </label>
+                                <div class="col-sm-10 u-word" id="region"></div>
+                           </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">行业类别 : </label>
+                                <div class="col-sm-10 u-word" id="profession"></div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">所属省份 : </label>
+                                <div class="col-sm-10 u-word" id="province"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">QQ : </label>
+                                <div class="col-sm-10 u-word" id="QQ"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">微信 : </label>
+                                <div class="col-sm-10 u-word" id="weChat"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">邮箱 : </label>
+                                <div class="col-sm-10 u-word" id="email"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">部门 : </label>
+                                <div class="col-sm-10 u-word" id="department"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">职务 : </label>
+                                <div class="col-sm-10 u-word" id="post"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">线索来源 : </label>
+                                <div class="col-sm-10 u-word" id="dataSource"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">产品类型 : </label>
+                                <div class="col-sm-10 u-word" id="productType"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">客户级别 : </label>
+                                <div class="col-sm-10 u-word" id="level"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">客户性质 : </label>
+                                <div class="col-sm-10 u-word" id="csmNature"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">客户规模 : </label>
+                                <div class="col-sm-10 u-word" id="csmScale"></div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label class="col-sm-2 control-label">所属大区 : </label>
+                                <div class="col-sm-10 u-word" id="region"></div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">所属地区 : </label>
+                                <div class="col-sm-10 u-word" id="province"></div>
+                            </div> -->
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">地址 : </label>
+                                <div class="col-sm-10 u-word" id="address"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">邮编 : </label>
+                                <div class="col-sm-10 u-word" id="postcode"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">网址 : </label>
+                                <div class="col-sm-10 u-word" id="website"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">传真 : </label>
+                                <div class="col-sm-10 u-word" id="fax"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">备注/需求 : </label>
+                                <div class="col-sm-10 u-word" id="remark"></div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">上报时间 : </label>
+                                <div class="col-sm-10 u-word" id="reportTime"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">线索分配人 : </label>
+                                <div class="col-sm-10 u-word" id="assignerName"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">分配时间 : </label>
+                                <div class="col-sm-10 u-word" id="distributionTime"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">线索负责人 : </label>
+                                <div class="col-sm-10 u-word" id="salesUserName"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">线索状态 : </label>
+                                <div class="col-sm-10 u-word" id="clueState"></div>
+                            </div>
+                            <div class="form-group" id="closeReason1">
+                                <label class="col-sm-2 control-label">不合格原因 : </label>
+                                <div class="col-sm-10 u-word" id="closeReason"></div>
+                            </div>
+                           
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+         <script type="text/javascript" charset="utf-8">
+            function back(){
+                 appRouter.navigate("assign", {
+                        trigger : true
+                    });
+            }
+        </script>

@@ -1,0 +1,150 @@
+<link href="assets/css/fa/css/font-awesome.min.css" rel="stylesheet">
+<link href="assets/css/init.css" rel="stylesheet">
+<link href="assets/css/dynamic.css" rel="stylesheet">
+<link href="assets/css/edit.css" rel="stylesheet">
+<style>
+    body {
+        background: #f0f5f7;
+    }
+    .btn-default {
+        min-width: 50px;
+    }
+    .text-primary {
+        color: #15baff;
+    }
+    .day-color {
+        color: #ffffff;
+        position: absolute;
+        margin-left: -26px;
+        display: inline-block;
+        height: 24px;
+        line-height: 24px;
+        font-size: 14px;
+    }
+    .day-color:before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        border: 5px solid transparent;
+        border-bottom-width: 5px;
+        border-right-color: #ca8b1e;
+        border-bottom-color: #ca8b1e;
+    }
+    .day-color-other {
+        color: #ffffff;
+        position: absolute;
+        margin-left: -26px;
+        display: inline-block;
+        height: 24px;
+        line-height: 24px;
+        font-size: 14px;
+    }
+    .day-color-other:before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        border: 5px solid transparent;
+        border-bottom-width: 5px;
+        border-right-color: #737373;
+        border-bottom-color: #737373;
+    }
+    .text-danger {
+        color: #ff5050;
+    }
+    a {
+        color: #15baff;
+    }
+    .row {
+        margin-top: 10px;
+    }
+    .list-group-item {
+        background: #f5f5f5;
+    }
+    #edit .col-sm-12 {
+        padding: 0 56px 0 15px;
+    }
+    .bg-primary {
+        color: #5A5A5A;
+    }
+     #wordCount .word{ color: #da4f49; padding: 0 4px;}
+</style>
+</style>
+<div class="row" id="dynamicEditDiv">
+    <div class="col-md-12 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-10 col-sm-10">
+                        <h1>跟进动态&nbsp;&nbsp;<small><span id="titlee"> </span></small></h1>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <a href="javascript:history.back();" class="btn btn-default" style="float: right;">返回</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal hide" id="edit">
+
+                    <div class="form-group">
+                        <div class="col-sm-12" id="wordCount">
+                            <textarea class="form-control" cols="30" rows="5" id="dynamicContent"></textarea>
+                            <span class="wordwrap" style="  position: absolute;   right: 68px;   bottom: 6px;"><var class="word">500</var>/500</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+
+                        </div>
+                        <div >
+                            <label class="col-sm-2 control-label">类型 : <span style="color:red">（*）</span></label>
+                            <div class="col-sm-2">
+                                <select class="form-control" id="dynamicType">
+                                    <option value="00">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 ">
+                            <button class="btn btn-info" type="button"  onclick="addDynamic()">
+                                发布
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="panel " >
+                    <div class="panel-heading"></div>
+                    <div id="list">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script src="js/assets/common/dynamicInit.js"></script> -->
+<script type="text/javascript" charset="utf-8">
+      $(function(){
+
+        //先选出 textarea 和 统计字数 dom 节点
+        var wordCount = $("#wordCount"),
+            textArea = wordCount.find("textarea"),
+            word = wordCount.find(".word");
+        //调用
+        statInputNum(textArea,word);
+
+    });
+    /*
+    * 剩余字数统计
+    * 注意 最大字数只需要在放数字的节点哪里直接写好即可 如：<var class="word">200</var>
+    */
+    function statInputNum(textArea,numItem) {
+        var max = numItem.text(),
+            curLength;
+        textArea[0].setAttribute("maxlength", max);
+        curLength = textArea.val().length;
+        numItem.text(max - curLength);
+        textArea.on('input propertychange', function () {
+            numItem.text(max - $(this).val().length);
+        });
+    }
+
+ </script>

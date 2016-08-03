@@ -1,0 +1,27 @@
+#list .panel-default{
+    background-color: #ffffff ;
+}
+#list .panel-heading{
+    background-color: #ffffff ;
+}
+#list .panel-body{
+    background-color: #f5f5f5 ;
+}
+.yh{
+    font-family: microsoft yahei;
+}
+.day-color{
+    background-color: #ffaf25;
+}
+.day-color-other{
+    background-color: #c0c0c0;
+}
+.comment .panel-default{
+    background-color: #f5f5f5 !important;
+}
+.comment .panel-heading{
+    background-color: #f5f5f5 !important;
+}
+.comment .panel-body{
+    background-color: #ffffff !important;
+}

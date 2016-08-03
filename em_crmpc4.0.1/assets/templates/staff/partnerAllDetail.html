@@ -1,0 +1,200 @@
+<style type="text/css">
+    .col-sm-2 {
+        padding-right: 0px;
+    }
+    .modal-body {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+    #edit .control-label {
+        text-align: left;
+    }
+    .col-sm-2 {
+        padding-right: 0px;
+    }
+    .file {
+        position: relative;
+        display: inline-block;
+        background: #D0EEFF;
+        border: 1px solid #99D3F5;
+        border-radius: 4px;
+        padding: 4px 12px;
+        overflow: hidden;
+        color: #1E88C7;
+        text-decoration: none;
+        text-indent: 0;
+        line-height: 20px;
+    }
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+    .file:hover {
+        background: #AADFFD;
+        border-color: #78C3F3;
+        color: #004974;
+        text-decoration: none;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="panel panel-default" style="margin: 10px 10px;">
+            <div class="panel-body">
+                <form class="form-horizontal" style="padding: 0px 20px;" id="partnerAllDetail">
+                    <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+                        <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-eye" style="color:#3C8DBC"></i></span>
+                        <label class="col-sm-2 control-label" style="color: #3C8DBC;text-align: left;">基本信息 </label>
+                    </div>
+                    <div class="form-group">
+            <label class="col-sm-2 control-label">企业名称: </label>
+            <div class="col-sm-6">
+                <a href="javascript:;" id="_companyName" data-type="text"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" ></a> 
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">联系人: </label>
+            <div class="col-sm-6">
+                 <a href="javascript:;" id="_contactName" data-type="text"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" ></a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">手机: </label>
+            <div class="col-sm-6">
+       <a href="javascript:;" id="_mobile" data-type="text"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" ></a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">电话: </label>
+            <div class="col-sm-6">
+             <a href="javascript:;" id="_teleNo" data-type="text"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" ></a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" style="padding-right:6px;">所属团队 : </label>
+            <div class="col-sm-6">
+            <a href="javascript:;" id="_region" data-type="select"  data-placement="right" data-placeholder="必填" class="editable editable-click" data-original-title="" title="" ></a>
+            </div>
+          </div>
+          <div class="form-group">
+                    <label class="col-sm-2 control-label" style="padding-right:6px;">所在地区 : </label>
+                    <div class="col-sm-6">
+                   <div id="e_city_1">
+                       <a class="prov editable editable-click" href="javascript:;"></a> 
+                    <a class="city editable editable-click" href="javascript:;"></a>
+                    <!-- <a href="#" id="e_prov" data-type="select"  data-title="" class="editable editable-click" style="display: inline;"></a>
+                    <a href="#" id="e_city" data-type="select"  data-title="" class="editable editable-click" style="display: inline;"></a> -->
+                   </div>
+                    </div>
+            </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">联系地址: </label>
+            <div class="col-sm-6">
+             <a href="javascript:;" id="_address" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a>    
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">邮编: </label>
+            <div class="col-sm-6">
+                  <a href="javascript:;" id="_postcode" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a>  
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">企业法人: </label>
+            <div class="col-sm-6">
+               <a href="javascript:;" id="_legalPerson" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a> 
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">注册资金: </label>
+            <div class="col-sm-6">
+             <a href="javascript:;" id="_registerFund" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a> 
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">授权地区: </label>
+            <div class="col-sm-6">
+            <a href="javascript:;" id="_authorityRegion" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a> 
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">授权行业: </label>
+            <div class="col-sm-6">
+             <a href="javascript:;" id="_authorityProfession" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a> 
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">授权期限: </label>
+            <div class="col-sm-7">
+             <a href="javascript:;" id="_startTime" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a> 
+             <span class="">至</span>
+             <a href="javascript:;" id="_endTime" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a> 
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">代理权限: </label>
+            <div class="col-sm-6">
+             <a href="javascript:;" id="_agencyAuthority" data-type="select"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a> 
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">保证金: </label>
+            <div class="col-sm-6">
+                  <a href="javascript:;" id="_pledgeMoney" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a> 
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">产品折扣: </label>
+            <div class="col-sm-6">
+                  <a href="javascript:;" id="_productDiscount" data-type="select"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a>
+                   <a href="javascript:;" id="_remark" data-type="text"  data-placement="right" data-placeholder="Required" class="editable editable-click" data-original-title="" title="" ></a>  
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">价格 : </label>
+            <div class="col-sm-6">
+                 <a href="#" id="_price" data-type="text" class="editable editable-click"></a>
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label" >任务额 : </label>
+            <div class="col-sm-6">
+                 <a href="#" id="_taskAmount" data-type="text" class="editable editable-click"></a>
+            </div>
+          </div>
+          <div class="form-group" style=" ">
+            <label class="col-sm-2 control-label">合同类型 : </label>
+            <div class="col-sm-6">
+                 <a href="#" id="_contractType" data-type="select" class="editable editable-click"></a>
+            </div>
+          </div>
+                    <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+                        <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-eye" style="color:#3C8DBC"></i></span>
+                        <label class="col-sm-2 control-label" style="color: #3C8DBC;text-align: left;">资质附件 </label>
+                    </div>
+                </form>
+                <div class="form-group" align="center">
+                    <label class="col-sm-2 control-label">&nbsp;</label>
+                    <div class="col-sm-6">
+                        <table border="0px" width="100%" >
+
+                            <tr >
+                                <td align="left">
+                                <table border="0px" >
+
+                                    <tr id="_uppictr" ></tr>
+                                </table></td>
+
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

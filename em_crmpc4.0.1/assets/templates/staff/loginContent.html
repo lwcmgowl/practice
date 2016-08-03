@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/css/fa/css/font-awesome.css" rel="stylesheet" />
+        <link href="assets/css/login.css" rel="stylesheet">
+        <link href="assets/css/init.css" rel="stylesheet">
+        <link href="assets/css/style-responsive.css" rel="stylesheet" />
+        <style type="text/css">
+            .control-login {
+                background-color: #FFF;
+                color: #000000;
+            }
+            .fa {
+                color: #9F9F9F;
+                display: block !important;
+                position: absolute !important;
+                z-index: 100;
+                margin: 9px 2px 4px 10px;
+                width: 16px;
+                height: 16px;
+                font-size: 16px;
+                text-align: center;
+            }
+            #loginName, #loginPass {
+                padding-left: 33px !important;
+            }
+            input:focus {
+                border: none;
+            }
+
+        </style>
+    </head>
+    <body >
+        <div align="center" style="position:absolute;left: 566px;top: 200px;">
+            <div style="text-align: center;bottom: 32%;" class="vertical-center"><img src="img/title2.png" alt="">
+            </div>
+            <form class="form-signin vertical-center"  id="login-form">
+                <div class="login-wrap">
+                    <i class="fa fa-user"></i>
+                    <input type="text" class="control-login" name="loginName" id="loginName" required placeholder="用户名" autofocus>
+                    <i class="fa fa-lock"></i>
+                    <input type="password" class="control-login" name="loginPass" id="loginPass" required placeholder="密码">
+                    <label class="checkbox">
+                        <input type="checkbox"  value="remember-me" id="remember-me">
+                        记住密码 </label>
+                    <button class="btn  btn-login btn-block" id="submitbtn"  type="button">
+                        登录
+                    </button>
+                    <br/>
+                </div>
+            </form>
+        </div>
+        <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; z-index: -999999; position: fixed; width: 100%; height: 100%;">
+            <img style="position: absolute; margin: 0px; padding: 0px; border: none; width: 100%; height: 100%; max-width: none; z-index: -999999; " src="img/login3.jpg">
+        </div>
+    </body>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            if ($.cookie("rmbUser") == "true") {
+                $("#remember-me").attr("checked", true);
+                $("#loginName").val($.cookie("userName"));
+                $("#loginPass").val($.cookie("passWord"));
+            }else{
+                 $("#loginName").val($.cookie("userName"));
+            }
+        });
+
+    </script>
+
+</html>

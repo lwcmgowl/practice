@@ -1,0 +1,84 @@
+#taskSelectModal .modal-dialog,
+.minerSelect .modal-dialog {
+  /*position: absolute;*/
+  top: 20px;
+  right: 0px;
+  margin: 0 auto;
+  position: fixed;
+  height: 100%;
+}
+#taskSelectModal .modal-content{
+    box-shadow: none;
+    -webkit-box-shadow:none
+}
+@media (min-width: 768px) {
+   #taskSelectModal .modal-dialog {
+         width:55%; 
+    }
+}
+#taskSelectModal .modal-body{
+    min-height:800px;
+    overflow-y: auto;
+}
+.modal-body{
+     max-height:500px;
+     overflow-y: auto;
+}
+#partnerDetail{
+    max-height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#taskSelectModal{
+    z-index: 1040;
+}
+#taskSelectModal .modal-content{
+    border-radius: initial;
+    border: 1px solid rgba(169, 169, 169, 0.2);
+}
+/*.minerSelect .modal-dialog {
+  width: 363px;
+  right: 430px;
+  top: 97px;
+}*/
+/*.minerSelect .modal-dialog1 {
+  top: 100px;
+  right: 240px;
+}
+
+.minerSelect .modal-dialog2 {
+  top: 162px;
+  right: 240px;
+}
+
+#resSelectModal .modal-dialog1,
+#resinSelectModal .modal-dialog1 {
+  left: initial;
+  right: 443px;
+  margin: 0;
+}*/
+
+#taskSelectModal.fade .modal-dialog,
+.minerSelect.fade .modal-dialog {
+  /*-webkit-transition: -webkit-transform 0.8s ease-out;
+  -o-transition: -o-transform 0.8s ease-out;
+  transition: transform 0.8s ease-out;
+  -webkit-transform: translate(1000px, 0) scale(0, 0);
+  -ms-transform: translate(1000px, 0) scale(0, 0);
+  -o-transform: translate(1000px, 0) scale(0, 0);
+  transform: translate(1000px, 0) scale(0, 0);
+  -webkit-transform-origin: 100% 0;
+  -ms-transform-origin: 100% 0;
+  -o-transform-origin: 100% 0;
+  transform-origin: 100% 0;*/
+}
+
+#taskSelectModal.in .modal-dialog,
+.minerSelect.in .modal-dialog {
+  /*-webkit-transform: translate(0, 0) scale(1, 1);
+  -ms-transform: translate(0, 0) scale(1, 1);
+  -o-transform: translate(0, 0) scale(1, 1);
+  transform: translate(0, 0) scale(1, 1);*/
+}
+
+

@@ -1,0 +1,227 @@
+<style type="text/css">
+.col-sm-2 {
+  padding-right: 0px;
+}
+
+.modal-body {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#edit .control-label {
+  text-align: left;
+}
+
+.col-sm-2 {
+  padding-right: 0px;
+}
+
+.file {
+  position: relative;
+  display: inline-block;
+  background: #D0EEFF;
+  border: 1px solid #99D3F5;
+  border-radius: 4px;
+  padding: 4px 12px;
+  overflow: hidden;
+  color: #1E88C7;
+  text-decoration: none;
+  text-indent: 0;
+  line-height: 20px;
+}
+
+.file input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.file:hover {
+  background: #AADFFD;
+  border-color: #78C3F3;
+  color: #004974;
+  text-decoration: none;
+}
+
+.col-xs-2 {
+  padding-right: 0px;
+  padding-left: 2px;
+  width: 14.666667%;
+}
+</style>
+<div class="row">
+  <div class="tab-content">
+    <div id="contentdiv" class="tab-pane fade in active">
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div class="panel panel-default" style="margin: 16px; border-color: #fff;">
+            <div class="row" style="padding-left: 12px;">
+              <div class="col-xs-2">
+                <input class="form-control" placeholder="客户名称" type="text" id="salesUserId" />
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <select class="form-control" id="c_level">
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <select class="form-control" id="profession">
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <select class="form-control" id="csmNature">
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <select class="form-control" id="csmStatId">
+                  </select>
+                </div>
+              </div>
+              <div class="col-xs-1">
+                <button type="button" class="btn btn-default" id="searchCustomer">
+                  <i class="fa fa-search"></i> 查询
+                </button>
+              </div>
+            </div>
+            <div class="row" id="btnWrapper"></div>
+            <div class="panel-body">
+              <table id="datatable" class="table table-bordered table-responsive table-hover" style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all"></table>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script id="enterprisePartner" type="text/template">
+  <div class="panel-body" id="edit">
+    <form class="form-horizontal">
+      <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+        <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+        <label class="col-sm-2 control-label" style="color: #3C8DBC;">基本信息 </label>
+      </div>
+      <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">客户名称: </label>
+        <div class="col-sm-6">
+          <input type="text" required class="form-control" id="_companyName" maxlength="40" placeholder="客户名称字符个数不能超过40个">
+        </div>
+        <!-- <span class="text-danger">*(客户名称字符个数不能超过40个!)</span> -->
+      </div>
+      <div class="form-group">
+        <span class="text-danger" style="float: left; margin-top: 10px;">*</span>
+        <label class="col-sm-2 control-label">行业类别: </label>
+        <div class="col-sm-6">
+          <select class="form-control" id="_profession">
+            <option value="00">选择行业类别</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+          <span class="text-danger" style="float: left; margin-top: 10px;">*</span>  
+           <label class="col-sm-2 control-label">所属省份: </label>
+        <div class="col-sm-6">
+          <select id="s_province" name="s_province" selectedindex="0" required class="form-control">
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+          <label class="col-sm-2 control-label">客户状态: </label>
+        <div class="col-sm-6">
+          <select class="form-control" id="_csmStatId">
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+        <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+        <label class="col-sm-2 control-label" style="color: #3C8DBC;">扩展信息 </label>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+        <label class="col-sm-2 control-label">客户级别: </label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="_level">
+                                    </select>
+                                </div>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+        <label class="col-sm-2 control-label">客户性质: </label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="_csmNature">
+                                    </select>
+                                </div>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+       <label class="col-sm-2 control-label">客户规模: </label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="_csmScale">
+                                    </select>
+                                </div>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+        <label class="col-sm-2 control-label">邮编: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="postcode" /></div>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+         <label class="col-sm-2 control-label">地址: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="address" /></div>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+        <label class="col-sm-2 control-label">官网: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="website" /></div>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+       <label class="col-sm-2 control-label">传真: </label>
+                                <div class="col-sm-6"><input type="text" class="form-control" id="fax" /></div>
+      </div>
+      <div class="form-group" style=" margin-left: -6px;">
+       <label class="col-sm-2 control-label">备注/需求 : </label>
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" cols="30" rows="5" id="remark"></textarea>
+                                </div>
+      </div>
+    </form>
+  </div>
+</script>
+<script id="delTemplate" type="text/template">
+  <div class="panel-body" style="font-size: 16px;">
+    确定要删除吗？
+  </div>
+</script>
+<!-- 分配伙伴 -->
+<script id="organizationTemplate" type="text/template">
+  <div class="panel-body">
+    <form class="form-horizontal">
+      <div class="form-group uhide">
+        <div class="form-group uhide">
+          <label class="col-sm-3 control-label">所属团队 : </label>
+          <div class="col-sm-6">
+            <select class="form-control" data-info="" id="tmplTeam">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">转交给 : </label>
+          <div class="col-sm-6">
+            <select class="form-control" id="tmplAssigner">
+            </select>
+          </div>
+        </div>
+    </form>
+    </div>
+</script>
+<script type="text/javascript" charset="utf-8">
+$("#back").click(function() {
+  appRouter.navigate("enterprise", {
+    trigger: true
+  });
+})
+</script>

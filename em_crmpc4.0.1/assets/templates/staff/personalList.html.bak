@@ -1,0 +1,424 @@
+   <style>
+            th, .align {
+                text-align: center;
+                 border: 1px solid #ddd;
+            }
+            table caption {
+                border: 1px solid #ddd;
+                font-size: 1.15em;
+                padding: 4px;
+                margin-bottom: -1px;
+                text-align: center;
+            }
+            .td-ell {
+                width: 100%;
+                word-break: keep-all;/* 不换行 */
+                white-space: nowrap;/* 不换行 */
+                overflow: hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+                text-overflow: ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一 起使用。*/
+            }
+            .dropdown-menu {
+                min-width: 66px;
+            }
+            .dropdown-menu a {
+                display: block;
+            }
+            .date {
+                position: absolute;
+                top: 6px;
+                left: 82%;
+            }
+            .col-xs-1 {
+               width: 23.333333%;
+             }
+            .right {
+                float: right;
+                margin-right: 4px;
+            }
+        </style>
+  <div class="row">
+                <div class="col-md-12 col-sm-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1>机会动态汇总</h1>
+                            <div class="row" id="btnWrapper1">
+                                <div class="col-md-2">
+                                    <input class="form-control" placeholder="" type="text" id="startDate"/>
+                                    <span class="date"> <i class="fa fa-calendar"></i></span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input class="form-control" placeholder="" type="text" id="sttlDate"/>
+                                    <span class="date"> <i class="fa fa-calendar"></i></span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input class="form-control" placeholder="客户名称/机会名称" type="text" id="csmName"/>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-default" id="show-chance">
+                                        <i class="fa fa-search"></i> 查询
+                                    </button>
+                                </div>
+                                <div class="col-md-5" id="btnWrapper">
+                                    <!-- <button type="button" class="btn btn-default right" onclick="search();">
+                                    <i class="fa fa-cloud-download"></i> 导出全部
+                                    </button>
+                                    <button type="button" class="btn btn-default right" onclick="search();">
+                                    <i class="fa fa-download"></i> 导出当前
+                                    </button> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body" id="">
+                             <div class="col-md-8"></div>
+                            <div class="col-md-4" id="next">
+                                <ul class="pager pull-right">
+                                    <li>
+                                        <a href="javascript:;" id="prev-chance">上一个机会</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" id="next-chance">下一个机会</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <table class="table table-responsive table-bordered" id="table">
+
+                            </table>
+                             <div class="row">
+                                <div class="col-md-12" id="pagger">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
+            <script src="js/assets/common/bootstrap-datepicker.js"></script>
+            <script type="text/javascript" charset="utf-8">
+                 String.prototype.format = function() {
+                var vs = arguments;
+                return this.replace(/\{(\d+)\}/g, function() {
+                    return vs[parseInt(arguments[1])];
+                });
+            };
+
+            Date.prototype.format = function(formatString) {
+                with (this) {
+                    return (formatString || "{0}-{1}-{2} {3}:{4}:{5}").format(getFullYear(), ("0" + (getMonth() + 1)).slice(-2), ("0" + getDate()).slice(-2), ("0" + getHours()).slice(-2), ("0" + getMinutes()).slice(-2), ("0" + getSeconds()).slice(-2));
+                }
+            };
+
+            // 声明Summary类   
+            var Summary = (function($) {  // 自执行函数，确保jquery已加载
+
+                // 返回类
+                return function() {
+
+                    // 私有方法，获取本周一和周末日期
+                    var getWeek = function(theDay) {
+                        var monday = new Date(theDay.getTime());
+                        var sunday = new Date(theDay.getTime());
+                        monday.setDate(monday.getDate() + 1 - monday.getDay());
+                        sunday.setDate(sunday.getDate() + 7 - sunday.getDay());
+                        return {
+                            monday : monday,
+                            sunday : sunday
+                        };
+                    };
+
+                    // 用来初始化类
+                    this.init = function() {
+                        this.config();
+                        this.setDatePicker();
+                    };
+
+                    // 设置需要用到的成员属性
+                    this.config = function() {
+                        this.$startDate = $('#startDate');
+                        this.$sttlDate = $('#sttlDate');
+                    };
+
+                    // 设置日期插件
+                    this.setDatePicker = function() {
+                        var date = new Date();
+                        week = getWeek(date);
+                        this.$startDate.val(week.monday.format("{0}-{1}-{2}"));
+                        this.$sttlDate.val(week.sunday.format("{0}-{1}-{2}"));
+
+                        this.$startDate.datepicker({
+                            format : 'yyyy-mm-dd',
+                            weekStart : 0,
+                            todayHighlight : true,
+                            autoclose : true,
+                        });
+
+                        this.$sttlDate.datepicker({
+                            format : 'yyyy-mm-dd',
+                            weekStart : 0,
+                            todayHighlight : true,
+                            autoclose : true,
+                        });
+                    };
+                }
+            })(jQuery || $);
+
+            // 声明Pager类
+            var Pager = (function($) {
+
+                // 返回类
+                return function() {
+
+                    // 私有方法，用来执行ajax回调操作
+                    var getChanceSuccess = function(Pager, res) { // Pager这里代表Pager类自身，即当前类的上下文
+
+                        var list = res && res.msg && res.msg.list,
+                            total = res && res.msg && res.msg.total,
+                            $caption = $('<caption></caption>'),
+                            $thead = $('<thead></thead>'),
+                            $tbody = $('<tbody></tbody>'),
+                            $tr,
+                            dynamic,
+                            dy = '';
+                        // 清空table内容
+                        Pager.$table.empty();
+
+                        // 建议写在html中
+                        $caption.text('客户情况汇总');
+                        $thead.html('<th>负责人</th><th>机会名称</th><th>客户名称</th><th>机会来源</th><th>预计签单日期</th><th>机会阶段</th>');
+
+                        // 插入caption和thead
+                        Pager.$table
+                            .append($caption)
+                            .append($thead);
+
+                        // 显示下一个、上一个机会
+                        Pager.$prev.removeClass('hide');
+                        Pager.$next.removeClass('hide');
+
+                        // 如果有0条记录，隐藏全部按钮
+                        if (total == 0) {
+                            Pager.$prev.addClass('hide');
+                            Pager.$next.addClass('hide');
+                        }
+
+                        // 如果当前是第一页，则隐藏上一个机会按钮
+                        if (Pager.options.pageNo == 1) {
+                            Pager.$prev.addClass('hide');
+                        }
+
+                        // 如果当前页数大于等于总页数，那么隐藏下一个机会按钮
+                        if (Pager.options.pageNo >= total) {
+                            Pager.$next.addClass('hide');
+                        }
+
+                        // 判断list为空
+                        if (list.length < 1) {
+                            $tbody.html('<tr><td class="align" colspan="6">暂无数据</td></tr>');
+
+                            // 插入tbody
+                            Pager.$table
+                                .append($tbody);
+
+                            return;
+                        }
+
+                        // 遍历list
+                        $.each(list, function (index, item) {
+                            $tr = $('<tr></tr>');
+                            $tr.append($('<td class="align">' + item.salesUserName + '</td>'))
+                                .append($('<td class="align">' + item.opptTtl + '</td>'))
+                                .append($('<td class="align">' + item.csmName + '</td>'))
+                                .append($('<td class="align">' + (item.dataSourceName || '') + '</td>'))
+                                .append($('<td class="align">' + item.sttlDate + '</td>'))
+                                .append($('<td class="align">' + item.opptStatName + '</td>'));
+
+                            $tbody
+                                .append($tr)
+                                .append($('<tr><td class="align" colspan="6">跟进动态</td></tr>'));
+
+                            $.each(item.dynamicList, function (sub_index, sub_item) {
+                                $tr = $('<tr></tr>');
+                                $tr.append($('<td colspan="6"></td>'));
+                                $tr.children()
+                                    .append($('<span>' + toDateString(sub_item.createdAt) + '</span>'))
+                                    .append($('<span style="padding:6px;">' + sub_item.userName + '</span>'))
+                                    .append($('<span style="padding:6px;" >' + appcan.dynamicType[sub_item.dynamicType] + '</span>'))
+                                    .append($('<div style="margin-top:10px;">' + sub_item.dynamicContent + '</div>'))
+
+                                $tbody.append($tr); 
+                            });
+                        });
+                    
+                        Pager.$table.append($tbody);
+                    };
+
+                    // 用来初始化类
+                    this.init = function(options) { // options是用来设置初始化信息
+
+                        // 执行config成员方法
+                        this.config(); 
+
+                        // 扩展并覆盖this.options的属性
+                        $.extend(this.options, options || {});
+
+                        // 执行bind成员方法
+                        this.bind();
+
+                        // 执行showChance成员方法
+                        this.showChance();
+                    };
+
+                    // 加载类所需的成员属性
+                    this.config = function() {
+
+                        // 这里的this上下文代表当前类，即Paper
+                        this.$csmName = $('#csmName');
+                        this.$startDate = $('#startDate');
+                        this.$sttlDate = $('#sttlDate');
+                        this.$table = $('#table');
+                        this.$next = $('#next-chance');
+                        this.$prev = $('#prev-chance');
+                        this.$showChance = $('#show-chance');
+
+                        this.options = {
+                            pageNo : 1,
+                            pageSize : 1,
+                            csmName : $.trim(this.$csmName.val()),
+                            salesUserId : appcanUserInfo.userId,
+                            beforeDate : $.trim(this.$startDate.val()),
+                            afterDate : $.trim(this.$sttlDate.val())
+                        };
+
+                        // 导出excel的接口数组
+                        this.exportUrl = ['/statistics/exportAll', '/statistics/exportCurrent'];
+
+                    };
+
+                    // 请求数据
+                    this.showChance = function(options) {
+
+                        // 因js函数作用域问题，函数内的函数中使用this，指向全局对象（window || global）
+                        // 所以如果想继续使用当前上下文，则需要单独声明变量来引用
+                        var Pager = this;
+
+                        // 扩展并覆盖this.options
+                        $.extend(this.options, options || {});
+
+                        // 因为每次请求数据时，日期及csmName都会变化，所以需要重新读取一次数据
+                        // 这里建议单独声明一套对象字面量，共Summary和Paper共享
+                        this.options.beforeDate = $.trim(this.$startDate.val());
+                        this.options.afterDate = $.trim(this.$sttlDate.val());
+                        this.options.csmName=$.trim(this.$csmName.val());
+
+                        ajax({
+                            url : '/statistics/pageOpptDyn',
+                            data : this.options,
+                            success : function(res) {
+                                // console.info(res);
+                                getChanceSuccess(Pager, res);
+                                $('#pagger').empty();
+                                pagger();
+                            }
+                        });
+                    };
+
+                    // 导出excel
+                    this.export = function(data) {
+                        var options = {};
+                        // 扩展options
+                        $.extend(options, this.options, data || {});
+
+                        ajax({
+                            url : this.exportUrl[options.type],
+                            data : options,
+                            success : function(data) {
+                                var url = urlIp + '/excel/out?path=' + encodeURIComponent(data.msg.message);
+                                window.location = url;
+                            }
+                        })
+                    };
+
+                    // 绑定dom元素事件
+                    this.bind = function() {
+                        var Pager = this;
+
+                        this.$showChance.on('click', function() {
+                            Pager.showChance({
+                                pageNo : 1
+                            });
+                        });
+
+                        this.$next.on('click', function() {
+                            Pager.showChance({
+                                pageNo : Pager.options.pageNo += 1
+                            });
+                        });
+
+                        this.$prev.on('click', function() {
+                            Pager.showChance({
+                                pageNo : Pager.options.pageNo -= 1
+                            });
+                        });
+
+                        $('#exportCurrent').on('click', function() {
+                            Pager.export({
+                                type : 1
+                            });
+                        });
+
+                        $('#exportAll').on('click', function() {
+                            Pager.export({
+                                type : 0
+                            });
+                        });
+
+                    };
+                };
+            })(jQuery || $);
+
+            $(document).ready(function() {
+                handlerTop('btnWrapper');
+                var summary = new Summary(),
+                    pager = new Pager();
+                summary.init();
+                pager.init();
+                
+            });
+            function pagger() {
+                var $alltr = $('tbody tr:gt(1)');
+                //行（记录）总数
+                var totalRows = $alltr.length;
+                //每页显示行数
+                var perPage = 5;
+                //总页数
+                var totalPageNum = Math.ceil(totalRows / perPage);
+                //构建分页部分
+                var pageDiv = $('<ul class="pagination pull-right"></ul>');
+                for (var i = 0; i < totalPageNum; i++) {
+                    $('<li class=""><a href="javascript:;">' + (i + 1) + '</a></li>').appendTo(pageDiv);
+                }
+                $('#pagger').append(pageDiv);
+                $('#pagger li:first').addClass('active');
+                //初始隐藏全部tr记录，只显示第一页tr记录
+                $alltr.hide();
+                 for (var i = 0; i < perPage; i++) {
+                     $alltr.eq(i).show();
+                 }
+                $('li').click(function() {
+                    //隐藏全部tr记录
+                    $alltr.hide();
+                    //当前页码
+                    var currentPageNum = $(this).text();
+                    $('li').removeClass("active"); $(this).addClass("active"); 
+                    //tr记录起始索引
+                    var start = (currentPageNum - 1) * perPage;
+                    //tr记录截止索引
+                    var end = currentPageNum * perPage - 1;
+                    for (var i = start; i <= end; i++) {
+                        $alltr.eq(i).show();
+                    }
+                })
+            }
+            </script>

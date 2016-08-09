@@ -1,25 +1,41 @@
 //加载并初始化模板对象
-var marketdetailTemplate = loadTemplate("assets/templates/staff/opptcontactDetails.html");
+var opportContactdetailTemplate = loadTemplate("assets/templates/staff/opptcontactDetails.html");
 
 //列表容器VIEW
-var marketdetailView = Backbone.View.extend({
+var opprotContactdetailView = Backbone.View.extend({
     initialize : function() {
         
     },
-    el : '#contentdiv',
+    el : '#contactDetail',
     render : function() {
         this.$el.empty();
-        var el =  $(this.template());
-        this.$el.append(el);
+        this.$el.html($(this.template()));
     },
     model : new marketDetailModel(),
-    template : marketdetailTemplate,
+    template : opportContactdetailTemplate,
     load : function(direction) {
         var self = this;
-        this.model.fetch({
+        self.render();
+        self.model.fetch({
             success : function(cols, resp, options) {
-                self.render();
                 var info=resp.msg.item;
+                $("#contactTitle").html(info.contactName);
+                $("#contactNameDetail").html(info.csmName+'<span id="contactMobi"></span><b>|<b><span id="contactTele"></span>');
+                if(info.mobile){
+                   $("#contactMobi").show();
+                   $("#contactMobi").html(info.mobile); 
+                }else{
+                    $("#contactMobi").hide();
+                    $("#contactNameDetail b").hide();
+                }
+                if(info.teleNo){
+                    $("#contactTele").show();
+                    $("#contactNameDetail b").show();
+                    $("#contactTele").html(info.teleNo);
+                }else{
+                    $("#contactTele").hide();
+                    $("#contactNameDetail b").hide();
+                }
               for(var i in info){
                 var ele = $('#'+i);
                 if(ele[0]){
@@ -37,11 +53,7 @@ var marketdetailView = Backbone.View.extend({
             },
             id : direction
         });
-         //self.render();
-    },
-    pagecountchange : function(e) {
-        console.log("select ",e);
     }
 });
 
-var marketdetailInstance = new marketdetailView();
+

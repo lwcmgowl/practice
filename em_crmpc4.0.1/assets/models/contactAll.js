@@ -6,30 +6,18 @@ var marketModel = Backbone.Model.extend({
     sync : function(method, model, options) {
         switch(method) {
         case "create":
+        marketViewService.addContact(this.attributes.data,options);
+          break;
         case "update":
+           break;
         case "patch":
             break;
         case "read":
           if(options.type==1){
            marketViewService.request(options);
            }
-           if(options.type==2){
-            marketViewService.listDict(options);
-           }
-           if(options.type==3){
-            marketViewService.getMarketPerson(options);
-           }
-           if(options.type==4){
-            marketViewService.assign(options);
-           }
-            if(options.type==5){
-            marketViewService.addMarket(options);
-           }
-           
             break;
         case "delete":
-           options.id = this.id;
-            this.service.delinfo(options);
             break;
         default:
             break;

@@ -6,11 +6,18 @@ var myResponsCustomerListMainModel = Backbone.Model.extend({
     sync : function(method, model, options) {
         switch(method) {
         case "create":
+        myResponsCustomerListMainService.addCustomer(this.attributes.data,options);
+        break;
         case "update":
+         break;
         case "patch":
             break;
         case "read":
-            myResponsCustomerListMainService.request(options);
+           if(options.type==1){
+               myResponsCustomerListMainService.getcstm(options);
+           }else{
+                myResponsCustomerListMainService.request(options);
+           }
             break;
         case "delete":
             break;

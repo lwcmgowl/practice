@@ -29,7 +29,23 @@ var detailEditService = {
                 self.lock = false;
             }
         });
+    },
+    getCustomer:function(options){
+        ajax({
+            url :"/custom/listcsmname",
+            success : function(data) {
+                if (data.status == "000") {
+                    options.success(data)
+                } else {
+                    options.error(data)
+                };
+            },
+            error : function(err) {
+                options.error(err);
+            }
+        });
     }
+     
 };
 //绑定事件监听
 _.extend(detailEditService, Backbone.Events);

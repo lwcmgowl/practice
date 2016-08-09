@@ -470,7 +470,7 @@ var myReportListView = Backbone.View.extend({
         $("#clue").removeClass("active");
         $.fn.editable.defaults.mode = 'inline';
         $("#detailpartdiv").html(myReportDetailTemplate);
-        var html = '';
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
         html += handlerRow(id, "edit");
         $("#buttons").html(html);
         self.model.set({

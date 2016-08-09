@@ -26,6 +26,37 @@ var myResponsCustomerListMainService = {
 
             }
         });
+    },
+     addCustomer : function(data,options) {
+        ajax({
+            url :"/custom/add",
+            data : data,
+            success : function(data) {
+                if (data.status == "000") {
+                    options.success(data)
+                } else {
+                    options.error(data)
+                };
+            },
+             error : function(error) {
+                options.error(error);
+            }
+        });
+    },
+    getcstm:function(options){
+         ajax({
+            url :"/custom/listcsmname",
+            success : function(data) {
+                if (data.status == "000") {
+                    options.success(data)
+                } else {
+                    options.error(data)
+                };
+            },
+            error : function(err) {
+                options.error(err);
+            }
+        });
     }
 };
 //绑定事件监听

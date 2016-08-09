@@ -1,5 +1,5 @@
 table.dataTable th, table.dataTable td {
-  white-space: nowrap;
+  /*white-space: nowrap;*/
   /*padding-right: 100px !important;*/
   border-bottom: none !important;
 }
@@ -53,9 +53,11 @@ h1{
     z-index: 0 !important;
 }
 .purple {
-  color: #000!important;
+  /*color: #000!important;*/
 }
-
+.rowstyle{
+    margin-right: 8px;
+}
 .modal-dialog {
   padding-top: 120px;
 }
@@ -257,3 +259,6 @@ ul{
   font-weight: 500;
   text-align: left;
 }
+ .hvr-underline-from-left.active::before {
+        right: 0;
+    }

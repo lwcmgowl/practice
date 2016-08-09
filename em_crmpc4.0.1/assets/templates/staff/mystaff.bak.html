@@ -1,100 +1,79 @@
-<div class="row l-mark-data">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5>我下属的营销数据</h5>
-        </div>
-        <div class="ibox-content">
-            <div class="row">
-                <div class="col-md-12">
+<div class="panel">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>我下属的营销数据</h1>
+                    <div class="row" id="btn">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control" id="clueSource">
+                                    <option value="">选择线索来源</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control" id="profession">
+                                    <option value="">选择行业类别</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control" id="region">
+                                    <option value="">选择所属团队</option>
+                                </select>
+                            </div>
+                        </div>
 
-                    <div class="pull-left dropdown">
-                        <a  class="btn btn-primary dropdown-toggle l-dropdown-toggle" data-toggle="dropdown"> 查询 <span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="searchbtn" style="min-width: 710px;padding-right: 22px;">
-                            <li role="presentation">
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">选择线索来源:</label>
-                                        <div class="col-sm-4" style="padding-right: 0px;">
-                                            <select class="form-control" id="clueSource">
-                                                <option value="">选择线索来源</option>
-                                            </select>
-                                        </div>
-                                        <label class="col-sm-2 control-label">选择行业类别:</label>
-                                        <div class="col-sm-4" style="padding-right: 0px;">
-                                            <select class="form-control" id="profession">
-                                                <option value="">选择行业类别</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">选择所属团队:</label>
-                                        <div class="col-sm-4" style="padding-right: 0px;">
-                                            <select class="form-control" id="region">
-                                                <option value="">选择所属团队</option>
-                                            </select>
-                                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control" id="province">
+                                    <!-- <option value="">选择所属省份</option> -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <input class="form-control" placeholder="客户名称/联系人/会议名称" type="text" id="companyName"/>
+                        </div>
+                        <div class="col-xs-1">
+                            <input class="form-control" placeholder="负责人" type="text" id="people"/>
+                        </div>
+                        <div class="col-xs-1">
+                            <button type="button" class="btn btn-default" id='searchbtn'>
+                                <i class="fa fa-search"></i> 查询
+                            </button>
+                        </div>
 
-                                        <label class="col-sm-2 control-label">选择所属省份:</label>
-                                        <div class="col-sm-4" style="padding-right: 0px;">
-                                            <select class="form-control" id="province">
-                                                <option value="">选择所属省份</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <label class="col-sm-2 control-label">客户名称:</label>
-                                        <div class="col-sm-4 input-daterange" style="padding-right: 0px;">
-
-                                            <input class="form-control" placeholder="客户名称/联系人/会议名称" type="text" id="companyName"/>
-
-                                        </div>
-
-                                        <label class="col-sm-2 control-label">负责人:</label>
-                                        <div class="col-sm-4 input-daterange" style="padding-right: 0px;">
-
-                                            <input class="form-control" placeholder="负责人" type="text" id="people"/>
-
-                                        </div>
-                                    </div>
-
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
-                                                <button type="button" class="btn btn-success" data-toggle="dropdown" id="searchbtn" >
-                                                    查询
-                                                </button>
-                                                <button type="button" class="btn btn-warning" id="clear">
-                                                    重置
-                                                </button>
-                                                <button type="button" class="btn btn-default" data-toggle="dropdown" id="cancel">
-                                                    取消
-                                                </button>
-                                            </div>
-                                        </div>
-                                        
-                                </form>
-                            </li>
-                        </ul>
                     </div>
+                    <div class="row" id="btnWrapper">
 
-                    <div class="pull-right" style="margin-right:20px;">
-                        <div class="row btn-group" id="btnWrapper"></div>
                     </div>
-
                 </div>
+                <div class="panel-body">
+                    <table id="datatable" class="table table-bordered table-responsive table-hover" style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;">
 
+                    </table>
+                </div>
             </div>
 
-            <div class="row l-table">
-               <table id="datatable" class="table table-bordered table-responsive table-hover">
-
-                </table>
-
-                </table>
-
-            </div>
         </div>
+
     </div>
+</div>
+<div class="tab-content">
+    <div class="panel-body">
+        <table id="datatableOffical" class="table table-bordered table-responsive table-hover" style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;">
+
+        </table>
+    </div>
+    <!-- <div class="panel-body">
+    <table id="datatablePending" class="table table-bordered table-responsive table-hover" style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;">
+
+    </table>
+    </div> -->
+</div>
 </div>
 <script id="delState" type="text/template">
     <div class="panel-body" style="font-size: 16px;">

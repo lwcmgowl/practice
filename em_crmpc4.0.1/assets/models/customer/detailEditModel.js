@@ -13,7 +13,11 @@ var detailEditModel = Backbone.Model.extend({
         case "patch":
             break;
         case "read":
-            detailEditService.getDetailData(options.id,options);
+            if(options.type==1){
+                detailEditService.getCustomer(options);
+            }else{
+              detailEditService.getDetailData(options.id,options);  
+            }
             break;
         case "delete":
             break;

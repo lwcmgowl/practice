@@ -255,8 +255,8 @@ function getInd() {
             }
         }
     }
-    $("#profession").html("<option value='00'>选择行业类别</option>" + proTHML);
-    $("#_profession").html("<option value='00'>选择行业类别</option>" + proTHML);
+    $("#profession").html("<option value=''>选择行业类别</option>" + proTHML);
+    $("#_profession").html("<option value=''>选择行业类别</option>" + proTHML);
 }
 function getPro(reg) {
     var reg =reg;
@@ -437,58 +437,58 @@ var btnHandlerFn = function(debarBtns) {
             }
             switch (btn) {
             case 'add':
-                top += '<div class="col-xs-1"><a class="btn btn-default purple" id="add"><i class="fa fa-plus"></i> 添加</a></div>';
+                top += '<button class="btn  btn-primary purple" id="add"><i class="fa fa-plus"></i> 添加</button>';
                 break;
             case 'import':
-                top += '<div class="col-xs-1"><button class="btn btn-default purple" id="import"><i class="fa fa-upload"></i> 导入</button></div>';
+                top += '<button class="btn  btn-primary purple" id="import"><i class="fa fa-upload"></i> 导入</button>';
                 break;
             case 'export':
-                top += '<div class="col-xs-1"><button class="btn btn-default purple" id="exportFile"><i class="fa fa-download"></i> 导出</button></div>';
+                top += '<button class="btn  btn-primary purple" id="exportFile"><i class="fa fa-download"></i> 导出</button>';
                 break;
             case 'expedm':
-                top += '<div class="col-xs-1"><button class="btn btn-default purple"  id="expedm"><i class="fa fa-download"></i> 导出EDM</button></div>';
+                top += '<button class="btn  btn-primary purple"  id="expedm"><i class="fa fa-download"></i> 导出EDM</button>';
                 break;
             case 'batchreport':
-                top += '<div class="col-xs-1"><button class="btn btn-default purple" onclick="batchreport();">批量上报</button></div>';
+                top += '<button class="btn  btn-primary purple" onclick="batchreport();">批量上报</button>';
                 break;
             case 'report':
-                row += '<a href="#report/@"> 提交上报 </a>';
+                row += '<a href="#report/@" class="rowstyle"> 提交上报 </a>';
                 break;
             case 'resubmit':
-                row += '<a href="#resubmit/@"> 重新提交 </a>';
+                row += '<a href="#resubmit/@" class="rowstyle"> 重新提交 </a>';
                 break;
             case 'assign':
-                row += '<a href="#assign/@"> 分配 </a>';
+                row += '<a href="#assign/@" class="rowstyle"> 分配 </a>';
                 break;
             case 'toopp':
-                row += '<a href="#toopp/@"> 转为机会 </a>';
+                row += '<a href="#toopp/@" class="rowstyle"> 转为机会 </a>';
                 break;
             case 'change':
-                row += '<a href="#change/@"> 改变状态 </a>';
+                row += '<a href="#change/@" class="rowstyle"> 改变状态 </a>';
                 break;
             case 'adjust':
-                row += '<a href="#adjust/@"> 调整阶段 </a>';
+                row += '<a href="#adjust/@" class="rowstyle"> 调整阶段 </a>';
                 break;
             case 'deliver':
-                row += '<a href="#deliver/@"> 转交客户 </a>';
+                row += '<a href="#deliver/@" class="rowstyle"> 转交客户 </a>';
                 break;
             case 'edit':
-                row += '<a href="#edit/@"> 编辑 </a>';
+                row += '<a href="#edit/@" class="rowstyle"> 编辑 </a>';
                 break;
             case 'del':
-                row += '<a href="#del/@" >删除 </a>';
+                row += '<a href="#del/@" class="rowstyle">删除 </a>';
                 break;
             case 'contact':
-                row += '<a href="#contact/@"> 联系人 </a>';
+                row += '<a href="#contact/@" class="rowstyle"> 联系人 </a>';
                 break;
             case 'transfer':
-               row += '<a href="#transfer/@"> 转移 </a>';
+               row += '<a href="#transfer/@" class="rowstyle">转移 </a>';
                 break;
             case 'convert':
-                row += '<a href="#convert/@"> 转交伙伴 </a>';
+                row += '<a href="#convert/@" class="rowstyle"> 转交伙伴 </a>';
                 break;
             case 'cancel':
-                row += '<a href="javascript:;" onclick="cancel(@);" id="cancelReport"> 取消上报 </a>';
+                row += '<a href="javascript:;" onclick="cancel(@);" id="cancelReport" class="rowstyle"> 取消上报 </a>';
                 break;
             case 'pageNotAssign':
                 top += '<div class="col-xs-1" id="NotAssign"><a class="btn btn-default  btn-primary"  id="pageNotAssign" href="clue_page.html?btns="><i class="fa fa-exchange"></i> 待分配</button></a></div>';
@@ -503,13 +503,13 @@ var btnHandlerFn = function(debarBtns) {
                 top += '<div class="col-xs-1"><button class="btn btn-default" id="exportAll"><i class="fa fa-cloud-download"></i> 导出全部</button></div>';
                 break;
             case 'againExamine':
-                row += '<a href="javascript:;" id="againExamine"></i> 再次送审商机</a>';
+                row += '<a href="javascript:;" id="againExamine" class="rowstyle"> <i class="fa fa-history" aria-hidden="true"></i>再次送审商机</a>';
                 break;
             case 'listExamine':
-                row += '<a href="javascript:;" id="listExamine"></i> 审核信息</a>';
+                row += '<a href="javascript:;" id="listExamine" class="rowstyle"><i class="fa fa-info-circle" aria-hidden="true"></i> 审核信息</a>';
                 break;
             case 'examine':
-                row += '<a href="javascript:;" id="examine"></i> 商机审核</a>';
+                row += '<a href="javascript:;" id="examine" class="rowstyle"></i><i class="fa fa-file-text-o" aria-hidden="true"></i> 商机审核</a>';
                 break;
 
             }

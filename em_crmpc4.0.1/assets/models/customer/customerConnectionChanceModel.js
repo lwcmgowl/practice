@@ -10,7 +10,11 @@ var customerConnectionChanceModel = Backbone.Model.extend({
         case "patch":
             break;
         case "read":
-            customerConnectionChanceService.request(options);
+            if(options.type==3){
+                customerConnectionChanceService.getDetail(options);
+            }else{
+                 customerConnectionChanceService.request(options);
+            }
             break;
         case "delete":
             break;

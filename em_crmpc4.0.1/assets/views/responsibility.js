@@ -15,7 +15,8 @@ var marketListView = Backbone.View.extend({
         'click #exportFile' : 'exportFile',
         'click #add' : 'add',
         'click #import' : 'import',
-        'click #expedm' : 'expedm'
+        'click #expedm' : 'expedm',
+        'click #clear':'clear'
     },
     model : new marketModel(),
     template : marketTemplate,
@@ -60,6 +61,11 @@ var marketListView = Backbone.View.extend({
                     marketViewInstance.load();
                 }
             }
+    },
+    //查询重置
+    clear : function() {
+        $('select,input').val('');
+        this.load();
     },
     delinfo : function(id) {
         var self = this;

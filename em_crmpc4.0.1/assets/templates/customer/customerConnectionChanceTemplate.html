@@ -1,17 +1,13 @@
-<section class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1><span id="csmNameTitle"></span></h1>
-                    <div class="row" id="btnWrapper">
-                        <!-- <div class="col-xs-5"></div> -->
-                        <div class="col-xs-2">
+<div class="ibox float-e-margins">
+        <div class="ibox-content" style="border-width: 0px;">
+                <div class="row" id="btnWrapper">
+           <div class="col-lg-6">
+                 <div class="col-xs-6">
                             <div class="form-group">
-                                <select class="form-control" id="opptStatId"></select>
+                                <select class="form-control" id="opptStatus"></select>
                             </div>
                         </div>
-                        <div class="col-xs-2">
+                        <div class="col-xs-4">
                             <input class="form-control" placeholder="机会名称" type="text" id="name" value="" />
                         </div>
                         <div class="col-xs-1">
@@ -19,27 +15,57 @@
                                 <i class="fa fa-search"></i> 查询
                             </button>
                         </div>
-                        <!-- <div class="col-xs-1" id="addChance">
-                            <a class="btn btn-default purple" id="addChances"><i class="fa fa-plus"></i>添加</a>
-                        </div> -->
-                        <div class="col-xs-1">
-                            <button class="btn btn-default purple" id="exportFile">
-                                <i class="fa fa-download"></i>导出
-                            </button>
-                        </div>
-                        <div class="col-xs-1" style="float:right;">
-                            <a href="" class="btn btn-default" id="backHref">返回</a>
-                        </div>
+              </div>
+              <div class="col-lg-6" style="text-align: right;">
+                  <div class="btn-group btn-group-sm" role="group" id="Setcontact">
+                      <button type="button" class="btn btn-info" id="exportCsOppFile"><i class="fa fa-download" style="margin-right: 4px;"></i>导出</button>
+                    </div>
+                  </div>
+                </div>
+            <div class="" style="margin-top:14px;">
+                <table id="customerChanceTable" class="table table-striped table-responsive table-hover"></table>
+            </div>
+        </div>
+    </div>
+    <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="chanceSlider" style="position: absolute;top: 0px;">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row">
+                <div class="col-md-7 col-sm-7">
+                    <h4 id="cusChancetitle" class="detail_title"></h4>
+                    <div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;">
+                    </div>
+                    <div class="detail_title" id="customerChanceNameDetail" style="margin-top: 24px;"></div>
+                    <div class="title_important_info"><span id="status">商机阶段:<a href="javascript:;" id="topOpptStat" data-type="select"  data-placement="right" data-placeholder="必填" class="editable editable-click" style=" padding-left: 4px;"></a></span>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <table id="datatable" class="table table-bordered table-responsive table-hover "style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;"></table>
-                    </table>
+                <div class="col-md-5 col-sm-5" style="margin-top: 10px;text-align: right;">
+                    <div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 20px;">
+                    </div>
+                    <a href="javascript:;" id="hrefBack"><i class="fa fa-reply" aria-hidden="true"></i>返回上一级</a>
                 </div>
             </div>
         </div>
     </div>
-</section>
+    <div class="ibox-content" style="border-width: 2px 0px;border-color: #dddddd;">
+        <ul class="list-unstyled list-inline" style="border-bottom: 1px solid #eaeaea;">
+
+            <li class="">
+                <a href="javascript:;"><span id="chanceInfo" class="hvr-underline-from-left active" style="padding-bottom: 10px;"> 详细信息 </span></a>
+            </li>
+            <li class="">
+                <a href="javascript:;"><span id="chanceDynamic" class="hvr-underline-from-left" style="padding-bottom: 10px;"> 跟进动态 </span></a>
+            </li>
+            <li class="">
+                <a href="javascript:;"><span id="chanceContact" class="hvr-underline-from-left" style="padding-bottom: 10px;"> 联系人信息 </span></a>
+            </li>
+        </ul>
+          <div id="" style="max-height: 510px; overflow-y: auto;overflow-x: hidden;">
+              <div id="chanceDetail"></div>
+          </div>
+            
+    </div>
+</nav>
 <script id="organizationTemplate" type="text/template">
                 <div class="panel-body">
                         <form class="form-horizontal">

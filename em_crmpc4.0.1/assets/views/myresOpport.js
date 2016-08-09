@@ -235,7 +235,7 @@ var marketListView = Backbone.View.extend({
     myResDetail:function(id){
         var self=this;
         var pushRight = document.getElementById( 'pushRight' );
-            classie.toggle( pushRight, 'cbp-spmenu-open' );
+            classie.addClass( pushRight, 'cbp-spmenu-open' );
                 $("#mask").css("height",$(document).height());     
                 $("#mask").css("width",$(document).width());     
                 $("#mask").show();
@@ -245,7 +245,7 @@ var marketListView = Backbone.View.extend({
     hideDetail:function(){
         var self=this;
         var pushRight = document.getElementById( 'pushRight' );
-            classie.toggle( pushRight, 'cbp-spmenu-open' );
+            classie.removeClass( pushRight, 'cbp-spmenu-open' );
             $("#mask").hide();
     },
     myResponDetailList:function(id){
@@ -261,7 +261,7 @@ var marketListView = Backbone.View.extend({
         self.model.fetch({
               success : function(cols, resp, options) {
               var info=resp.msg.item;
-               console.log(info)
+               self.model.set("customId",info.customId);
                $("#title").html(info.opptTtl);
                $("#customerNameDetail").html(info.csmName);
                $("#opptTtl").html(info.opptTtl);
@@ -633,9 +633,10 @@ var marketListView = Backbone.View.extend({
         $("#dynamic").removeClass("active");
         $("#contact").addClass("active");
         var contactId=this.model.get("id");
+        var customId=this.model.get("customId");
         var opportContact=["assets/services/contact.js", "assets/models/contact.js", "assets/views/contact.js"];
         loadSequence(opportContact,function(){
-                marketListViewInstances.initinfo(contactId);
+                marketListViewInstances.initinfo(contactId,customId);
             });
     },
      milliFormat:function(s){//添加千位符  

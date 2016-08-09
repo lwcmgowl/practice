@@ -51,7 +51,7 @@
         height: 15px;
         line-height: 15px;
         margin-right: 12px;
-        margin-top: 15px;
+        margin-top: 25px;
         max-width: 180px;
         overflow: hidden;
         padding-right: 12px;
@@ -76,8 +76,7 @@
         <div class="ibox-content">
             <div class="col-md-1" style="padding-left:0px;">
                 <div class="dropdown">
-                    <a class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"> 查询 <span
-                            class="caret"></span> </a>
+                    <a class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" style="background-color: #63adf2;border-color:#63adf2;color: #FFFFFF"> 查询 <span class="caret"></span> </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"
                         style="min-width: 710px;padding-right: 22px;">
                         <li role="presentation">
@@ -140,7 +139,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="row" id="btnWrapper" style="margin-bottom: 10px;"></div>
+            <div class="row" style="margin-bottom: 10px;">
+                 <div class="btn-group" id="btnWrapper" style="float: right;padding-right: 16px;">
+               </div>
+            </div>
             <div class="">
                 <table id="datatableEnterprise" class="table table-striped table-responsive table-hover"style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;"></table>
             </div>
@@ -151,17 +153,20 @@
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <div class="row">
-                <div class="col-md-8 col-sm-8">
+                <div class="col-md-7 col-sm-7">
                     <h4 id="title" class="detail_title"></h4>
+                     <div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;">
+                    </div>
                     <div class="detail_title" id="customerNameDetail"></div>
                     <div class="title_important_info"><span id="status">审核状态:</span>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4" id="buttons" style="margin-top: 10px;text-align: center;"></div>
+                <div class="col-md-5 col-sm-5" id="buttons" style="text-align: center;">
+                </div>
             </div>
         </div>
     </div>
-    <div class="ibox-content">
+    <div class="ibox-content" style="border-width: 2px 0px;border-color: #dddddd;">
         <ul class="list-unstyled list-inline" style="border-bottom: 1px solid #eaeaea;">
 
             <li class="">
@@ -226,8 +231,7 @@
             <form class="form-horizontal" id="productForm">
                 <div class="form-group"
                      style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
-                    <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil"
-                                                                                        style="color:#3C8DBC"></i></span>
+                    <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
                     <label class="col-sm-2 control-label" style="color: #3C8DBC;">基本信息 </label>
                 </div>
                 <div class="form-group">
@@ -298,8 +302,7 @@
                 <div style="display: none;" id="more">
                     <div class="form-group"
                          style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
-                        <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil"
-                                                                                            style="color:#3C8DBC"></i></span>
+                        <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
                         <label class="col-sm-2 control-label" style="color: #3C8DBC;">扩展信息 </label>
                     </div>
                     <div class="form-group">

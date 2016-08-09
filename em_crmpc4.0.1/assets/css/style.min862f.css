@@ -145,7 +145,7 @@ table.table-mail tr td {
 .ibox-tools a.btn-primary {
   color: #fff
 }
-.ibox-title #title{
+.ibox-title .detail_title{
     margin-top:0px;
 }
 #customerNameDetail{

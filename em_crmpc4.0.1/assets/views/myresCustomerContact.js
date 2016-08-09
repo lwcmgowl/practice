@@ -12,7 +12,7 @@ var marketListView = Backbone.View.extend({
     },
     events : {
         'click #searchcon' : function() {
-            this.load(this.model.get("id"));
+            this.load(this.model.get("opportId"));
         },
          'click #contactDynamic' : function() {
             this.contactDynamic(this.model.get("contactId"));
@@ -29,15 +29,16 @@ var marketListView = Backbone.View.extend({
         this.$el.empty();
         this.$el.append($(this.template()));
     },
-    initinfo : function(id,customId) {
+    initinfo : function(id,customId,flag) {
         var self = this;
         self.render();
         self.model.set("opportId",id);
         self.model.set("customId",customId);
+        self.model.set("flag",flag)
         $("#exportFiles").click(function(){
              self.exportFileContact();
             });
-        self.load(id);
+        self.load(id,flag);
         document.onkeypress = function(e) {
                 var code;
                 if (!e) {
@@ -53,15 +54,13 @@ var marketListView = Backbone.View.extend({
                 }
             }
     },
-    load : function(id) {
+    load : function(id,flag) {
         var self = this;
-        var req = new Request();
-        var flag = req.getParameter('flag');
         if (flag != "1") {
             $("#Setcontact").hide();
         }
         var param = {
-            "opportId" : id,
+            "customId" : id,
             "contactName" : $('#contacName').val()
         };
         new DataTable({
@@ -69,7 +68,7 @@ var marketListView = Backbone.View.extend({
             paging : true,
             pageSize : 6,
             ajax : {
-                url : '/opport/contact/pageOpportContact',
+                url : '/custom/contact/page',
                 data : param
             },
             columns : [{
@@ -91,11 +90,7 @@ var marketListView = Backbone.View.extend({
                 "data" : "teleNo",
                 "tip" : true,
                 "title" : "电话"
-            }, {
-                "data" : "csmName",
-                "tip" : true,
-                "title" : "客户名称"
-            }, {
+            },  {
                 "data" : "contactTypeId",
                 "tip" : true,
                 "title" : "角色关系"
@@ -110,22 +105,17 @@ var marketListView = Backbone.View.extend({
                         return html;
                 }
             },{
-                targets : 6,
+                targets : 5,
                 render : function(i, j, c) {
                     return appcan.contactType[c.contactTypeId];
                 }
             }, {
-                targets : 7,
+                targets : 6,
                 render : function(i, j, c) {
-                    var editType = 2;
-                    if (flag === "1") {
-                        editType = 1;
-                    }
                     var html="";
-                    //var html = '<a class="btn btn-default btn-xs" href="#dynamicEdit/' + c.id + '/04/'+editType+'/' + encodeURIComponent(c.csmName) + '">跟进动态</a> '+ "<a class='btn btn-default btn-xs' href='#opptcontactDetails/" + c.id + "' >查看</a> &nbsp;"
-                    if (flag === '1')
+                    if (flag == 1){
                         html += "<a href='javascript:;' onclick='marketListViewInstances.Cancelgl("+c.relationId+")'>移出</a>";
-
+                      }
                     return html;
                 }
             }]
@@ -138,7 +128,7 @@ var marketListView = Backbone.View.extend({
                 "opportId" : this.model.get("opportId"),
                 "contactName" : $('#contacName').val()
             };
-            var url = "/opport/contact/exportOppContact";
+            var url = "/custom/contact/exportOppContact";
             contactViewService.exportFile(data, url)
     },
     Radioroleof : function(){
@@ -171,11 +161,11 @@ var marketListView = Backbone.View.extend({
                             "ids" : contactId
                         };
                         ajax({
-                            url : "/opport/contact/addRelationKey",
+                            url : "/custom/contact/addRelationKey",
                             data : data,
                             success : function(data) {
                                 $.success("设置联系人成功！", null, null, function() {
-                                   self.load(self.model.get('opportId'));
+                                   self.load(self.model.get('opportId'),self.model.get('flag'));
                                 });
                             }
                         });
@@ -186,7 +176,7 @@ var marketListView = Backbone.View.extend({
                     className : "btn-default",
                     callback : function() {
                         peoples = [];
-                         self.load(self.model.get("id"));
+                         self.load(self.model.get("opportId"),self.model.get('flag'));
                     }
                 }
             },
@@ -198,12 +188,13 @@ var marketListView = Backbone.View.extend({
         });
     },
     contactDetail:function(id){
-        this.model.set("contactId",id);
+        var self=this;
+        self.model.set("contactId",id);
          var contactSlider = document.getElementById( 'contactSlider' );
             classie.addClass( contactSlider, 'cbp-spmenu-open' );
             $("#contactInfo").addClass("active");
             $("#contactDynamic").removeClass("active");
-            var opptcontactDetails=["assets/services/opptcontactDetails.js", "assets/models/opptcontactDetails.js", "assets/views/opptcontactDetails.js"];
+            var opptcontactDetails=["assets/services/cusOpptcontactDetails.js", "assets/models/opptcontactDetails.js", "assets/views/opptcontactDetails.js"];
              loadSequence(opptcontactDetails,function(){
                  var marketdetailInstance = new opprotContactdetailView();
                 marketdetailInstance.load(id);
@@ -216,14 +207,11 @@ var marketListView = Backbone.View.extend({
             $("#contactDynamic").addClass("active");
             var objEntityTypeId="04";
             var flag = req.getParameter('flag');
-            var editType = 2;
-            if (flag === "1") {
-                 editType = 1;
-            }
-             var dynamicOffical=['assets/services/dynamicOfficalTest.js','assets/models/dynamicOfficalTest.js','assets/views/contactDynamic.js'];
+            var editType = 1;
+             var dynamicOffical=['assets/services/dynamicOfficalTest.js','assets/models/dynamicOfficalTest.js','assets/views/cusContactDynamic.js'];
               loadSequence(dynamicOffical,function(){
                 var contactDynamicView= new contactDynamicEditModel();
-                contactDynamicView.getDynamicData(id,objEntityTypeId,editType);
+                contactDynamicView.getDynamicData(id,objEntityTypeId,editType,"/custom/opport");
             });
     },
      hrefBack : function() {
@@ -240,7 +228,7 @@ var marketListView = Backbone.View.extend({
             paging : true,
             pageSize : 6,
             ajax : {
-                url : '/opport/contact/pageContactNotId',
+                url : '/custom/contact/pageContactNotId',
                 data : param
             },
             columns : [{
@@ -322,7 +310,7 @@ var marketListView = Backbone.View.extend({
                         self.model.destroy({
                             success : function(cols, resp, options) {
                                 $.success("移除成功!", null, null, function() {
-                                     self.load(self.model.get("opportId"));
+                                     self.load(self.model.get("opportId"),self.model.get('flag'));
                                 });
                             },
                             error : function(cols, resp, options) {

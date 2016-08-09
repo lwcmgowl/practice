@@ -432,10 +432,10 @@ var myReportListView = Backbone.View.extend({
         $("#clue").removeClass("active");
         $.fn.editable.defaults.mode = 'inline';
         $("#detailpartdiv").html(myReportDetailTemplate);
-        var html = '';
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
         html += handlerRow(id, "edit");
         $("#buttons").html(html);
-        $('[href="#transfer/' + id + '"]').html("转移线索");
+        $('[href="#transfer/' + id + '"]').html("<i class='fa fa-retweet' aria-hidden='true'></i>转移线索");
         $('[href="#transfer/' + id + '"]').click(function(){
             self.transfer(id);
         })

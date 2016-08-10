@@ -1,3 +1,9 @@
+<style type="text/css">
+	.modal-body {
+    max-height: 550px;
+    overflow-y: auto;
+}
+</style>
 <div class="row l-mark-data">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -49,20 +55,20 @@
                                             <input class="form-control" placeholder="客户名称/联系人/会议名称" type="text" id="companyName">
 
                                         </div>
-                                       </div> 
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
-                                                <button type="button" class="btn btn-success" data-toggle="dropdown" id="searchbtn" >
-                                                    查询
-                                                </button>
-                                                <button type="button" class="btn btn-warning" id="clear">
-                                                    重置
-                                                </button>
-                                                <button type="button" class="btn btn-default" data-toggle="dropdown" id="cancel">
-                                                    取消
-                                                </button>
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
+                                            <button type="button" class="btn btn-success" data-toggle="dropdown" id="searchbtn" >
+                                                查询
+                                            </button>
+                                            <button type="button" class="btn btn-warning" id="clear">
+                                                重置
+                                            </button>
+                                            <button type="button" class="btn btn-default" data-toggle="dropdown" id="cancel">
+                                                取消
+                                            </button>
                                         </div>
+                                    </div>
                                 </form>
                             </li>
                         </ul>
@@ -73,13 +79,48 @@
                 </div>
             </div>
             <div class="row l-table">
-                <table id="datatable" class="table table-bordered table-responsive table-hover">
+                <table id="datatable" class="table table-striped table-responsive table-hover">
 
                 </table>
             </div>
         </div>
     </div>
 </div>
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="pushRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row">
+                <div class="col-md-8 col-sm-8">
+                    <h4 id="contactTitle" class="detail_title"></h4>
+                    <div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;">
+                    </div>
+                    <div class="detail_title" id="contactNameDetail" style="margin-top:24px;"><span id="contactMobi">1</span><b style="display: none;">|<b style="display: none;"><span id="contactTele" style="display: none;"></span></b></b></div>
+                    <div class="title_important_info" style="margin-top:36px;"></div>
+                </div>
+                <div class="col-md-4 col-sm-4" style="margin-top: 10px;text-align: right;">
+                    <div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 20px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content" style="border-width: 2px 0px;border-color: #dddddd;">
+        <ul class="list-unstyled list-inline" style="border-bottom: 1px solid #eaeaea;">
+
+            <li class="">
+                <a href="javascript:;"><span id="marketInfo" class="hvr-underline-from-left" style="padding-bottom: 10px;"> 详细信息 </span></a>
+            </li>
+            <li class="">
+                <a href="javascript:;"><span id="marketDynamic" class="hvr-underline-from-left" style="padding-bottom: 10px;"> 跟进动态 </span></a>
+            </li>
+            
+        </ul>
+        <div class="" id="partnerDetail">
+            <div id="detailpartdiv"></div>
+        </div>
+    </div>
+</nav>
+<div id="mask" class="mask"></div>
 <script id="delState" type="text/template">
     <div class="panel-body" style="font-size: 16px;">
     确定要删除吗？
@@ -181,148 +222,182 @@
     </form>
     </div>
 </script>
-<!-- <script id="addMarket" type="text/template">
-<div class="panel-body">
-<form class="form-horizontal">
-<div class="form-group">
-<label class="col-sm-2 control-label">客户名称: </label>
-<div class="col-sm-6"><input type="text" required class="form-control" id="_companyName" maxlength="40"></div>
-<span class="text-danger">*(客户名称字符个数不能超过40个!)</span>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">联系人: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="contactName"></div>
-<span class="text-danger">*(姓名字符个数不能超过40个!)</span>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">手机: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="mobile"></div>
-<span class="text-danger">*(手机和座机任选一个必填)</span>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">电话: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="teleNo"></div>
-<span class="text-danger">*(手机和座机任选一个必填)</span>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">所属团队 : </label>
-<div class="col-sm-6">
-<select class="form-control" id="_region" required onchange="javascript:getInd()">
-<option value="">选择所属团队</option>
-</select>
-</div>
-<span class="text-danger">*(必选!)</span>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">行业类别 : </label>
-<div class="col-sm-6">
-<select class="form-control" id="_profession" required>
-<option value="">选择行业类别</option>
-</select>
-</div>
-<span class="text-danger">*(必选!)</span>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">所属省份 : </label>
-<div class="col-sm-6">
-<select id="s_province" name="s_province" selectedindex="0" required class="form-control col-xs-2">
-</select>
-</div>
-<span class="text-danger">*(必选!)</span>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">QQ: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="QQ"></div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">微信: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="weChat"></div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">邮箱: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="email"></div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">部门: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="department"></div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">职务: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="post"></div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">数据来源 : </label>
-<div class="col-sm-4">
-<select class="form-control" id="dataSource" onchange="javascript:industryHuiyi();">
-<option value="00">选择数据来源 </option>
-</select>
-</div>
-</div>
-<div class="form-group" id="meeting" style="display: none;">
-<label class="col-sm-2 control-label">会议名称: </label>
-<div class="col-sm-6"><input type="text" class="form-control" id="meetingName"/></div>
-<span class="text-danger">*（必填）</span>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">产品类型 : </label>
-<div class="col-sm-4">
-<select class="form-control" id="productType">
-<option value="00">选择产品类型</option>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">客户级别 : </label>
-<div class="col-sm-4">
-<select class="form-control" id="Customerlevel">
-<option value="00">选择客户级别</option>
-</select>
-</div>
-</div>
+<script id="addMarket" type="text/template">
+    <div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="panel">
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group"style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+                    <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+                    <label class="col-sm-2 control-label" style="color: #3C8DBC;">基本信息 </label>
+                </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">客户名称:</label>
+                        <div class="col-sm-6">
+                            <input type="text" required="" class="form-control" id="acompanyName" maxlength="40" placeholder="客户名称字符个数不能超过40个!">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">联系人:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="acontactName" maxlength="40" placeholder="姓名字符个数不能超过40个">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">手机:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="amobile" placeholder="手机和座机任选一个必填!">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">电话:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="ateleNo" placeholder="手机和座机任选一个必填!">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属团队:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="_region" required="" onchange="javascript:getInd()"><option value="">选择所属团队</option><option value="3">团队1</option><option value="31">团队10</option><option value="4">团队2</option><option value="32">团队11</option><option value="8">团队6</option><option value="6">团队4</option><option value="33">团队12</option><option value="12">团队8</option><option value="7">团队5</option><option value="9">团队7</option><option value="36">团队15</option><option value="47">团队16</option><option value="5">团队3</option><option value="34">团队13</option><option value="26">团队9</option><option value="50">团队17</option><option value="51">团队18</option><option value="35">团队14</option><option value="1">待确认</option></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">行业类别:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="_profession" required="">
+                                <option value="">选择行业类别</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属省份:</label>
+                        <div class="col-sm-6">
+                            <select id="aprovince" name="aprovince" selectedindex="0" required="" class="form-control col-xs-2"></select>
+                        </div>
+                    </div>
+                      <div class="form-group">
+                    <a href="javascript:;" id="show" style="cursor: pointer;">更多信息>></a>
+                </div>
+                <div style="display: none;" id="more">
+                    <div class="form-group"
+                         style="border-bottom: 1px solid #eff2f7;background: #F9F9F9;padding-bottom: 8px;">
+                        <span class="text-danger" style="float: left; margin-top: 6px;"> <i class="fa fa-pencil" style="color:#3C8DBC"></i></span>
+                        <label class="col-sm-2 control-label" style="color: #3C8DBC;">扩展信息 </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">QQ: </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="aQQ">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">微信: </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="aweChat">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">邮箱: </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="aemail">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">部门: </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="adepartment">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">职务: </label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="apost">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">数据来源:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="dataSource" onchange="javascript:industryHuiyi();"> <option value="">选择数据来源 </option></select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="meeting" style="display: none;">
+                        <label class="col-sm-2 control-label">会议名称:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="meetingName" placeholder="必填">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">产品类型:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="aproductType">
+                                 <option value="">选择产品类型</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">客户级别:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="acustomerLevel">
+                                 <option value="">选择客户级别</option>
+                            </select>
+                        </div>
+                    </div>
 
-<div class="form-group">
-<label class="col-sm-2 control-label">客户性质 : </label>
-<div class="col-sm-4">
-<select class="form-control" id="csmNature">
-<option value="00">选择客户性质</option>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">客户规模 : </label>
-<div class="col-sm-4">
-<select class="form-control" id="csmScale">
-<option value="00">选择客户规模</option>
-</select>
-</div>
-</div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">客户性质:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="acsmNature">
+                                 <option value="">选择客户性质</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">客户规模:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="acsmScale">
+                                 <option value="">选择客户规模</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地址:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="aaddress">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">邮编:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="apostcode">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">官网:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="awebsite">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">传真:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="afax">
+                        </div>
+                    </div>
 
-<div class="form-group">
-<label class="col-sm-2 control-label">地址: </label>
-<div class="col-sm-6"><input type="text" class="form-control"/ id="address"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注/需求:</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" cols="30" rows="5" id="aremark" style="resize: none;"></textarea>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="form-group">
-<label class="col-sm-2 control-label">邮编: </label>
-<div class="col-sm-6"><input type="text" class="form-control"/ id="postcode"></div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">官网: </label>
-<div class="col-sm-6"><input type="text" class="form-control"/ id="website"></div>
-</div>
-<div class="form-group">
-<label class="col-sm-2 control-label">传真: </label>
-<div class="col-sm-6"><input type="text" class="form-control"/ id="fax"></div>
-</div>
-
-<div class="form-group">
-<label class="col-sm-2 control-label" style="font-size: 12px;">备注/需求 : </label>
-<div class="col-sm-6">
-<textarea class="form-control" cols="60" rows="10" id="remark"></textarea>
-</div>
-</div>
-</form>
-</div>
-</script> -->
+</script>
 <script src="js/assets/common/bootbox.js"></script>
 <script src="js/assets/common/jquery.form.js"></script>
 

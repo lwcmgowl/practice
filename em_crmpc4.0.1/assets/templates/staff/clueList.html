@@ -1,139 +1,225 @@
+<div class="row l-mark-data">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+<h5>线索管理</h5>
+</div>
+<div class="ibox-content">
+<div class="row">
+<div class="col-md-12">
+<div class="pull-left dropdown">
+<a  class="btn btn-primary dropdown-toggle l-dropdown-toggle" data-toggle="dropdown"> 查询 <span class="caret"></span></a>
+<ul class="dropdown-menu" aria-labelledby="searchbtn" style="min-width: 710px;padding-right: 22px;">
+<li role="presentation">
+<form class="form-horizontal">
+<div class="form-group">
+
+<label class="col-sm-2 control-label">选择行业类别:</label>
+<div class="col-sm-4" style="padding-right: 0px;">
+<select class="form-control" id="profession">
+<option value="">选择行业类别</option>
+</select>
+</div>
+
+<label class="col-sm-2 control-label">选择所属团队:</label>
+<div class="col-sm-4" style="padding-right: 0px;">
+<select class="form-control" id="bigRegions">
+<option value="">选择所属团队</option>
+</select>
+</div>
+
+</div>
+<div class="form-group">
+
+<label class="col-sm-2 control-label">选择线索状态:</label>
+<div class="col-sm-4" style="padding-right: 0px;">
+<select class="form-control" id="clueState">
+<option value="">选择线索状态</option>
+</select>
+</div>
+
+<label class="col-sm-2 control-label">客户名称:</label>
+<div class="col-sm-4 input-daterange" style="padding-right: 0px;">
+
+<input class="form-control" placeholder="客户名称/联系人" type="text" id="csmName"/>
+</div>
+</div>
+<div class="form-group">
+<label class="col-sm-2 control-label">线索上报人:</label>
+<div class="col-sm-4" style="padding-right: 0px;">
+<input class="form-control" placeholder="线索上报人" type="text" id="reportPeople"/>
+</div>
+
+<label class="col-sm-2 control-label">线索负责人:</label>
+<div class="col-sm-4 input-daterange" style="padding-right: 0px;">
+<input class="form-control" placeholder="线索负责人" type="text" id="responsibilityPeople"/>
+</div>
+</div>
+<div class="form-group">
+<div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
+<button type="button" class="btn btn-success" data-toggle="dropdown" id="searchbtn" >
+查询
+</button>
+<button type="button" class="btn btn-warning" id="clear">
+重置
+</button>
+<button type="button" class="btn btn-default" data-toggle="dropdown" id="cancel">
+取消
+</button>
+</div>
+</div>
+</form>
+</li>
+</ul>
+</div>
+<div class="pull-right" style="margin-right:20px;">
+<div class="row btn-group" id="btnWrapper"></div>
+</div>
+</div>
+</div>
+<div class="row l-table">
+<table id="datatable" class="table table-striped table-responsive table-hover">
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<!--
 <div class="row">
 
-                <div class="col-md-12 col-sm-12">
+    <div class="col-md-12 col-sm-12">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h1>线索管理</h1>
-                            <div class="row" id="btnWrapper1">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <select class="form-control" id="industrycategory">
-                                            <option value="">选择行业类别</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <select class="form-control" id="bigRegions">
-                                            <option value="">选择所属团队</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2" id="">
-                                    <div class="form-group">
-                                        <select class="form-control" id="clueState">
-                                            <option value="">选择线索状态</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <input class="form-control" placeholder="客户名称/联系人" type="text" id="csmName"/>
-                                </div>
-                                <div class="col-md-2">
-                                    <input class="form-control" placeholder="线索上报人" type="text" id="reportPeople"/>
-                                </div>
-                                <div class="col-md-1">
-                                    <input class="form-control" placeholder="线索负责人" type="text" id="responsibilityPeople"/>
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="button" class="btn btn-default" id='searchbtn'>
-                                        <i class="fa fa-search"></i> 查询
-                                    </button>
-                                </div>                         
-                            </div>
-                            <div class="row" id="btnWrapper">
-                                
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <table id="datatable" class="table table-bordered table-responsive table-hover"
-                            style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;"></table>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>线索管理</h1>
+                <div class="row" id="btnWrapper1">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <select class="form-control" id="industrycategory">
+                                <option value="">选择行业类别</option>
+                            </select>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <select class="form-control" id="bigRegions">
+                                <option value="">选择所属团队</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2" id="">
+                        <div class="form-group">
+                            <select class="form-control" id="clueState">
+                                <option value="">选择线索状态</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" placeholder="客户名称/联系人" type="text" id="csmName"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control" placeholder="线索上报人" type="text" id="reportPeople"/>
+                    </div>
+                    <div class="col-md-1">
+                        <input class="form-control" placeholder="线索负责人" type="text" id="responsibilityPeople"/>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default" id='searchbtn'>
+                            <i class="fa fa-search"></i> 查询
+                        </button>
+                    </div>
+                </div>
+                <div class="row" id="btnWrapper">
 
                 </div>
-
             </div>
- <!-------取消上报------------------>
- <script id="delinfo" type="text/template">
+            <div class="panel-body">
+                <table id="datatable" class="table table-bordered table-responsive table-hover"
+                style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;"></table>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+<!-------取消上报------------------>
+<script id="delinfo" type="text/template">
     <div class="panel-body" style="font-size: 16px;">
     您确认取消上报此数据吗？
     </div>
-</script>           
+</script>
 <!-- 分配 -->
-            <script id="organizationTemplate" type="text/template">
-                <div class="panel-body">
-                <form class="form-horizontal">
-                <div class="form-group">
-                <label class="col-sm-3 control-label">客户名称 : </label>
-                <div class="col-sm-7 u-word" id="companyName1"></div>
-                </div>
-                <div class="form-group">
-                <label class="col-sm-3 control-label">所属团队 : </label>
-                <div class="col-sm-6">
-                <select class="form-control" id="region">
+<script id="organizationTemplate" type="text/template">
+    <div class="panel-body">
+    <form class="form-horizontal">
+    <div class="form-group">
+    <label class="col-sm-3 control-label">客户名称 : </label>
+    <div class="col-sm-7 u-word" id="companyName1"></div>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-3 control-label">所属团队 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" id="region">
 
-                </select>
-                </div>
-                </div>
-                <div class="form-group">
-                <label class="col-sm-3 control-label">行业类别 : </label>
-                <div class="col-sm-6">
-                <select class="form-control" id="profession">
-                        
-                </select>
-                </div>
-                </div>
+    </select>
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-3 control-label">行业类别 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" id="profession">
 
-                <div class="form-group">
-                <label class="col-sm-3 control-label">分配给 : </label>
-                <div class="col-sm-6">
-                <select class="form-control" id="assigner">
-                         <option value="00">请选择线索分配人</option>
-                </select>
-                </div>
-                </form>
-                </div>
-            </script>
-            <!----------------转移----------------->
-             <script id="transfer1" type="text/template">
-                <div class="panel-body">
-                <form class="form-horizontal">
-                <div class="form-group ">
-                <label class="col-sm-3 control-label">客户名称 : </label>
-                <div class="col-sm-6">
-                <div class="form-control1" id="tmplCompanyName" style="margin-top: 6px;">
+    </select>
+    </div>
+    </div>
 
-                </div>
-                </div>
-                </div>
-                <div class="form-group ">
-                <label class="col-sm-3 control-label">所属团队 : </label>
-                <div class="col-sm-6">
-                <select class="form-control" data-info="" id="region">
-                </select>
+    <div class="form-group">
+    <label class="col-sm-3 control-label">分配给 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" id="assigner">
+    <option value="00">请选择线索分配人</option>
+    </select>
+    </div>
+    </form>
+    </div>
+</script>
+<!----------------转移----------------->
+<script id="transfer1" type="text/template">
+    <div class="panel-body">
+    <form class="form-horizontal">
+    <div class="form-group ">
+    <label class="col-sm-3 control-label">客户名称 : </label>
+    <div class="col-sm-6">
+    <div class="form-control1" id="tmplCompanyName" style="margin-top: 6px;">
 
-                </div>
-                </div>
-                <div class="form-group ">
-                <label class="col-sm-3 control-label">行业类别 : </label>
-                <div class="col-sm-6">
-                <select class="form-control" data-info="" id="profession">
-                </select>
+    </div>
+    </div>
+    </div>
+    <div class="form-group ">
+    <label class="col-sm-3 control-label">所属团队 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" data-info="" id="region">
+    </select>
 
-                </div>
-                </div>
-                <div class="form-group">
-                <label class="col-sm-3 control-label">转移给 : </label>
-                <div class="col-sm-6">
-                <select class="form-control" id="transferPerson">
-                   <option value="00">请选择线索负责人</option>
-                </select>
-                </div>
-                </div>
-                </form>
-                </div>
-            </script>
+    </div>
+    </div>
+    <div class="form-group ">
+    <label class="col-sm-3 control-label">行业类别 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" data-info="" id="profession">
+    </select>
+
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="col-sm-3 control-label">转移给 : </label>
+    <div class="col-sm-6">
+    <select class="form-control" id="transferPerson">
+    <option value="00">请选择线索负责人</option>
+    </select>
+    </div>
+    </div>
+    </form>
+    </div>
+</script>
 <script src="js/assets/common/bootbox.js"></script>
-<script src="js/assets/common/jquery.form.js"></script>                        
+<script src="js/assets/common/jquery.form.js"></script>

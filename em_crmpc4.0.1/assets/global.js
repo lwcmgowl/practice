@@ -467,10 +467,10 @@ var btnHandlerFn = function(debarBtns) {
                 row += '<a href="#change/@" class="rowstyle"> 改变状态 </a>';
                 break;
             case 'adjust':
-                row += '<a href="#adjust/@" class="rowstyle"> 调整阶段 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="adjust"> <i class="fa fa-refresh" aria-hidden="true"></i>调整阶段 </a>';
                 break;
             case 'deliver':
-                row += '<a href="#deliver/@" class="rowstyle"> 转交客户 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="deliver"><i class="fa fa-share-square" aria-hidden="true"></i> 转交客户 </a>';
                 break;
             case 'edit':
                 row += '<a href="#edit/@" class="rowstyle"> 编辑 </a>';

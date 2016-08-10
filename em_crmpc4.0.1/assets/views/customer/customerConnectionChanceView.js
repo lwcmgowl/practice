@@ -18,7 +18,7 @@ var customerConnectionChanceMainView = Backbone.View.extend({
     },
     events : {
         'click #searchchance' : function() {
-            this.load();
+            this.load(objId);
         },
          'click #hrefBack' : 'hrefBack',
          "click #chanceDynamic":function(){
@@ -56,10 +56,11 @@ var customerConnectionChanceMainView = Backbone.View.extend({
         };
         return optionHTML;
     },
-    initInfo : function(id) {
+    initInfo : function(id,type) {
         var self = this;
         self.render();
-        self.load(id)
+        self.load(id);
+        self.model.set("type",type);
         $("#opptStatus").html("<option value=''>选择机会阶段</option>" + self.getOption(appcan.opptStat));
          $("#exportCsOppFile").click(function() {
             self.exportCsOppFile();
@@ -150,28 +151,7 @@ var customerConnectionChanceMainView = Backbone.View.extend({
                     else
                         return '';
                 }
-            } 
-            // {
-                // targets : 6,
-                // width : "200px",
-                // render : function(i, j, c) {
-                    // var hrefDynamic = "#dynamic/" + c.id + "/" + encodeURIComponent(self.model.csmNametitle) + "/03/1/1";
-                    // var hrefDynamicURL = "<a class='btn btn-default btn-xs'  href='" + hrefDynamic + "' >跟进动态</a> &nbsp;";
-// 
-                    // var editChane = '<a class="btn btn-default btn-xs" href="#editChane/' + c.id + '/' + c.customId + '/custom" >编辑</a> '
-                    // var changeChance = '<a class="btn btn-default btn-xs" href="javascript:;"  onclick="customerConnectionChanceMainViewInstance.changeOppt(\'' + encodeURIComponent(JSON.stringify(c)) + '\');">调整阶段</a> '
-// 
-                    // var detail = "#opportDetails/" + c.id + "/" + chanceURL;
-                    // var detailURL = "<a class='btn btn-default btn-xs'  href='" + detail + "' >查看</a> &nbsp";
-// 
-                    // var customer = "#customer/" + c.id + "/" + c.opptTtl + "/5/" + objId + "";
-                    // var customerURL = "<a class='btn btn-default btn-xs'  href='" + customer + "'>联系人</a> &nbsp";
-                    // var html = hrefDynamicURL + editChane + changeChance + detailURL + customerURL;
-// 
-                    // return html;
-                // }
-            // }
-            ]
+            }]
         });
     },
     myResDetail:function(id){
@@ -535,6 +515,10 @@ var customerConnectionChanceMainView = Backbone.View.extend({
                     }
                 });
                   $("#salesUserName").html(info.salesUserName);
+                  if(self.model.get("type")==2){
+                      $("#detailOpport .editable").editable('disable');
+                      $('#topOpptStat,#editcsmStatId,#editsalesUserId').editable('disable');
+                  }
             },
             error : function(cols, resp, options) {
 
@@ -550,7 +534,11 @@ var customerConnectionChanceMainView = Backbone.View.extend({
         $("#chanceDynamic").addClass("active");
         $("#chanceContact").removeClass("active");
          var objEntityTypeId="03";
-         var editType=1;
+         if(self.model.get("type")==2){
+            var editType=2;  
+         }else{
+            var editType=1;
+         }
          var cusChanceId=self.model.get("cusChanceId");
          var dynamicOffical=['assets/services/dynamicOfficalTest.js','assets/models/dynamicOfficalTest.js','assets/views/dynamicCusChance.js'];
           loadSequence(dynamicOffical,function(){
@@ -564,7 +552,11 @@ var customerConnectionChanceMainView = Backbone.View.extend({
         $("#chanceInfo").removeClass("active");
         $("#chanceDynamic").removeClass("active");
         $("#chanceContact").addClass("active");
-        var flag=1;
+         if(self.model.get("type")==2){
+            var  flag=3;  
+         }else{
+             var flag=1;
+         }
         var csChContactId=self.model.get("cusChanceId");
         var opportContact=["assets/services/customerContact.js", "assets/models/contact.js", "assets/views/customerContact.js?"+Date.parse(new Date())];
         loadSequence(opportContact,function(){

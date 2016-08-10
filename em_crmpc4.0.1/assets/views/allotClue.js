@@ -39,7 +39,13 @@ var allotClueView = Backbone.View.extend({
         },
         'click #searchBtn' : function() {
             this.search();
-        }
+        },
+        'click #clear':'clear'
+    },
+     //查询重置
+    clear : function() {
+        $('select,input').val('');
+        this.load();
     },
     search : function() {
         var self=this;
@@ -50,7 +56,7 @@ var allotClueView = Backbone.View.extend({
             "csmName" : $.trim($('#csmName').val()),
             "companyName" : $.trim($('#csmName').val()),
             "dataType" : 1,
-            "submitState" : 0
+            "submitState" : $('#submitState').val(),
            };
                 new DataTable({
                     id : '#datatableOffical',
@@ -85,9 +91,6 @@ var allotClueView = Backbone.View.extend({
                     }, {
                         "data" : "marketUserName",
                         "title" : "线索上报人"
-                    }, {
-                        "data" : null,
-                        "title" : "操作"
                     }],
                     columnDefs : [{
                         targets : 7,
@@ -140,7 +143,7 @@ var allotClueView = Backbone.View.extend({
         var dataObj = {
             "entityType" : "allocatedNotFenpei",
             "assigner" : appcanUserInfo.userId,
-            "submitState" : "0",
+             "submitState" : $('#submitState').val(),
             "profession" : $('#industrycategory').val(),
             "region" : $('#bigRegions').val(),
             "companyName" : $.trim($('#csmName').val()),

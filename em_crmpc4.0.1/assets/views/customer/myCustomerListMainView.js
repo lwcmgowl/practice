@@ -6,7 +6,8 @@ var myCustomerListMainView = Backbone.View.extend({
         this.stickit();
 
     },
-    el : '#main_content',
+    el : '#contentdiv',
+    collection : new BaseTableCollection(),
     bindings : {
         "#level" : {
             observe : 'level'
@@ -28,11 +29,27 @@ var myCustomerListMainView = Backbone.View.extend({
         }
     },
     events : {
-        'submit' : 'load',
         'click #searchbtn' : function() {
+            $('.dropdown').removeClass('open');
+            $("#dropdownMenu1").attr("aria-expanded", "false")
             this.load();
         },
-        'click #exportFile' : 'exportFile'
+        'click #exportFile' : 'exportFile',
+         'click #cancel' : "cancel",
+         'click #clear' : "clear",
+         "click #mask":function(){
+            this.hideDetail();
+        },
+        "click #customerInfo":function(){
+            this.customerDetailList(this.model.get("id"));
+        },
+         "click #businessInfo":function(){
+            this.businessInfo();
+        },
+        "click #cuscontactInfo":function(){
+            this.cuscontactInfo();
+        },
+       
     },
      render : function() {
         this.$el.empty();
@@ -56,7 +73,6 @@ var myCustomerListMainView = Backbone.View.extend({
                 $("#profession").html("<option value=''>选择行业类别</option>" + self.profession(list));
             },
             error : function(cols, resp, options) {
-                //alert(resp.msg);
             }
         });
         //加载数据
@@ -110,7 +126,7 @@ var myCustomerListMainView = Backbone.View.extend({
             "csmNature" : $('#csmNature').val(),
             "region" : $('#region').val(),
             "csmStatId" : $('#csmStatId').val(),
-            "csmName" : $.trim($('#csmName').val())
+            "csmName" : $.trim($('#business').val())
         };
         var type = "exportFile";
         var url = "/custom/exportCustom";
@@ -126,7 +142,7 @@ var myCustomerListMainView = Backbone.View.extend({
             "csmNature" : $('#csmNature').val(),
             "region" : $('#region').val(),
             "csmStatId" : $('#csmStatId').val(),
-            "csmName" : $.trim($('#csmName').val()),
+            "csmName" : $.trim($('#business').val()),
             "subordinateFlg" : "1"
         };
         new DataTable({
@@ -158,11 +174,20 @@ var myCustomerListMainView = Backbone.View.extend({
             }, {
                 "data" : "csmStatId",
                 "title" : "客户状态"
-            }, {
-                "data" : null,
-                "title" : "操作"
             }],
             columnDefs : [{
+                targets : 0,
+                render : function(i, j, c) {
+                        var maxwidth=8;
+                        if(c.csmName.length>maxwidth){
+                             var html = "<a href='javascript:;' onclick='myCustomerListMainViewInstance.customerDetail(\"" + c.id + "\")' title=" + c.csmName + ">" + c.csmName.substring(0,maxwidth)+"..." + "</a>";
+                              return html;
+                        }else{
+                             var html = "<a href='javascript:;' onclick='myCustomerListMainViewInstance.customerDetail(\"" + c.id + "\")' title=" + c.csmName + ">" + c.csmName + "</a>";
+                             return html;
+                        };
+                }
+            },{
                 targets : 1,
                 width : '80px',
                 render : function(i, j, c) {
@@ -189,28 +214,85 @@ var myCustomerListMainView = Backbone.View.extend({
                     else
                         return '';
                 }
-            }, {
-                targets : 7,
-                width : "200px",
-                render : function(i, j, c) {
-                    //var hrefDynamic = "#dynamic/" + c.id + "/" + encodeURIComponent(c.csmName) + "/operatelog/1";
-                    //var hrefDynamicURL = "<a class='btn btn-default btn-xs' id='dynamic' href='" + hrefDynamic + "' >动态</a> &nbsp;";
-                    // var hrefDynamic = "#dynamic/" + c.id + "/" + encodeURIComponent(c.csmName) + "/operatelog/2/1";
-                    // var hrefDynamicURL = "<a class='btn btn-default btn-xs'  href='" + hrefDynamic + "' >跟进动态</a> &nbsp;";             
-                    var detail = "#detail/" + c.id;
-                    var detailURL = "<a class='btn btn-default btn-xs'  href='" + detail + "' >查看</a> &nbsp";
-
-                    var chance = "#mystaffchance/" + c.id + "/" + decodeURI(c.csmName) + "/1";
-                    var chanceURL = "<a class='btn btn-default btn-xs'  href='" + chance + "'>机会</a> &nbsp";
-
-                    var customer = "#customer/" + c.id + "/" + decodeURI(c.csmName) + "/1/null";
-                    var customerURL = "<a class='btn btn-default btn-xs'  href='" + customer + "'>联系人</a> &nbsp";
-                    //拼装 html
-                    var html =customerURL + chanceURL + detailURL;
-                    return html;
-                }
-            }]
+            }],
+            complete : function(list) {
+                self.collection.set(list);
+            }
         });
+    },
+      cancel : function() {
+        $('.dropdown').removeClass('open');
+        $("#dropdownMenu1").attr("aria-expanded", "false")
+    },
+    //查询重置
+    clear : function() {
+        $("#level").val('');
+        $("#sprofession").val('');
+        $("#csmNature").val('');
+        $("#region").val('');
+        $("#csmStatId").val('');
+        $("#business").val('');
+        this.load();
+    },
+     customerDetail:function(id){
+         var self=this;
+         var pushRight = document.getElementById( 'pushRight' );
+            classie.addClass( pushRight, 'cbp-spmenu-open' );
+                $("#mask").css("height",$(document).height());     
+                $("#mask").css("width",$(document).width());     
+                $("#mask").show();
+            self.model.set("id",id); 
+            self.customerDetailList(id);
+    },
+    //详情
+    customerDetailList:function(id){
+         var self=this;
+       var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
+        html += handlerRow(id, "edit");
+        $("#buttons").html(html);
+        $("#customerInfo").addClass("active");
+        $("#businessInfo").removeClass("active");
+        $("#cuscontactInfo").removeClass("active");
+        var type=2;
+       var customerDetail=["assets/services/customer/detailEditService.js", "assets/models/customer/detailEditModel.js", "assets/views/customer/detailEditView.js"];
+         loadSequence(customerDetail,function(){
+                 var detailEditModelMainViewInstance = new detailEditModelMainView();
+                 detailEditModelMainViewInstance.intInfo(id,type);
+            });
+    },
+    //商机信息
+    businessInfo:function(){
+         var self=this;
+        $("#customerInfo").removeClass("active");
+        $("#businessInfo").addClass("active");
+        $("#cuscontactInfo").removeClass("active");
+        var type=2;
+        var chanceId=self.model.get("id");
+        var  chance=["assets/services/customer/customerConnectionChanceService.js", "assets/models/customer/customerConnectionChanceModel.js", "assets/views/customer/customerConnectionChanceView.js"];
+        loadSequence(chance,function(){
+                 customerConnectionChanceMainViewInstance.initInfo(chanceId,type);
+            });
+    },
+    //联系人信息
+    cuscontactInfo:function(){
+         var self=this;
+        $("#customerInfo").removeClass("active");
+        $("#businessInfo").removeClass("active");
+        $("#cuscontactInfo").addClass("active");
+        var contactCsId=self.model.get("id");
+        var customerName=this.collection.get(contactCsId).toJSON().csmName;
+        var flag=3;
+        var objId=null;
+        var opportContact=["assets/services/customerContact.js", "assets/models/contact.js", "assets/views/myresCustomerContact.js?"+Date.parse(new Date())];
+        loadSequence(opportContact,function(){
+                marketListViewInstances.initinfo(contactCsId,objId,flag,customerName);
+            });
+    },
+     hideDetail:function(){
+        var self=this;
+        var pushRight = document.getElementById( 'pushRight' );
+            classie.removeClass( pushRight, 'cbp-spmenu-open' );
+            $("#mask").hide();
     }
 });
 var myCustomerListMainViewInstance = new myCustomerListMainView();

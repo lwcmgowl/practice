@@ -16,12 +16,12 @@ var detailEditModelMainView = Backbone.View.extend({
     events : {
         'class #btn btn-default' : 'backHref'
     },
-    intInfo : function(id) {
+    intInfo : function(id,type) {
         var self=this;
         self.render();
-        self.getDetailData(id);
+        self.getDetailData(id,type);
     },
-    getDetailData : function(detailId) {
+    getDetailData : function(detailId,type) {
         var self = this;
         $.fn.editable.defaults.mode = 'inline';
         this.model.fetch({
@@ -524,8 +524,11 @@ var detailEditModelMainView = Backbone.View.extend({
                         }
                     }
                 });
-                 $("#editsalesUserId").html(info.salesUserName);
-                 $('#topCusStat,#editcsmStatId,#editsalesUserId').editable('disable');
+                if(type==2){
+                     $('#customerDetail .editable').editable('disable');
+                }
+                $("#editsalesUserId").html(info.salesUserName);
+                $('#topCusStat,#editcsmStatId,#editsalesUserId').editable('disable');
             },
             error : function(cols, resp, options) {
             },

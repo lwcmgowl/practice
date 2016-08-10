@@ -6,7 +6,7 @@ var marketdetailView = Backbone.View.extend({
     initialize : function() {
         
     },
-    el : '#contentdiv',
+    el : '#detailpartdiv',
     render : function() {
         this.$el.empty();
         var el =  $(this.template());
@@ -65,10 +65,6 @@ var marketdetailView = Backbone.View.extend({
             },
             id : direction
         });
-         //self.render();
-    },
-    pagecountchange : function(e) {
-        console.log("select ",e);
     }
 });
 

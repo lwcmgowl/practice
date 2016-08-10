@@ -30,6 +30,7 @@ var cluesListView = Backbone.View.extend({
             this.$el.submit();
         },
        'click #exportFile' : 'exportFile',
+       'click #clear':'clear'
     },
     model : new cluesListModel(),
     template : cluesListTemplate,
@@ -57,6 +58,11 @@ var cluesListView = Backbone.View.extend({
 
         });      
         self.load();
+    },
+    //查询重置
+    clear : function() {
+        $('select,input').val('');
+        this.load();
     },
     load : function() {
        var param = {
@@ -105,9 +111,6 @@ var cluesListView = Backbone.View.extend({
             "data": "clueState",
             "width":"80px",
             "title": "线索状态"
-        },{
-            "data": null,
-            "title": "操作"
         }],
         columnDefs: [
        {

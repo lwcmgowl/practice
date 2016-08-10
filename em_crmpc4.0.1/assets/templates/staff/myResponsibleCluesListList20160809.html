@@ -1,92 +1,3 @@
-<div class="row l-mark-data">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <h5>我负责的线索</h5>
-        </div>
-        <div class="ibox-content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="pull-left dropdown">
-                        <a  class="btn btn-primary dropdown-toggle l-dropdown-toggle" data-toggle="dropdown"> 查询 <span class="caret"></span></a>
-
-                        <ul class="dropdown-menu" aria-labelledby="searchbtn" style="min-width: 710px;padding-right: 22px;">
-                            <li role="presentation">
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">选择线索类型:</label>
-                                        <div class="col-sm-4" style="padding-right: 0px;">
-                                            <select class="form-control" id="clueType">
-                                                <option value="">选择线索类型</option>
-                                            </select>
-                                        </div>
-
-                                        <label class="col-sm-2 control-label">选择行业类别:</label>
-                                        <div class="col-sm-4" style="padding-right: 0px;">
-                                            <select class="form-control" id="profession">
-                                                <option value="">选择行业类别</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">选择所属团队:</label>
-                                        <div class="col-sm-4" style="padding-right: 0px;">
-                                            <select class="form-control" id="bigRegions">
-                                                <option value="">选择所属团队</option>
-                                            </select>
-                                        </div>
-
-                                        <label class="col-sm-2 control-label">选择线索状态:</label>
-                                        <div class="col-sm-4" style="padding-right: 0px;">
-                                                <select class="form-control" id="clueState">
-                                                    <option value="">选择线索状态</option>
-                                                </select>
-                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-
-                                        <label class="col-sm-2 control-label">客户名称:</label>
-                                        <div class="col-sm-4 input-daterange" style="padding-right: 0px;">
-
-                                            <input class="form-control" placeholder="客户名称/联系人" type="text" id="csmName"/>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
-                                            <button type="button" class="btn btn-success" data-toggle="dropdown" id="searchbtn" >
-                                                查询
-                                            </button>
-                                            <button type="button" class="btn btn-warning" id="clear">
-                                                重置
-                                            </button>
-                                            <button type="button" class="btn btn-default" data-toggle="dropdown" id="cancel">
-                                                取消
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="pull-right" style="margin-right:20px;">
-                        <div class="row btn-group" id="btnWrapper"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row l-table">
-                <table id="datatable" class="table table-striped table-responsive table-hover">
-
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--
 <div class="row">
     <div class="col-md-12 col-sm-12">
         <div class="panel panel-default">
@@ -142,9 +53,6 @@
         </div>
     </div>
 </div>
--->
-
-
 <script id="intoChange" type="text/template">
     <div class="panel-body">
     <form class="form-horizontal">

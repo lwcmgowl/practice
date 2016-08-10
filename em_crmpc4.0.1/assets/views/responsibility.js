@@ -13,10 +13,19 @@ var marketListView = Backbone.View.extend({
             this.load();
         },
         'click #exportFile' : 'exportFile',
-        'click #add' : 'add',
+        'click #add' : 'addMarket',
         'click #import' : 'import',
         'click #expedm' : 'expedm',
-        'click #clear':'clear'
+        'click #clear':'clear',
+        "click #mask":function(){
+            this.hideDetail();
+        },
+         "click #marketDynamic":function(){
+            this.marketDynamic()
+        },
+        "click #marketInfo":function(){
+            this.marketInfoList(this.model.get("id"));
+        },
     },
     model : new marketModel(),
     template : marketTemplate,
@@ -46,7 +55,6 @@ var marketListView = Backbone.View.extend({
 
         });
         self.load();
-        $("#add").attr("href", "#addResponsibility");
         document.onkeypress = function(e) {
                 var code;
                 if (!e) {
@@ -84,7 +92,6 @@ var marketListView = Backbone.View.extend({
                         self.model.destroy({
                             success : function(cols, resp, options) {
                                 $.success("删除成功", null, null, function() {
-                                    // marketViewInstance.load();
                                      appRouter.navigate("responsibility", {
                                             trigger : true
                                         });
@@ -274,6 +281,9 @@ var marketListView = Backbone.View.extend({
                 data : param
             },
             columns : [{
+                "data" : "companyName",
+                "title" : "客户名称"
+            },{
                 "data" : "contactName",
                 "title" : "联系人"
             }, {
@@ -284,60 +294,283 @@ var marketListView = Backbone.View.extend({
                 "data" : "teleNo",
                 "class" : "tel",
                 "title" : "电话"
-            }, {
-                "data" : "companyName",
-                "title" : "客户名称"
-            }, {
-                "data" : "dataSource",
-                "title" : "数据来源"
-            }, {
-                "data" : "conferenceName",
-                "class" : "ut-s",
-                "tip" : true,
-                "width" : "80px",
-                "title" : "会议名称"
-            }, {
+            },{
                 "data" : "professionName",
                 "title" : "行业类别"
+            },{
+                "data" : "dataSource",
+                "title" : "数据来源"
             }, {
                 "data" : "regionName",
                 "title" : "所属团队"
             }, {
                 "data" : "province",
                 "title" : "所属省份"
-            }, {
-                "data" : null,
-                "title" : "操作"
             }],
             columnDefs : [{
-                targets : 4,
+                            targets : 0,
+                            render : function(i, j, c) {
+                                         var html = "<a href='javascript:;' onclick='marketViewInstance.marketDetail(\"" + c.id + "\")' title=" + c.companyName + ">" + c.companyName + "</a>";
+                                         return html;
+                                   
+                            }
+                        },{
+                targets : 5,
                 render : function(i, j, c) {
                     if (c.dataSource)
                         return '<div class="ut-s">' + appcan.clueSources[c.dataSource] + '</div>';
                     else
                         return '';
                 }
-            }, {
-                targets : 9,
-                render : function(i, j, c) {
-                    //editType 1 可编辑 2 不可编辑
-                    var editType = 1;
-                    var html = '<a class="btn btn-default btn-xs" href="#dynamicEdit/' + c.id + '/01/' + editType + '/' + encodeURIComponent(c.companyName) + '">跟进动态</a> ' +
-                    //'<a href="#" onclick="plroleof(0,\'' + encodeURIComponent(JSON.stringify(c)) + '\')">提交上报</a> '
-                    '<a class="btn btn-default btn-xs" href="#listviewDetail/' + c.id + '">查看</a> '
-                    // +       '<a href="marketing_add.html?id='+c.id+'" id="edit">编辑</a> '
-                    //                                          + '<a href="#" onclick="delMarket(\''+c.id+'\')">删除</a> ';
-                    +'<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></button><ul class="dropdown-menu center">'
-                    html += handlerRow(c.id,c.regionName,c.professionName);
-                    html += '</ul></div>';
-                    return html;
-                }
             }],
-             complete : function (list) {
+             complete : function(list) {
               self.collection.set(list);
             }
-
         });
+    },
+    marketDetail:function(id){
+        var self=this;
+         var pushRight = document.getElementById( 'pushRight' );
+            classie.addClass( pushRight, 'cbp-spmenu-open' );
+                $("#mask").css("height",$(document).height());     
+                $("#mask").css("width",$(document).width());     
+                $("#mask").show();
+            self.model.set("id",id); 
+            self.marketInfoList(id);
+    },
+    marketInfoList:function(id){
+        var self=this;
+        $("#marketInfo").addClass("active");
+        $("#marketDynamic").removeClass("active");
+        var listviewDetail=["assets/services/listviewDetail.js", "assets/models/listviewDetail.js", "assets/views/listviewDetail.js"];
+          loadSequence(listviewDetail,function(){
+                 var marketdetailInstance = new marketdetailView();
+                 marketdetailInstance.load(id);
+            });
+    },
+    hideDetail:function(){
+        var self=this;
+        var pushRight = document.getElementById( 'pushRight' );
+            classie.removeClass( pushRight, 'cbp-spmenu-open' );
+            $("#mask").hide();
+    },
+    //添加营销数据
+    addMarket:function(){
+         bootbox.dialog({
+            message : $("#addMarket").html(),
+            title : "添加营销数据",
+            className : "",
+            buttons : {
+                ok : {
+                    label : "提交",
+                    className : "btn-success",
+                    callback : function() {
+                         var loginId = appcanUserInfo.userId;
+                            var companyNames = $("#acompanyName").val();
+                            if (!isDefine(companyNames)) {
+                                $.danger("请输入客户名称!");
+                                $("#acompanyName").parent().addClass("has-error");
+                                $("#acompanyName").focus();
+                                return false;
+                            } else if (!reg1.test(companyNames)) {
+                                $.danger("客户名称格式有误!");
+                                $("#acompanyName").parent().addClass("has-error");
+                                $("#acompanyName").focus();
+                                return false;
+                            }else{
+                                $("#acompanyName").parent().removeClass("has-error"); 
+                            }
+                            var contactName = $("#acontactName").val();
+                            if (!isDefine(contactName)) {
+                                $.danger("请输入姓名!");
+                                $("#acontactName").parent().addClass("has-error");
+                                $("#acontactName").focus();
+                                return false;
+                            } else if (!patrn.exec(contactName)) {
+                                $.danger("姓名格式有误!");
+                                $("#acontactName").parent().addClass("has-error");
+                                $("#acontactName").focus();
+                                return false;
+                            }else{
+                                 $("#acontactName").parent().removeClass("has-error");
+                            }
+                            var mobile = $.trim($("#amobile").val());
+                            var teleNo = $.trim($("#ateleNo").val());
+                            if (mobile === '' && teleNo === '') {
+                                $.danger("请填写手机号或者座机号!");
+                                $("#amobile").parent().addClass("has-error");
+                                $("#amobile").focus();
+                                $("#ateleNo").parent().addClass("has-error");
+                                $("#ateleNo").focus();
+                                return false;
+                            } else if (!mob.test(mobile) && !tele.test(teleNo)) {
+                                $.danger("手机号或者座机号格式有误!");
+                                $("#amobile").parent().addClass("has-error");
+                                $("#amobile").focus();
+                                $("#ateleNo").parent().addClass("has-error");
+                                $("#ateleNo").focus();
+                                return false;
+                            }else{
+                                $("#amobile").parent().removeClass("has-error");
+                                $("#ateleNo").parent().removeClass("has-error");
+                            }
+                            var QQ = $("#aQQ").val();
+                            var weChat = $("#aweChat").val();
+                            var email = $("#aemail").val();
+                            if (email === '') {
+                            } else if (!pattern.test(email)) {
+                                $.danger("电子邮件格式不正确!");
+                                $("#aemail").parent().addClass("has-error");
+                                $("#aemail").focus();
+                                return false;
+                            }else{
+                                $("#aemail").parent().removeClass("has-error"); 
+                            }
+                            var department = $("#adepartment").val();
+                            var post = $("#apost").val();
+                            var dataSource = $("#dataSource").val() != "" ? $("#dataSource").val() : "";
+                            var conferenceName = "";
+                            if ($("#dataSource").find("option:selected").text() == "行业会议") {
+                                conferenceName = $.trim($("#meetingName").val());
+                                if (conferenceName == '') {
+                                    $.danger("请填写会议名称!");
+                                    $("#meetingName").parent().addClass("has-error");
+                                    $("#meetingName").focus();
+                                    return false;
+                                }else{
+                                     $("#meetingName").parent().removeClass("has-error");
+                                }
+                            }
+                            var csmNature = $("#csmNature").val() != "" ? $("#csmNature").val() : "";
+                            var csmScale = $("#csmScale").val() != "" ? $("#csmScale").val() : "";
+                            var region = $("#_region").val();
+                            if (!isDefine(region) || region.indexOf("选择") > 0) {
+                                $.danger("请选择所属团队");
+                                $("#_region").parent().addClass("has-error");
+                                $("#_region").focus();
+                                return false;
+                            }else{
+                                 $("#_region").parent().removeClass("has-error");
+                            }
+                            var profession = $("#_profession").val();
+                            if (!isDefine(profession) || profession == "00") {
+                                $.danger("请选择行业类别");
+                                $("#_profession").parent().addClass("has-error");
+                                $("#_profession").focus();
+                                return false;
+                            }else{
+                                $("#_profession").parent().removeClass("has-error"); 
+                            }
+                            var sprovince = $("#aprovince").val();
+                            if (sprovince == '') {
+                                $.danger("请选择所属省份");
+                                $("#aprovince").parent().addClass("has-error");
+                                $("#aprovince").focus();
+                                return false;
+                            }else{
+                                 $("#aprovince").parent().removeClass("has-error");
+                            }
+                            var productType = $("#aproductType").val() != "" ? $("#productType").val() : "";
+                            var level = $("#acustomerLevel").val() != "" ? $("#Customerlevel").val() : "";
+                            var address = $("#aaddress").val();
+                            var postcode = $("#apostcode").val();
+                            if (postcode === '') {
+                            } else if (!re2.test(postcode)) {
+                                $.danger("邮编格式不正确!");
+                                $("#apostcode").parent().addClass("has-error");
+                                $("#apostcode").focus();
+                                return false;
+                            }else{
+                               $("#apostcode").parent().removeClass("has-error"); 
+                            }
+                            var website = $("#awebsite").val();
+                            if (website === '') {
+                            } else if (!Expression.test(website)) {
+                                $.danger("官网格式不正确!");
+                                $("#awebsite").parent().addClass("has-error");
+                                $("#awebsite").focus();
+                                return false;
+                            }else{
+                                 $("#awebsite").parent().removeClass("has-error");
+                            }
+                            var fax = $("#afax").val();
+                            if (fax === '') {
+                    
+                            } else if (!patternfax.test(fax)) {
+                                $.danger("公司传真格式有误!例如:010-xxxxxxx");
+                                $("#afax").parent().addClass("has-error");
+                                $("#afax").focus();
+                                return false;
+                            }else{
+                                $("#afax").parent().removeClass("has-error");
+                            }
+                            var remark = $("#aremark").val();
+                            var data = {
+                                "companyName" : companyNames,
+                                "contactName" : contactName,
+                                "mobile" : mobile,
+                                "teleNo" : teleNo,
+                                "qq" : QQ,
+                                "weChat" : weChat,
+                                "email" : email,
+                                "department" : department,
+                                "post" : post,
+                                "dataSource" : dataSource,
+                                "conferenceName" : conferenceName,
+                                "productType" : productType,
+                                "level" : level,
+                                "profession" : profession,
+                                "csmNature" : csmNature,
+                                "csmScale" : csmScale,
+                                "region" : region,
+                                "province" : sprovince,
+                                "address" : address,
+                                "postcode" : postcode,
+                                "website" : website,
+                                "fax" : fax,
+                                "remark" : remark,
+                                "dataType" : "0",
+                                "marketUserId" : loginId, 
+                                "submitState" : "0"
+                            };
+                             ajax({
+                                url : "/marketing/add",
+                                data : data,
+                                success : function(data) {
+                                    $.success("添加成功！", null, null, function() {
+                                        this.load();
+                                    });
+                                }
+                            });
+                    }
+                },
+                "cancel" : {
+                    label : "取消",
+                    className : "btn-default",
+                    callback : function() {
+                       
+                    }
+                }
+            },
+            complete : function() {
+                $("#show").click(function() {
+                    $(this).parent().hide();
+                    $("#more").slideToggle("slow");
+                });
+            $("#_region").html("<option value=''>选择所属团队</option>" + getRegionOption());
+            $("#aprovince").html('<option value="">选择所属省份</option>' + getOption(appcan.province))
+            for (var n = 0; n < appcan.clueSources.length; n++) {
+                var str = '<option value="' + n + '">' + appcan.clueSources[n] + '</option>';
+                $("#dataSource").append(str);
+            }
+            selectOpt("aproductType", appcan.producttype);
+            selectOpt("acustomerLevel", appcan.customerlevel);
+            selectOpt("acsmNature", appcan.customerproperty);
+            selectOpt("acsmScale", appcan.customersize);
+             
+            }
+        });
+        
     },
     report : function(id) {
         var self = this;
@@ -430,7 +663,6 @@ var marketListView = Backbone.View.extend({
 
                             });
                         }
-                        //marketReport(info);
                     },
                     "cancel" : {
                         label : "取消",
@@ -522,7 +754,6 @@ var marketListView = Backbone.View.extend({
                             "marketUserId" : assigner
                         });
                     }
-                    //marketReport(info);
                 },
                 "cancel" : {
                     label : "取消",

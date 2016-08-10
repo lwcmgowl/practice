@@ -7,7 +7,7 @@ var culePageView = Backbone.View.extend({
         this.stickit();
     },
     el : '#notAssign',
-    collection:new BaseTableCollection(),
+    collection : new BaseTableCollection(),
     bindings : {
 
     },
@@ -19,7 +19,8 @@ var culePageView = Backbone.View.extend({
         'click #exportFile' : function() {
             this.exportFile();
         },
-        'click #add' : 'add'
+        'click #add' : 'add',
+        'click #clear' : 'clear'
     },
     model : new culePageModel(),
     template : culePageTemplate,
@@ -36,26 +37,26 @@ var culePageView = Backbone.View.extend({
         //行业类别
         self.model.fetch({
             success : function(cols, resp, options) {
-               // var list = resp.msg.list;
-               // $("#industrycategory").html("<option value=''>选择行业类别</option>" + profession(list));
+                // var list = resp.msg.list;
+                // $("#industrycategory").html("<option value=''>选择行业类别</option>" + profession(list));
                 var list = resp.msg.tradeList;
-                var team=resp.msg.teamList;
+                var team = resp.msg.teamList;
                 $("#industrycategory").html("<option value=''>选择行业类别</option>" + profession(list));
                 $("#bigRegions").html("<option value=''>选择所属团队</option>" + profession(team));
             },
             error : function(cols, resp, options) {
             },
-              type : 1
+            type : 1
         });
 
         //大区
         $("#bigRegions").html("<option value=''>选择所属团队</option>" + getRegionOption());
-         $('#pageNotAssign,#pageIsAssign').attr("href", function() {
-             return this.href + btnHandler.btns;
-         });
+        $('#pageNotAssign,#pageIsAssign').attr("href", function() {
+            return this.href + btnHandler.btns;
+        });
         $('#pageNotAssign,#pageIsAssign').hide();
-         self.search();
-         document.onkeypress = function(e) {
+        self.search();
+        document.onkeypress = function(e) {
             var code;
             if (!e) {
                 e = window.event;
@@ -71,30 +72,35 @@ var culePageView = Backbone.View.extend({
         };
         // var btn = btnHandler.btns;
         // $('#pageNotAssign,#pageIsAssign').attr("href", function() {
-            // return this.href + btnHandler.btns;
+        // return this.href + btnHandler.btns;
         // });
         // var isAssignNum = btn.indexOf("pageIsAssign");
         // var notAssignNum = btn.indexOf("pageNotAssign");
         // if (isAssignNum >= 0 && notAssignNum >= 0) {
-            // self.search();
-            // $("#IsAssign").addClass("deviation");
-            // $("#pageIsAssign").removeClass("btn-primary")
+        // self.search();
+        // $("#IsAssign").addClass("deviation");
+        // $("#pageIsAssign").removeClass("btn-primary")
         // } else {
-            // if (isAssignNum >= 0) {
-                // window.location = $('#pageIsAssign').attr("href");
-            // }
-            // if (notAssignNum >= 0) {
-                // self.search();
-            // }
+        // if (isAssignNum >= 0) {
+        // window.location = $('#pageIsAssign').attr("href");
+        // }
+        // if (notAssignNum >= 0) {
+        // self.search();
+        // }
         // }
     },
+    //查询重置
+    clear : function() {
+        $('select,input').val('');
+        this.load();
+    },
     search : function() {
-        var self=this;
+        var self = this;
         var loginId = appcanUserInfo.userId;
         var param = {
             // "assigner":user.userId,
             "marketUserId" : loginId,
-            "submitState" : 0,
+            "submitState" : $('#submitState').val(),
             "profession" : $('#industrycategory').val(),
             "region" : $('#bigRegions').val(),
             "companyName" : $.trim($('#csmName').val()),
@@ -134,29 +140,26 @@ var culePageView = Backbone.View.extend({
             }, {
                 "data" : "assignerName",
                 "title" : "线索分配人"
-            }, {
-                "data" : null,
-                "title" : "操作"
             }],
             columnDefs : [{
                 targets : 7,
                 render : function(i, j, c) {
                     var html = "<a class='btn btn-default btn-xs' href='#dynamicEdit/" + c.id + "/02/2/" + encodeURIComponent(c.companyName) + "'>跟进动态</a>&nbsp"
-                    // +                                  '<a href="#" onclick="reSubmit(\''+encodeURIComponent(JSON.stringify(c))+'\');">重新提交</a>&nbsp;'
+                    // +                                   '<a href="#" onclick="reSubmit(\''+encodeURIComponent(JSON.stringify(c))+'\');">重新提交</a>&nbsp;'
                     +"<a class='btn btn-default btn-xs' href='#notAssignclueDetail/" + c.id + "' >查看</a> " + '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></button><ul class="dropdown-menu">'
                     html += handlerRow(c.id);
                     html += '</ul></div>';
                     return html;
                 }
             }],
-              complete : function (list) {
-              self.collection.set(list);
+            complete : function(list) {
+                self.collection.set(list);
             }
         });
     },
     resubmit : function(id) {
         var self = this
-        var item  = this.collection.get(id).toJSON();
+        var item = this.collection.get(id).toJSON();
         var productType = item.productType;
         self.getCluePerson(item);
         assigner = item.assigner;
@@ -220,7 +223,7 @@ var culePageView = Backbone.View.extend({
         var param = {
             "entityType" : "reportNotFenpei",
             "marketUserId" : appcanUserInfo.userId,
-            "submitState" : "0",
+            "submitState" : $('#submitState').val(),
             "profession" : $('#profession').val(),
             "region" : $('#bigRegions').val(),
             "companyName" : $('#csmName').val(),
@@ -259,16 +262,16 @@ var culePageView = Backbone.View.extend({
                     //员工号
                     var fullName = perArr[i].fullName;
                     //真实姓名
-                    if(fullName){
+                    if (fullName) {
                         var str = '<option value="' + staffId + '">' + fullName + '</option>';
                         $("#assigner").append(str);
                     }
                     // if (assigner == staffId) {
-                        // // var str = '<option value="' + staffId + '">' + fullName + '</option>';
-                        // // $("#assigner").append(str);
+                    // // var str = '<option value="' + staffId + '">' + fullName + '</option>';
+                    // // $("#assigner").append(str);
                     // } else {
-                        // var str = '<option value="' + staffId + '">' + fullName + '</option>';
-                        // $("#assigner").append(str);
+                    // var str = '<option value="' + staffId + '">' + fullName + '</option>';
+                    // $("#assigner").append(str);
                     // }
 
                 }

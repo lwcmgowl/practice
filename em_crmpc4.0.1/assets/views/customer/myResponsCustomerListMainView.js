@@ -31,6 +31,10 @@ var myResponsCustomerListMainView = Backbone.View.extend({
         "click #cuscontactInfo":function(){
             this.cuscontactInfo();
         },
+        "click #deliver":function(){
+            this.deliver(this.model.get("id"));
+        },
+        
     },
     model : new myResponsCustomerListMainModel(),
     template : myResponsCustomerListMainTemplate,
@@ -223,13 +227,17 @@ var myResponsCustomerListMainView = Backbone.View.extend({
     //详情
     customerDetailList:function(id){
          var self=this;
+       var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
+        html += handlerRow(id, "edit");
+        $("#buttons").html(html);
         $("#customerInfo").addClass("active");
         $("#businessInfo").removeClass("active");
         $("#cuscontactInfo").removeClass("active");
+        var type=null;
        var customerDetail=["assets/services/customer/detailEditService.js", "assets/models/customer/detailEditModel.js", "assets/views/customer/detailEditView.js"];
          loadSequence(customerDetail,function(){
                  var detailEditModelMainViewInstance = new detailEditModelMainView();
-                 detailEditModelMainViewInstance.intInfo(id);
+                 detailEditModelMainViewInstance.intInfo(id,type);
             });
     },
     //商机信息
@@ -238,10 +246,11 @@ var myResponsCustomerListMainView = Backbone.View.extend({
         $("#customerInfo").removeClass("active");
         $("#businessInfo").addClass("active");
         $("#cuscontactInfo").removeClass("active");
+         var type=null;
         var chanceId=self.model.get("id");
         var  chance=["assets/services/customer/customerConnectionChanceService.js", "assets/models/customer/customerConnectionChanceModel.js", "assets/views/customer/customerConnectionChanceView.js"];
         loadSequence(chance,function(){
-                 customerConnectionChanceMainViewInstance.initInfo(chanceId);
+                 customerConnectionChanceMainViewInstance.initInfo(chanceId,type);
             });
     },
     //联系人信息
@@ -251,11 +260,12 @@ var myResponsCustomerListMainView = Backbone.View.extend({
         $("#businessInfo").removeClass("active");
         $("#cuscontactInfo").addClass("active");
         var contactCsId=self.model.get("id");
+        var customerName=this.collection.get(contactCsId).toJSON().csmName;
         var flag=2;
         var objId=null;
-        var opportContact=["assets/services/customerContact.js", "assets/models/contact.js", "assets/views/myresCustomerContact.js"];
+        var opportContact=["assets/services/customerContact.js", "assets/models/contact.js", "assets/views/myresCustomerContact.js?"+Date.parse(new Date())];
         loadSequence(opportContact,function(){
-                marketListViewInstances.initinfo(contactCsId,objId,flag);
+                marketListViewInstances.initinfo(contactCsId,objId,flag,customerName);
             });
     },
      hideDetail:function(){
@@ -528,9 +538,12 @@ var myResponsCustomerListMainView = Backbone.View.extend({
                             data : param,
                             success : function(data) {
                                 $.success("转交成功！", null, null, function() {
-                                    appRouter.navigate("loadMyResponsCustomerList", {
-                                        trigger : true
-                                    });
+                                    var self=this;
+                                    var pushRight = document.getElementById( 'pushRight' );
+                                        classie.removeClass( pushRight, 'cbp-spmenu-open' );
+                                        $("#mask").hide();
+                                        self.loadlist();
+                                   
                                 });
                             }
                         });

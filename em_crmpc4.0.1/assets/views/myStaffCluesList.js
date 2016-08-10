@@ -32,6 +32,7 @@ var myStaffCluesListView = Backbone.View.extend({
             this.load();
         },
        'click #exportFile' : 'exportFile',
+       'click #clear':'clear'
     },
     model : new myStaffCluesListModel(),
     template : myStaffCluesListTemplate,
@@ -58,6 +59,11 @@ var myStaffCluesListView = Backbone.View.extend({
         });      
         self.load();
     },
+    //查询重置
+    clear : function() {
+        $('select,input').val('');
+        this.load();
+    },
     load : function(direction) {
        var param = {
         "clueType":$('#clueType').val(),
@@ -78,15 +84,12 @@ var myStaffCluesListView = Backbone.View.extend({
         },
         columns: [{
             "data": "contactName",
-            "width":"114px",
             "title": "联系人"
         },{
             "data": "mobile",
-            "width":"114px",
             "title": "手机"
         },{
             "data": "teleNo",
-            "width":"114px",
             "title": "电话"
         },{
             "data": "companyName",
@@ -103,9 +106,6 @@ var myStaffCluesListView = Backbone.View.extend({
         },{
             "data": "clueState",
             "title": "线索状态"
-        },{
-            "data": null,
-            "title": "操作"
         }],
         columnDefs: [
         {

@@ -20,7 +20,7 @@ var marketListView = Backbone.View.extend({
          'click #contactInfo' : function() {
             this.contactDetail(this.model.get("contactId"));
         },
-        'click #hrefBack' : 'hrefBack',
+        'click #contactHrefBack' : 'hrefBack',
         "click #Radioroleof" : "Radioroleof"
     },
     model : new marketModel(),
@@ -58,6 +58,14 @@ var marketListView = Backbone.View.extend({
         var self = this;
         if (flag != "1") {
             $("#Setcontact").hide();
+        }else{
+            $("#cusAddcontact").hide();
+            $("#exportContactCus").hide();
+        }
+        if(flag==3){
+            $("#cusAddcontact").hide();
+            $("#exportContactCus").hide();
+            $("#Radioroleof").hide();
         }
         var param = {
             "opportId" : id,
@@ -206,12 +214,14 @@ var marketListView = Backbone.View.extend({
         
     },
     contactDynamic:function(id){
-            var req = new Request();
             $("#contactInfo").removeClass("active");
             $("#contactDynamic").addClass("active");
             var objEntityTypeId="04";
-            var flag = req.getParameter('flag');
-            var editType = 1;
+            if(this.model.get("flag")==3){
+                 var editType = 2;
+            }else{
+                var editType = 1; 
+            }
              var dynamicOffical=['assets/services/dynamicOfficalTest.js','assets/models/dynamicOfficalTest.js','assets/views/cusContactDynamic.js'];
               loadSequence(dynamicOffical,function(){
                 var contactDynamicView= new contactDynamicEditModel();

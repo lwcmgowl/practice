@@ -7,7 +7,7 @@ var marketListView = Backbone.View.extend({
         this.stickit();
     },
     el : '#offical',
-    collection:new BaseTableCollection(),
+    collection : new BaseTableCollection(),
     bindings : {
         "#clueSource" : {
             observe : 'clueSource'
@@ -35,8 +35,9 @@ var marketListView = Backbone.View.extend({
             this.$el.submit();
         },
         'click #exportFile' : 'exportFile',
-        'click #expedm':'exportFileEDM',
-        'click #add' : 'add'
+        'click #expedm' : 'exportFileEDM',
+        'click #add' : 'add',
+        'click #clear':'clear'
     },
     model : new marketModel(),
     template : marketTemplate,
@@ -66,24 +67,28 @@ var marketListView = Backbone.View.extend({
 
             },
             type : 1
-
         });
-         $("#add").attr("href", "#addMarket/1");
+        $("#add").attr("href", "#addMarket/1");
         self.load();
         document.onkeypress = function(e) {
-                var code;
-                if (!e) {
-                    e = window.event;
-                }
-                if (e.keyCode) {
-                    code = e.keyCode;
-                } else if (e.which) {
-                    code = e.which;
-                }
-                if (code == 13) {
-                    self.load();
-                }
+            var code;
+            if (!e) {
+                e = window.event;
             }
+            if (e.keyCode) {
+                code = e.keyCode;
+            } else if (e.which) {
+                code = e.which;
+            }
+            if (code == 13) {
+                self.load();
+            }
+        }
+    },
+    //查询重置
+    clear : function() {
+        $('select,input').val('');
+        this.load();
     },
     delinfo : function(id) {
         var self = this;
@@ -125,32 +130,32 @@ var marketListView = Backbone.View.extend({
                 }
             },
             complete : function(list) {
-                
+
             }
         });
     },
-    exportFileEDM:function(){
-                var marketUserId=appcanUserInfo.userId;
-                var marketQuery=$.trim($("#principal").val());
-                var province=$.trim($("#province").val());
-                var data = {
-                    "entityType" : "marketingDataEDM",
-                    "dataType" : "0",
-                     "ifAffirm":"0",
-                    "profession":$("#profession").val(),
-                    "region" : $("#region").val(),
-                    "dataSource" : $("#clueSource").val(),
-                    "province":province,
-                    "marketQuery":marketQuery,
-                    "companyName" : $.trim($("#companyName").val())
-                };
+    exportFileEDM : function() {
+        var marketUserId = appcanUserInfo.userId;
+        var marketQuery = $.trim($("#principal").val());
+        var province = $.trim($("#province").val());
+        var data = {
+            "entityType" : "marketingDataEDM",
+            "dataType" : "0",
+            "ifAffirm" : "0",
+            "profession" : $("#profession").val(),
+            "region" : $("#region").val(),
+            "dataSource" : $("#clueSource").val(),
+            "province" : province,
+            "marketQuery" : marketQuery,
+            "companyName" : $.trim($("#companyName").val())
+        };
         var url = "/marketing/expedmExportNotAuthority";
         marketViewService.exportFile(data, url)
-        
+
     },
     assign : function(id) {
         var self = this;
-        var assignInfo  = this.collection.get(id).toJSON();
+        var assignInfo = this.collection.get(id).toJSON();
         this.listDict(assignInfo);
         bootbox.dialog({
             message : $("#transfer1").html(),
@@ -261,11 +266,11 @@ var marketListView = Backbone.View.extend({
                     //员工号
                     var fullName = perArr[i].fullName;
                     //真实姓名
-                    if(fullName){
+                    if (fullName) {
                         var str = '<option value="' + staffId + '">' + fullName + '</option>';
-                        arr.push(str); 
-                       }                        
-                   
+                        arr.push(str);
+                    }
+
                 }
                 $("#transferPerson").html(arr.join(''));
             },
@@ -321,7 +326,7 @@ var marketListView = Backbone.View.extend({
             // },
             {
                 "data" : "contactName",
-                 "width" : "60px",
+                "width" : "100px",
                 "title" : "联系人"
             }, {
                 "data" : "mobile",
@@ -340,25 +345,26 @@ var marketListView = Backbone.View.extend({
                 "title" : "客户名称"
             }, {
                 "data" : "dataSource",
-                "width" : "50px",
+                "width" : "80px",
                 "title" : "数据来源"
             }, {
                 "data" : "conferenceName",
                 "class" : "ut-s",
                 "tip" : true,
-                "width" : "50px",
+                "width" : "80px",
                 "title" : "会议名称"
             }, {
                 "data" : "professionName",
                 "title" : "行业类别"
             }, {
                 "data" : "regionName",
-                 "class" : "ut-s",
-                  "tip" : true,
+                "class" : "ut-s",
+                "tip" : true,
+                width:"80px",
                 "title" : "所属团队"
             }, {
                 "data" : "province",
-                "width" : "50px",
+                "width" : "80px",
                 "title" : "所属省份"
             }, {
                 "data" : "marketUserName",
@@ -394,18 +400,17 @@ var marketListView = Backbone.View.extend({
                     var html = '<a class="btn btn-default btn-xs" href="#dynamicOffical/' + c.id + '/01/' + editType + '/' + encodeURIComponent(c.companyName) + '">跟进动态</a> ' +
                     //'<a href="#" onclick="plroleof(0,\'' + encodeURIComponent(JSON.stringify(c)) + '\')">提交上报</a> '
                     '<a class="btn btn-default btn-xs" href="#marketDetail/' + c.id + '">查看</a> '
-                    // +     '<a href="marketing_add.html?id='+c.id+'" id="edit">编辑</a> '
+                    // +      '<a href="marketing_add.html?id='+c.id+'" id="edit">编辑</a> '
                     //                                          + '<a href="#" onclick="delMarket(\''+c.id+'\')">删除</a> ';
                     +'<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></button><ul class="dropdown-menu center">'
-                    html += handlerRow(c.id+'-1');
+                    html += handlerRow(c.id + '-1');
                     html += '</ul></div>';
                     return html;
                 }
             }],
-            complete : function (list) {
-              self.collection.set(list);
+            complete : function(list) {
+                self.collection.set(list);
             }
-
         });
     },
     exportFile : function() {
@@ -415,7 +420,7 @@ var marketListView = Backbone.View.extend({
         var data = {
             "entityType" : "officialMarketing",
             "dataType" : "0",
-            "ifAffirm" : "0",
+            //"ifAffirm" : "0",
             "profession" : $("#profession").val(),
             "region" : $("#region").val(),
             "dataSource" : $("#clueSource").val(),

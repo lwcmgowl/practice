@@ -34,7 +34,7 @@ var marketListView = Backbone.View.extend({
             this.$el.submit();
         },
         'click #exportFile' : 'exportFile',
-        'click #clear':'clear'
+        'click #clear' : 'clear'
     },
     model : new marketModel(),
     template : marketTemplate,
@@ -67,19 +67,19 @@ var marketListView = Backbone.View.extend({
         });
         self.load();
         document.onkeypress = function(e) {
-                var code;
-                if (!e) {
-                    e = window.event;
-                }
-                if (e.keyCode) {
-                    code = e.keyCode;
-                } else if (e.which) {
-                    code = e.which;
-                }
-                if (code == 13) {
-                    marketListViewInstance.load();
-                }
+            var code;
+            if (!e) {
+                e = window.event;
             }
+            if (e.keyCode) {
+                code = e.keyCode;
+            } else if (e.which) {
+                code = e.which;
+            }
+            if (code == 13) {
+                marketListViewInstance.load();
+            }
+        }
     },
     //查询重置
     clear : function() {
@@ -87,40 +87,40 @@ var marketListView = Backbone.View.extend({
         this.load();
     },
     load : function() {
-                var self = this;
-               //行业类别
-                var profession = $("#profession").val();
-                //所属团队
-                var region = $("#region").val();
-                //数据来源
-                var dataSource = $("#clueSource").val();
-                //客户名称
-                var companyName = $.trim($("#companyName").val());
-                //省
-                var province=$.trim($("#province").val());
-                var marketUserId=appcanUserInfo.userId;
-                var marketQuery=$.trim($("#people").val());
-                if(marketQuery===''){
-                      }else if(!reg1.test(marketQuery)){
-                         $.danger("请输入正确负责人名称!");
-                           return; 
-                      }
-                if(companyName===''){
-                      }else if(!reg1.test(companyName)){
-                         $.danger("请输入正确的客户名称/联系人/会议名称!");
-                           return; 
-                      }
-         var param = {
-                        dataType : "0",
-                        profession : profession,
-                        region : region,
-                        dataSource : dataSource,
-                        companyName : companyName,
-                        province:province,
-                        ifAffirm:"0",
-                        marketQuery:marketQuery
-                       
-                 };
+        var self = this;
+        //行业类别
+        var profession = $("#profession").val();
+        //所属团队
+        var region = $("#region").val();
+        //数据来源
+        var dataSource = $("#clueSource").val();
+        //客户名称
+        var companyName = $.trim($("#companyName").val());
+        //省
+        var province = $.trim($("#province").val());
+        var marketUserId = appcanUserInfo.userId;
+        var marketQuery = $.trim($("#people").val());
+        if (marketQuery === '') {
+        } else if (!reg1.test(marketQuery)) {
+            $.danger("请输入正确负责人名称!");
+            return;
+        }
+        if (companyName === '') {
+        } else if (!reg1.test(companyName)) {
+            $.danger("请输入正确的客户名称/联系人/会议名称!");
+            return;
+        }
+        var param = {
+            dataType : "0",
+            profession : profession,
+            region : region,
+            dataSource : dataSource,
+            companyName : companyName,
+            province : province,
+            ifAffirm : "0",
+            marketQuery : marketQuery
+
+        };
         new DataTable({
             id : '#datatable',
             paging : true,
@@ -194,15 +194,15 @@ var marketListView = Backbone.View.extend({
         var marketQuery = $.trim($("#principal").val());
         var province = $.trim($("#province").val());
         var data = {
-                   "entityType" : "puisneMarketing",
-                    "dataType" : "0",
-                    "profession":$("#profession").val(),
-                    "region" : $("#region").val(),
-                    "dataSource" : $("#clueSource").val(),
-                    "companyName" : $.trim($("#companyName").val()),
-                    "marketQuery":marketQuery,
-                     "ifAffirm":"0",
-                     "province":province
+            "entityType" : "puisneMarketing",
+            "dataType" : "0",
+            "profession" : $("#profession").val(),
+            "region" : $("#region").val(),
+            "dataSource" : $("#clueSource").val(),
+            "companyName" : $.trim($("#companyName").val()),
+            "marketQuery" : marketQuery,
+            "ifAffirm" : "0",
+            "province" : province
         };
         var url = "/marketing/exportClue";
         marketViewService.exportFile(data, url)

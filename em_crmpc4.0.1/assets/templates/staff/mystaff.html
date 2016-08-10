@@ -6,7 +6,6 @@
         <div class="ibox-content">
             <div class="row">
                 <div class="col-md-12">
-
                     <div class="pull-left dropdown">
                         <a  class="btn btn-primary dropdown-toggle l-dropdown-toggle" data-toggle="dropdown"> 查询 <span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="searchbtn" style="min-width: 710px;padding-right: 22px;">
@@ -58,20 +57,20 @@
                                         </div>
                                     </div>
 
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
-                                                <button type="button" class="btn btn-success" data-toggle="dropdown" id="searchbtn" >
-                                                    查询
-                                                </button>
-                                                <button type="button" class="btn btn-warning" id="clear">
-                                                    重置
-                                                </button>
-                                                <button type="button" class="btn btn-default" data-toggle="dropdown" id="cancel">
-                                                    取消
-                                                </button>
-                                            </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10" style="text-align: right;">
+                                            <button type="button" class="btn btn-success" data-toggle="dropdown" id="searchbtn" >
+                                                查询
+                                            </button>
+                                            <button type="button" class="btn btn-warning" id="clear">
+                                                重置
+                                            </button>
+                                            <button type="button" class="btn btn-default" data-toggle="dropdown" id="cancel">
+                                                取消
+                                            </button>
                                         </div>
-                                        
+                                    </div>
+
                                 </form>
                             </li>
                         </ul>
@@ -86,15 +85,25 @@
             </div>
 
             <div class="row l-table">
-               <table id="datatable" class="table table-bordered table-responsive table-hover">
-
-                </table>
+                <table id="datatable" class="table table-striped table-responsive table-hover">
 
                 </table>
 
             </div>
         </div>
     </div>
+</div>
+<div class="tab-content">
+    <div class="panel-body">
+        <table id="datatableOffical" class="table table-bordered table-responsive table-hover" style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;">
+
+        </table>
+    </div>
+    <!-- <div class="panel-body">
+    <table id="datatablePending" class="table table-bordered table-responsive table-hover" style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all;">
+
+    </table>
+    </div> -->
 </div>
 <script id="delState" type="text/template">
     <div class="panel-body" style="font-size: 16px;">

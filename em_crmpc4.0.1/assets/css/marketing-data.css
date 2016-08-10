@@ -152,13 +152,28 @@ table.table-mail tr td {
 }
 /* 营销数据 */
 /* 我负责的营销数据 */
-.l-mark-data{ margin-top:12px;}
-.l-mark-data .l-pull-right{margin-right:16px;}
-.l-mark-data .l-table{margin:10px 0 0;}
-.l-mark-data .l-table .table-bordered{border-width:0;}
-.l-mark-data .l-table .table-bordered th{border-width:0 0 2px;}
-.l-mark-data .l-table .table-bordered td{border-width:0 0 1px;}
-.l-mark-data .l-dropdown-toggle{background-color: #63adf2!important;border-color:#63adf2 !important;}
+.l-mark-data {
+    margin-top: 12px;
+}
+.l-mark-data .l-pull-right {
+    margin-right: 16px;
+}
+.l-mark-data .l-table {
+    margin: 10px 0 0;
+}
+.l-mark-data .l-dropdown-toggle {
+    background-color: #63adf2 !important;
+    border-color: #63adf2 !important;
+}
 /* 我下属的营销数据  */
 
-
+.l-table th, .l-table td {
+    overflow: hidden;
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.l-table tr th:nth-child(1),
+.l-table tr td:nth-child(1){
+    width:48px;
+}

@@ -33,7 +33,8 @@ var myResponsibleCluesListView = Backbone.View.extend({
         'click #exportFile' : function() {
             this.exportFile();
         },
-        'click #add' : 'add'
+        'click #add' : 'add',
+        'click #clear':'clear'
     },
     model : new myResponsibleCluesModel(),
     template : myResponsibleCluesListTemplate,
@@ -57,7 +58,6 @@ var myResponsibleCluesListView = Backbone.View.extend({
 
             },
             type : 1
-
         });
         $("#add").attr("href", "#addmyRespon");
         self.load();
@@ -75,6 +75,11 @@ var myResponsibleCluesListView = Backbone.View.extend({
                     myResponsibleCluesListViewInstance.load();
                 }
             }
+    },
+    //查询重置
+    clear : function() {
+        $('select,input').val('');
+        this.load();
     },
     load : function() {
         var self=this;
@@ -119,9 +124,6 @@ var myResponsibleCluesListView = Backbone.View.extend({
             }, {
                 "data" : "clueState",
                 "title" : "线索状态"
-            }, {
-                "data" : null,
-                "title" : "操作"
             }],
             columnDefs : [{
                 targets : 6,

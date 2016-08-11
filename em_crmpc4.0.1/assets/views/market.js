@@ -30,25 +30,31 @@ var marketListView = Backbone.View.extend({
 
     },
     events : {
-        'submit' : 'load',
         'click #searchbtn' : function() {
-            this.$el.submit();
+            this.load();
         },
         'click #exportFile' : 'exportFile',
         'click #expedm' : 'exportFileEDM',
-        'click #add' : 'add',
-        'click #clear':'clear'
+        'click #clear':'clear',
+        'click #del' : 'delMarket',
+        'click #assign' : 'assignMarket',
+        "click #mask" : function() {
+            this.hideDetail();
+        },
+        "click #marketDynamic" : function() {
+            this.marketManageDynamic()
+        },
+        "click #marketInfo" : function() {
+            this.marketManageInfoList(this.model.get("id"));
+        },
     },
     model : new marketModel(),
     template : marketTemplate,
-    // collection : new marketCollection(),
-
     render : function() {
         this.$el.empty();
         this.$el.append($(this.template()));
     },
     initinfo : function(direction) {
-        $('#pending').empty();
         var self = this;
         self.render();
         handlerTop('btnWrapper');
@@ -90,8 +96,9 @@ var marketListView = Backbone.View.extend({
         $('select,input').val('');
         this.load();
     },
-    delinfo : function(id) {
+    delMarket : function() {
         var self = this;
+        var id=self.model.get("id");
         this.model.set({
             id : id
         });
@@ -107,10 +114,8 @@ var marketListView = Backbone.View.extend({
                         self.model.destroy({
                             success : function(cols, resp, options) {
                                 $.success("删除成功", null, null, function() {
-                                    // marketViewInstance.load();
-                                    appRouter.navigate("offical", {
-                                        trigger : true
-                                    });
+                                    self.load();
+                                    self.hideDetail();
                                 });
                             },
                             error : function(cols, resp, options) {
@@ -123,9 +128,6 @@ var marketListView = Backbone.View.extend({
                     label : "取消",
                     className : "btn-default",
                     callback : function() {
-                        appRouter.navigate("offical", {
-                            trigger : true
-                        });
                     }
                 }
             },
@@ -153,10 +155,11 @@ var marketListView = Backbone.View.extend({
         marketViewService.exportFile(data, url)
 
     },
-    assign : function(id) {
+    assignMarket : function() {
         var self = this;
+        var id=self.model.get("id");
         var assignInfo = this.collection.get(id).toJSON();
-        this.listDict(assignInfo);
+        self.listDict(assignInfo);
         bootbox.dialog({
             message : $("#transfer1").html(),
             title : "分配营销数据",
@@ -178,10 +181,8 @@ var marketListView = Backbone.View.extend({
                         self.model.fetch({
                             success : function(cols, resp, options) {
                                 $.success("分配成功", null, null, function() {
-                                    // marketViewInstance.load();
-                                    appRouter.navigate("offical", {
-                                        trigger : true
-                                    });
+                                   self.load();
+                                   self.hideDetail();
                                 });
                             },
                             error : function(cols, resp, options) {
@@ -200,9 +201,7 @@ var marketListView = Backbone.View.extend({
                     label : "取消",
                     className : "btn-default",
                     callback : function() {
-                        appRouter.navigate("offical", {
-                            trigger : true
-                        });
+                      
                     }
                 }
             },
@@ -298,17 +297,13 @@ var marketListView = Backbone.View.extend({
         var marketQuery = $.trim($("#principal").val());
         var param = {
             dataType : "0",
-            ifAffirm : "0",
+            ifAffirm : "",
             profession : professiona,
             region : region,
             dataSource : dataSource,
             companyName : companyName,
             marketQuery : marketQuery,
             province : province,
-            condition : {
-                "pageNo" : 1,
-                "rowCnt" : 10
-            }
         };
         new DataTable({
             id : '#datatableOffical',
@@ -316,15 +311,12 @@ var marketListView = Backbone.View.extend({
             pageSize : 10,
             ajax : {
                 url : '/marketing/pageNotAuthority',
-                // url : urlIp+'/marketing/pageNotAuthority',
                 data : param
             },
-            columns : [
-            //{
-            // "data" : "",
-            // "title" : ""
-            // },
-            {
+            columns : [{
+                "data" : "companyName",
+                "title" : "客户名称"
+            },{
                 "data" : "contactName",
                 "width" : "100px",
                 "title" : "联系人"
@@ -340,9 +332,6 @@ var marketListView = Backbone.View.extend({
                 "tip" : true,
                 "width" : "120px",
                 "title" : "电话"
-            }, {
-                "data" : "companyName",
-                "title" : "客户名称"
             }, {
                 "data" : "dataSource",
                 "width" : "80px",
@@ -370,25 +359,19 @@ var marketListView = Backbone.View.extend({
                 "data" : "marketUserName",
                 "width" : "60px",
                 "title" : "负责人"
-            }, {
-                "data" : null,
-                "width" : "180px",
-                "title" : "操作"
             }],
-            columnDefs : [
-            // {
-            // targets : 0,
-            // width : "80px",
-            // render : function(i, j, c) {
-            // return '<input type="checkbox" name="Industry" value="' + c.id + '">';
-            // }
-            // },
-            {
+            columnDefs : [{
+                targets : 0,
+                render : function(i, j, c) {
+                    var html = "<a href='javascript:;' onclick='marketManageViewInstance.marketManageDetail(\"" + c.id + "\")' title=" + c.companyName + ">" + c.companyName + "</a>";
+                    return html;
+
+                }
+            },{
                 targets : 4,
                 render : function(i, j, c) {
                     if (c.dataSource)
                         return '<div class="ut-s">' + appcan.clueSources[c.dataSource] + '</div>';
-                    //return appcan.clueSources[c.dataSource];
                     else
                         return '';
                 }
@@ -413,6 +396,47 @@ var marketListView = Backbone.View.extend({
             }
         });
     },
+    marketManageDetail:function(id){
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.addClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").css("height", $(document).height());
+        $("#mask").css("width", $(document).width());
+        $("#mask").show();
+        self.model.set("id", id);
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
+        html += handlerRow(id, "edit");
+        $("#buttons").html(html);
+        self.marketManageInfoList(id);
+    },
+    marketManageInfoList:function(id){
+         var self = this;
+        $("#marketInfo").addClass("active");
+        $("#marketDynamic").removeClass("active");
+        var flag=1;
+        var listviewDetail = ["assets/services/listviewDetail.js", "assets/models/listviewDetail.js", "assets/views/listviewDetail.js"];
+        loadSequence(listviewDetail, function() {
+            var marketdetailInstance = new marketdetailView();
+            marketdetailInstance.load(id,flag);
+        });
+    },
+     marketManageDynamic : function() {
+        $("#marketInfo").removeClass("active");
+        $("#marketDynamic").addClass("active");
+        var objEntityTypeId = "01";
+        var editType = 2;
+        var objId = this.model.get("id");
+        var dynamicOffical = ['assets/services/dynamicOfficalTest.js', 'assets/models/dynamicOfficalTest.js', 'assets/views/dynamicOfficalTest.js'];
+        loadSequence(dynamicOffical, function() {
+            dynamicViewObj.getDynamicData(objId, objEntityTypeId, editType);
+        });
+    },
+      hideDetail : function() {
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.removeClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").hide();
+    },
     exportFile : function() {
         var marketUserId = appcanUserInfo.userId;
         var marketQuery = $.trim($("#principal").val());
@@ -420,7 +444,6 @@ var marketListView = Backbone.View.extend({
         var data = {
             "entityType" : "officialMarketing",
             "dataType" : "0",
-            //"ifAffirm" : "0",
             "profession" : $("#profession").val(),
             "region" : $("#region").val(),
             "dataSource" : $("#clueSource").val(),
@@ -432,4 +455,4 @@ var marketListView = Backbone.View.extend({
         marketViewService.exportFile(data, url)
     }
 });
-var marketViewInstance = new marketListView();
+var marketManageViewInstance = new marketListView();

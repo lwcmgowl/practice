@@ -42,8 +42,7 @@
         //正式数据
         offical : function() {
             loadSequence(this.deps.offical, function() {
-                $('#myTab a[href="#offical"]').tab('show');
-                marketViewInstance.initinfo();
+                marketManageViewInstance.initinfo();
             })
         },
          //待确认数据

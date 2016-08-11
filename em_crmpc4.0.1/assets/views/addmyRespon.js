@@ -51,13 +51,13 @@ var addmyResponView = Backbone.View.extend({
         addtype="";
         $("#_region").html("<option value=''>选择所属团队</option>"+getRegionOption());
         $("#myself").html(appcanUserInfo.userName);
+        $("#s_province").html('<option value="">选择所属省份</option>'+ getOption(appcan.province));//加载所属大区省市选项
         selectOpt("dataSource",appcan.clueSources);//数据来源
         selectOpt("productType",appcan.producttype);//产品类型
         selectOpt("level",appcan.customerlevel);//客户级别
         selectOpt("profession",appcan.industrycategory);//行业类别
         selectOpt("csmNature",appcan.customerproperty);//客户性质
         selectOpt("csmScale",appcan.customersize);//客户规模
-        $("#s_province").html('<option value="00">选择所属省份</option>'+ getOption(appcan.province))//加载所属大区省市选项
          $('#dataSource').change(function () {
                     var meeting = $('#dataSource option:selected').text();
                     if(meeting==="行业会议"){

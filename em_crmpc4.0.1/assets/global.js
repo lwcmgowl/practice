@@ -452,19 +452,19 @@ var btnHandlerFn = function(debarBtns) {
                 top += '<button class="btn  btn-primary purple" onclick="batchreport();">批量上报</button>';
                 break;
             case 'report':
-                row += '<a href="#report/@" class="rowstyle"> 提交上报 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="report"><i class="fa fa-paper-plane" aria-hidden="true"></i>提交上报 </a>';
                 break;
             case 'resubmit':
                 row += '<a href="#resubmit/@" class="rowstyle"> 重新提交 </a>';
                 break;
             case 'assign':
-                row += '<a href="#assign/@" class="rowstyle"> 分配 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="assign"><i class="fa fa-share-alt" aria-hidden="true"></i>分配 </a>';
                 break;
             case 'toopp':
-                row += '<a href="#toopp/@" class="rowstyle"> 转为机会 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="toopp"><i class="fa fa-gavel" aria-hidden="true"></i> 转为机会 </a>';
                 break;
             case 'change':
-                row += '<a href="#change/@" class="rowstyle"> 改变状态 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="change"><i class="fa fa-check-circle" aria-hidden="true"></i> 改变状态 </a>';
                 break;
             case 'adjust':
                 row += '<a href="javascript:;" class="rowstyle" id="adjust"> <i class="fa fa-refresh" aria-hidden="true"></i>调整阶段 </a>';
@@ -476,13 +476,13 @@ var btnHandlerFn = function(debarBtns) {
                 row += '<a href="#edit/@" class="rowstyle"> 编辑 </a>';
                 break;
             case 'del':
-                row += '<a href="#del/@" class="rowstyle">删除 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="del"><i class="fa fa-trash" aria-hidden="true"></i>删除 </a>';
                 break;
             case 'contact':
                 row += '<a href="#contact/@" class="rowstyle"> 联系人 </a>';
                 break;
             case 'transfer':
-               row += '<a href="#transfer/@" class="rowstyle">转移 </a>';
+               row += '<a href="javascript:;" class="rowstyle" id="transfer"><i class="fa fa-retweet" aria-hidden="true"></i>转移 </a>';
                 break;
             case 'convert':
                 row += '<a href="#convert/@" class="rowstyle"> 转交伙伴 </a>';

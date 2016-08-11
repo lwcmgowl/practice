@@ -34,7 +34,16 @@ var marketListView = Backbone.View.extend({
             this.$el.submit();
         },
         'click #exportFile' : 'exportFile',
-        'click #clear' : 'clear'
+        'click #clear' : 'clear',
+        "click #mask" : function() {
+            this.hideDetail();
+        },
+        "click #marketDynamic" : function() {
+            this.marketAllDynamic()
+        },
+        "click #marketInfo" : function() {
+            this.marketAllInfoList(this.model.get("id"));
+        },
     },
     model : new marketModel(),
     template : marketTemplate,
@@ -123,7 +132,12 @@ var marketListView = Backbone.View.extend({
                 url : '/marketing/page',
                 data : param
             },
-            columns : [{
+            columns : [
+            {
+                "data" : "companyName",
+                "width" : "150px",
+                "title" : "客户名称"
+            },{
                 "data" : "contactName",
                 "width" : "80px",
                 "title" : "联系人"
@@ -135,11 +149,7 @@ var marketListView = Backbone.View.extend({
                 "data" : "teleNo",
                 "width" : "114px",
                 "title" : "电话"
-            }, {
-                "data" : "companyName",
-                "width" : "150px",
-                "title" : "客户名称"
-            }, {
+            },  {
                 "data" : "dataSource",
                 "title" : "数据来源"
             }, {
@@ -158,11 +168,15 @@ var marketListView = Backbone.View.extend({
             }, {
                 "data" : "marketUserName",
                 "title" : "负责人"
-            }, {
-                "data" : null,
-                "title" : "操作"
             }],
             columnDefs : [{
+                targets : 0,
+                render : function(i, j, c) {
+                    var html = "<a href='javascript:;' onclick='marketListViewInstance.marketAllDetail(\"" + c.id + "\")' title=" + c.companyName + ">" + c.companyName + "</a>";
+                    return html;
+
+                }
+            },{
                 targets : 4,
                 width : "80px",
                 render : function(i, j, c) {
@@ -171,17 +185,51 @@ var marketListView = Backbone.View.extend({
                     else
                         return '';
                 }
-            }, {
-                targets : 10,
-                render : function(i, j, c) {
-                    //editType 1 可编辑 2 不可编辑
-                    var editType = 2;
-                    var html = '<a class="btn btn-default btn-xs" href="#dynamicEdit/' + c.id + '/01/' + editType + '/' + encodeURIComponent(c.companyName) + '">跟进动态</a> ' + '<a class="btn btn-default btn-xs" href="#listviewDetail/' + c.id + '">查看</a> '
-                    return html;
-                }
             }]
 
         });
+    },
+    marketAllDetail:function(id){
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.addClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").css("height", $(document).height());
+        $("#mask").css("width", $(document).width());
+        $("#mask").show();
+        self.model.set("id", id);
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
+        html += handlerRow(id, "edit");
+        $("#buttons").html(html);
+        self.marketAllInfoList(id);
+        
+    },
+    marketAllInfoList:function(id){
+         var self = this;
+        $("#marketInfo").addClass("active");
+        $("#marketDynamic").removeClass("active");
+        var flag=1;
+        var listviewDetail = ["assets/services/listviewDetail.js", "assets/models/listviewDetail.js", "assets/views/listviewDetail.js"];
+        loadSequence(listviewDetail, function() {
+            var marketdetailInstance = new marketdetailView();
+            marketdetailInstance.load(id,flag);
+        });
+    },
+    marketAllDynamic:function(){
+         $("#marketInfo").removeClass("active");
+        $("#marketDynamic").addClass("active");
+        var objEntityTypeId = "01";
+        var editType = 2;
+        var objId = this.model.get("id");
+        var dynamicOffical = ['assets/services/dynamicOfficalTest.js', 'assets/models/dynamicOfficalTest.js', 'assets/views/dynamicOfficalTest.js'];
+        loadSequence(dynamicOffical, function() {
+            dynamicViewObj.getDynamicData(objId, objEntityTypeId, editType);
+        });
+    },
+     hideDetail : function() {
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.removeClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").hide();
     },
     exportFile : function() {
         var profession = $("#profession").val();

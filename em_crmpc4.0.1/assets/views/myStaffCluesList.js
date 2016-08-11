@@ -32,7 +32,16 @@ var myStaffCluesListView = Backbone.View.extend({
             this.load();
         },
        'click #exportFile' : 'exportFile',
-       'click #clear':'clear'
+       'click #clear':'clear',
+        "click #mask" : function() {
+            this.hideDetail();
+        },
+        "click #clueDynamic" : function() {
+            this.myStaffclueDynamic()
+        },
+        "click #clueInfo" : function() {
+            this.mystaffClueDetailList(this.model.get("id"));
+        },
     },
     model : new myStaffCluesListModel(),
     template : myStaffCluesListTemplate,
@@ -83,6 +92,9 @@ var myStaffCluesListView = Backbone.View.extend({
             data: param
         },
         columns: [{
+            "data": "companyName",
+            "title": "客户名称"
+        },{
             "data": "contactName",
             "title": "联系人"
         },{
@@ -91,9 +103,6 @@ var myStaffCluesListView = Backbone.View.extend({
         },{
             "data": "teleNo",
             "title": "电话"
-        },{
-            "data": "companyName",
-            "title": "客户名称"
         },{
             "data": "professionName",
             "title": "行业类别"
@@ -107,8 +116,14 @@ var myStaffCluesListView = Backbone.View.extend({
             "data": "clueState",
             "title": "线索状态"
         }],
-        columnDefs: [
-        {
+        columnDefs: [{
+                targets : 0,
+                render : function(i, j, c) {
+                    var html = "<a href='javascript:;' onclick='myStaffCluesListViewInstance.mystaffClueDetail(\"" + c.id + "\")' title=" + c.companyName + ">" + c.companyName + "</a>";
+                    return html;
+
+                }
+            },{
             targets: 7,
             render: function(i, j, c) {
                 if(c.clueState)
@@ -126,7 +141,49 @@ var myStaffCluesListView = Backbone.View.extend({
         }]
     
     });
-       
+    },
+    mystaffClueDetail:function(id){
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.addClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").css("height", $(document).height());
+        $("#mask").css("width", $(document).width());
+        $("#mask").show();
+        self.model.set("id", id);
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
+        html += handlerRow(id, "edit");
+        $("#buttons").html(html);
+        self.mystaffClueDetailList(id);
+    },
+    mystaffClueDetailList:function(id){
+            var self = this;
+            $("#clueInfo").addClass("active");
+            $("#clueDynamic").removeClass("active");
+            var flag=3;
+            myResponsibleCluesListDetail=["assets/services/myResponsibleCluesListDetail.js", "assets/models/myResponsibleCluesListDetail.js", "assets/views/myResponsibleCluesListDetail.js"];
+            loadSequence(myResponsibleCluesListDetail, function() {
+           var myResponsibleCluesListDetailInstance = new myResponsibleCluesListDetailView();
+            myResponsibleCluesListDetailInstance.load(id,flag);
+        });
+        
+    },
+    myStaffclueDynamic:function(){
+        $("#clueInfo").removeClass("active");
+        $("#clueDynamic").addClass("active");
+        var objEntityTypeId = "02";
+        var editType = 2;
+        var objId = this.model.get("id");
+        var dynamicOffical = ['assets/services/dynamicOfficalTest.js', 'assets/models/dynamicOfficalTest.js', 'assets/views/dynamicOfficalTest.js'];
+        loadSequence(dynamicOffical, function() {
+            dynamicViewObj.getDynamicData(objId, objEntityTypeId, editType);
+        });
+        
+    },
+     hideDetail : function() {
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.removeClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").hide();
     },
     exportFile : function() {       
         var data = {
@@ -143,18 +200,4 @@ var myStaffCluesListView = Backbone.View.extend({
         myStaffCluesListViewService.exportFile(data, url)
     }
 });
-document.onkeypress = function(e) {
-    var code;
-    if (!e) {
-        e = window.event;
-    }
-    if (e.keyCode) {
-        code = e.keyCode;
-    } else if (e.which) {
-        code = e.which;
-    }
-    if (code == 13) {
-        myStaffCluesListViewInstance.load();
-    }
-}
 var myStaffCluesListViewInstance = new myStaffCluesListView();

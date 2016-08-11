@@ -47,7 +47,7 @@
                                     <div class="form-group">
 
                                         <label class="col-sm-2 control-label">客户名称:</label>
-                                        <div class="col-sm-4 input-daterange" style="padding-right: 0px;">
+                                        <div class="col-sm-4" style="padding-right: 0px;">
 
                                             <input class="form-control" placeholder="客户名称/联系人" type="text" id="csmName"/>
                                         </div>
@@ -85,66 +85,40 @@
         </div>
     </div>
 </div>
-
-<!--
-<div class="row">
-    <div class="col-md-12 col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h1>我负责的线索</h1>
-                <div class="row">
-                    <div class="col-xs-2">
-                        <div class="form-group">
-                            <select class="form-control" id="clueType">
-                                <option value="">选择线索类型</option>
-                            </select>
-                        </div>
+<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="pushRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row">
+                <div class="col-md-7 col-sm-7">
+                    <h4 id="contactTitle" class="detail_title"></h4>
+                    <div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;">
                     </div>
-                    <div class="col-xs-2">
-                        <div class="form-group">
-                            <select class="form-control" id="profession">
-                                <option value="">选择行业类别</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <select class="form-control" id="bigRegions">
-                                <option value="">选择所属团队</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <div class="form-group">
-                            <select class="form-control" id="clueState">
-                                <option value="">选择线索状态</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-xs-2">
-                        <input class="form-control" placeholder="客户名称/联系人" type="text" id="csmName"/>
-                    </div>
-                    <div class="col-xs-1">
-                        <button type="button" class="btn btn-default" id="searchbtn">
-                            <i class="fa fa-search"></i> 查询
-                        </button>
-                    </div>
-
+                    <div class="detail_title" id="contactNameDetail" style="margin-top:24px;"><span id="contactMobi">1</span><b style="display: none;">|<b style="display: none;"><span id="contactTele" style="display: none;"></span></b></b></div>
+                    <div class="title_important_info" style="margin-top:36px;"></div>
                 </div>
-                <div class="row" id="btnWrapper"></div>
-
-            </div>
-            <div class="panel-body">
-                <table id="datatable" class="table table-bordered table-responsive table-hover"
-                style="margin-bottom: 0px !important;border-bottom: none!important;word-break:break-all"></table>
-                </table>
+                <div class="col-md-5 col-sm-5" style="text-align: right;" id="buttons">
+                   
+                </div>
             </div>
         </div>
     </div>
-</div>
--->
+    <div class="ibox-content" style="border-width: 2px 0px;border-color: #dddddd;">
+        <ul class="list-unstyled list-inline" style="border-bottom: 1px solid #eaeaea;">
 
-
+            <li class="">
+                <a href="javascript:;"><span id="clueInfo" class="hvr-underline-from-left" style="padding-bottom: 10px;"> 详细信息 </span></a>
+            </li>
+            <li class="">
+                <a href="javascript:;"><span id="clueDynamic" class="hvr-underline-from-left" style="padding-bottom: 10px;"> 跟进动态 </span></a>
+            </li>
+            
+        </ul>
+        <div class="" id="partnerDetail">
+            <div id="detailpartdiv"></div>
+        </div>
+    </div>
+</nav>
+<div id="mask" class="mask"></div>
 <script id="intoChange" type="text/template">
     <div class="panel-body">
     <form class="form-horizontal">
@@ -164,8 +138,7 @@
     <div class="form-group">销售机会</div>
     <div class="form-group">
     <label class="col-sm-3 control-label">机会名称: </label>
-    <div class="col-sm-6"><input type="text" required class="form-control"/ id="opptTtl"></div>
-    <span class="text-danger">*（必填）</span>
+    <div class="col-sm-6"><input type="text" required class="form-control"/ id="opptTtl" placeholder="必填"></div>
     </div>
     <div class="form-group">
     <label class="col-sm-3 control-label"> 机会阶段: </label>
@@ -173,13 +146,11 @@
     <select class="form-control" id="opptStatId" disabled="disabled">
     </select>
     </div>
-    <span class="text-danger">*（必填）</span>
     </div>
     <div class="form-group">
     <label class="col-sm-3 control-label">预计金额: </label>
-    <div class="col-sm-6"><input type="text" required class="form-control" id="vndtAmt" placeholder="单位(元)"></div>
+    <div class="col-sm-6"><input type="text" required class="form-control" id="vndtAmt" placeholder="单位(元)" placeholder="必填"></div>
     <div class="col-sm-3" style="padding-top: 6px;">
-    <span class="text-danger">*（必填）</span>
     </div>
     </div>
     <div class="form-group">
@@ -188,13 +159,12 @@
     </div>
     <div class="form-group">
     <label class="col-sm-3 control-label" id="sttlDate1">预计签单日期:  </label>
-    <div class="col-sm-6"><input type="text" class="form-control" id="sttlDate"></div>
-    <span class="text-danger">*（必填）</span>
+    <div class="col-sm-6"><input type="text" class="form-control" id="sttlDate" placeholder="必填"></div>
     </div>
     <div class="form-group">
     <label class="col-sm-3 control-label">线索来源 : </label>
     <div class="col-sm-6">
-    <select class="form-control" id="dataSource">
+    <select class="form-control" id="chanceDataSource">
     <option value="00">选择线索来源 </option>
     </select>
     </div>
@@ -202,14 +172,13 @@
     <div class=" form-group" id="conferenceName">
     <label class="col-sm-3 control-label">会议名称 :</label>
     <div class="col-sm-6">
-    <input type="text" class="form-control" id="meeting"/>
+    <input type="text" class="form-control" id="meeting" placeholder="必填">
     </div>
-    <span class="text-danger">*（必填!）</span>
     </div>
     <div class="form-group">
     <label class="col-sm-3 control-label">产品类型 : </label>
     <div class="col-sm-6">
-    <select class="form-control" id="productType">
+    <select class="form-control" id="chanceProductType">
     <option value="00">选择产品类型</option>
     </select>
     </div>
@@ -284,7 +253,7 @@
     <div class="form-group" id="closeReason2">
     <label class="col-sm-3 control-label">不合格原因 : </label>
     <div class="col-sm-6">
-    <select class="form-control" id="closeReason1">
+    <select class="form-control" id="closeReason6">
     <option value="00">选择不合格原因</option>
     </select>
     </div>

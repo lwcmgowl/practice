@@ -124,31 +124,6 @@ var contactDetailView = Backbone.View.extend({
                         }
                     }
                 });
-                $("#teleNo").editable({
-                   validate : function(value) {
-                        if ($.trim(value) == ''){
-                            return '电话号码不能为空!';
-                        }else if($.trim(value).length>=11){
-                            return '电话号码字符个数超过限制!';
-                        }
-                    },
-                    url : function(value) {
-                        return $.post(urlIp + '/contact/edit', {
-                            teleNo : value.value,
-                            id : direction
-                        });
-                    },
-                    success : function(response) {
-                        if (response.status == "000") {
-                            $.success("编辑成功!")
-                        }
-                    },
-                    error : function(response){
-                        if (response.status == "001") {
-                            $.danger(response.message);
-                        }
-                    }
-                });
                 $("#contactType").editable({
                    value :info.contactTypeId,
                     source : [{

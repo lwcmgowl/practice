@@ -114,9 +114,11 @@ var marketListView = Backbone.View.extend({
             //subordinateFlg : ''
         };
         new DataTable({
+            el : 'datatable',
             id : '#datatable',
             paging : true,
             pageSize : 10,
+            currNo:self.pageNo,
             ajax : {
                 url : '/opport/page',
                 data : param
@@ -209,9 +211,13 @@ var marketListView = Backbone.View.extend({
             }],
             complete : function(list) {
                 self.collection.set(list);
+            },
+            dataTableCb:function(n){
+                self.pageNo = n;
             }
         });
     },
+    pageNo:1,
     exportFile : function() {
         var flag = location.hash;
         if (flag == "#myresOpport") {

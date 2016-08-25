@@ -20,22 +20,23 @@ var opprotContactdetailView = Backbone.View.extend({
             success : function(cols, resp, options) {
                 var info=resp.msg.item;
                 $("#contactTitle").html(info.contactName);
-                $("#contactNameDetail").html(info.csmName+'<span id="contactMobi"></span><b>|<b><span id="contactTele"></span>');
-                if(info.mobile){
+                $("#contactNameDetail").html(info.csmName+'<span id="contactMobi" style="margin-left:10px;margin-right:10px;"></span><span id="division">|</span><span id="contactTele" style="margin-left:10px;"></span>');
+                if(info.mobile && info.teleNo){
                    $("#contactMobi").show();
-                   $("#contactMobi").html(info.mobile); 
-                }else{
-                    $("#contactMobi").hide();
-                    $("#contactNameDetail b").hide();
-                }
-                if(info.teleNo){
+                   $("#contactMobi").html(info.mobile);
+                   $("#contactTele").show();
+                   $("#contactTele").html(info.teleNo); 
+                };
+                if(info.teleNo && !info.mobile){
                     $("#contactTele").show();
-                    $("#contactNameDetail b").show();
                     $("#contactTele").html(info.teleNo);
-                }else{
-                    $("#contactTele").hide();
-                    $("#contactNameDetail b").hide();
-                }
+                    $("#division").hide();
+                };
+                if(!info.teleNo && info.mobile){
+                   $("#contactMobi").show();
+                   $("#contactMobi").html(info.mobile);
+                   $("#division").hide();
+                };
               for(var i in info){
                 var ele = $('#'+i);
                 if(ele[0]){
@@ -47,6 +48,11 @@ var opprotContactdetailView = Backbone.View.extend({
             if(info.province != '00'){
                 $('#area').append(info.province);
                 }
+                $(".form-group div.u-word").each(function() {
+                    if ($(this).text() == '' || $(this).text()=="空") {
+                        $(this).parent().hide();
+                    }
+                });
             },
             error : function(cols, resp, options) {
 

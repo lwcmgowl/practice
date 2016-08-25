@@ -254,56 +254,56 @@ var marketListView = Backbone.View.extend({
                     className : "btn-success",
                     callback : function() {
                         $('#productForm').bootstrapValidator('validate');
-                                var contactName = $.trim($("#contactName").val());
+                                var contactName = $.trim($("#acontactName").val());
                                 if (contactName === '') {
                                     $.danger("联系人不能为空");
-                                    $("#contactName").focus();
+                                    $("#acontactName").focus();
                                     return false;
                                 } else if (!patrn.exec(contactName)) {
                                     $.danger("联系人为汉字或者字母,字数在40个以内!");
-                                    $("#contactName").focus();
+                                    $("#acontactName").focus();
                                     return false;
                                 }else{
                                 }
-                                var mobile = $.trim($("#mobile").val());
-                                var teleNo = $.trim($("#teleNo").val());
+                                var mobile = $.trim($("#amobile").val());
+                                var teleNo = $.trim($("#ateleNo").val());
                                 if (mobile === '' && teleNo === '') {
                                     $.danger("手机和座机至少填写一个");
-                                    $("#mobile").focus();
-                                    $("#teleNo").focus();
+                                    $("#amobile").focus();
+                                    $("#ateleNo").focus();
                                    return false;
                                 } else if (!mob.test(mobile) && !tele.test(teleNo)) {
                                     $.danger("手机号或者座机号格式有误!");
-                                    $("#mobile").focus();
-                                    $("#teleNo").focus();
+                                    $("#amobile").focus();
+                                    $("#ateleNo").focus();
                                     return false;
                                 }else{
-                                    $("#teleNo").parent().removeClass("has-error");
-                                    $("#mobile").parent().removeClass("has-error");
+                                    $("#ateleNo").parent().removeClass("has-error");
+                                    $("#amobile").parent().removeClass("has-error");
                                 }
                                 var sexId = $.trim($("#sexId").val());
-                                var birthDay = $.trim($("#birthDay").val());
-                                var qq = $.trim($("#qq").val());
-                                var weChat = $.trim($("#weChat").val());
-                                var department = $.trim($("#department").val());
-                                var post = $.trim($("#post").val());
-                                var mail = $.trim($("#mail").val());
+                                var birthDay = $.trim($("#abirthDay").val());
+                                var qq = $.trim($("#aqq").val());
+                                var weChat = $.trim($("#aweChat").val());
+                                var department = $.trim($("#adepartment").val());
+                                var post = $.trim($("#apost").val());
+                                var mail = $.trim($("#amail").val());
                                 if (mail === '') {
                         
                                 } else if (!pattern.test(mail)) {
                                     $.danger("电子邮件格式不正确!");
-                                    $("#email").parent().addClass("has-error");
-                                    $("#email").focus();
+                                    $("#amail").parent().addClass("has-error");
+                                    $("#amail").focus();
                                    return false;
                                 }else{
-                                   $("#email").parent().removeClass("has-error"); 
+                                   $("#amail").parent().removeClass("has-error"); 
                                 }
                                 var sprovince = $("#s_province").find("option:selected").text();
                                 if (sprovince == "选择所属省份") {
                                     sprovince = "00";
                                 }
-                                var address = $.trim($("#address").val());
-                                var postcode = $.trim($("#postcode").val());
+                                var address = $.trim($("#aaddress").val());
+                                var postcode = $.trim($("#apostcode").val());
                                 var customId = $.trim($("#customId").val());
                                 if (customId =="") {
                                     $.danger("请选择客户名称");
@@ -318,7 +318,7 @@ var marketListView = Backbone.View.extend({
                                 }else{
                                    $("#contactTypeId").parent().removeClass("has-error"); 
                                 }
-                                var remark = $.trim($("#remark").val());
+                                var remark = $.trim($("#aremark").val());
                             var data = {
                                 "sex" : sexId,
                                 "contactName" : contactName,
@@ -380,7 +380,7 @@ var marketListView = Backbone.View.extend({
                     var str = '<option value="' + (i) + '">' + appcan.contactType[i] + '</option>'
                     $("#contactTypeId").append(str);
                 }
-                $('#birthDay').datepicker({
+                $('#abirthDay').datepicker({
                     format : 'yyyy-mm-dd',
                     todayHighlight : true,
                     weekStart : 0,
@@ -395,7 +395,7 @@ var marketListView = Backbone.View.extend({
                         validating : 'glyphicon glyphicon-refresh'
                     },
                     fields : {
-                        contactName : {
+                        acontactName : {
                             validators : {
                                 notEmpty : {
                                     message : '联系人名称不能为空!'

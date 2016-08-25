@@ -29,100 +29,19 @@
         <link href="assets/css/dynamic.css" rel="stylesheet"/>
         <link href="assets/css/edit.css" rel="stylesheet" />
         <link href="assets/css/marketing-data.css" rel="stylesheet" />
+         <link href="assets/css/component.css" rel="stylesheet" />
+        <link href="assets/css/hover-min.css" rel="stylesheet" />
+        <link href="assets/css/bootstrapValidator.min.css" rel="stylesheet" />
+        <link href="assets/css/chosen.min.css" rel="stylesheet" />
+        <link href="assets/css/bootstrap-editable.css" rel="stylesheet" />
+         <link href="assets/css/bootstrap-datepicker.min.css" rel="stylesheet">
+         <link href="assets/css/select2.css" rel="stylesheet">
         <style>
-            th {
-                text-align: center;
-            }
-            table {
-                text-align: center;
-            }
             .td-ell {
                 word-break: keep-all;/* 不换行 */
                 white-space: nowrap;/* 不换行 */
                 overflow: hidden;/* 内容超出宽度时隐藏超出部分的内容 */
                 text-overflow: ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一 起使用。*/
-            }
-            /*.dropdown-menu {
-                min-width: 66px;
-            }*/
-            .dropdown-menu a {
-                display: block;
-            }
-            #NotAssign, #IsAssign {
-                position: absolute;
-                top: 50px;
-            }
-            .deviation {
-                left: 110px;
-            }
-            /*body {
-                background: #f0f5f7;
-            }*/
-            .btn-default {
-                min-width: 50px;
-            }
-            .text-primary {
-                color: #15baff;
-            }
-            .bg-primary {
-                color: #000 !important;
-                background-color: #337ab7;
-            }
-            .day-color {
-                color: #ffffff;
-                position: absolute;
-                margin-left: -26px;
-                display: inline-block;
-                height: 24px;
-                line-height: 24px;
-                font-size: 14px;
-                background-color: #ffaf25;
-            }
-
-            .day-color:before {
-                content: "";
-                position: absolute;
-                top: -10px;
-                border: 5px solid transparent;
-                border-bottom-width: 5px;
-                border-right-color: #ca8b1e;
-                border-bottom-color: #ca8b1e;
-            }
-            .day-color-other {
-                color: #ffffff;
-                position: absolute;
-                margin-left: -26px;
-                display: inline-block;
-                height: 24px;
-                line-height: 24px;
-                font-size: 14px;
-            }
-            .day-color-other:before {
-                content: "";
-                position: absolute;
-                top: -10px;
-                border: 5px solid transparent;
-                border-bottom-width: 5px;
-                border-right-color: #737373;
-                border-bottom-color: #737373;
-            }
-            .text-danger {
-                color: #ff5050;
-            }
-            a {
-                color: #15baff;
-            }
-            .row {
-                margin-top: 10px;
-            }
-            .list-group-item {
-                background: #f5f5f5;
-            }
-            #edit .col-sm-12 {
-                padding: 0 56px 0 15px;
-            }
-            .main{
-                padding-top:0px;
             }
         </style>
     </head>
@@ -149,35 +68,28 @@
         <script src="js/lib/template.import.js"></script>
         <script src="js/lib/lazyload.js"></script>
         <script src="js/bootstrap.min.js"></script>
-         <script src="js/assets/common/init.js"></script>
+        <script src="js/assets/common/init.js"></script>
         <script src="js/assets/common/localStorage.js"></script>
-         <script src="assets/global.js"></script>
+        <script src="assets/global.js"></script>
         <script src="js/assets/common/index.js"></script>
         <script src="js/assets/common/jquery.tree.js"></script>
         <script src="js/assets/common/dynamicInit.js"></script>
         <script src="js/assets/common/bootbox.js"></script>
-         <script src="assets/views/siderbar.js"></script>
-          <script src="assets/routers/culePage.js"></script>
+        <script src="assets/views/siderbar.js"></script>
+        <script src="assets/routers/culePage.js"></script>
         <script src="assets/models/baseTableModel.js"></script>
         <script src="assets/routers/staff.js"></script>
+        <script src="js/lib/bootstrapValidator.min.js"></script>
+        <script src="js/assets/common/select2.min.js"></script>
+        <script src="js/lib/bootstrap-editable.min.js"></script>
+        <script src="js/lib/classie.js"></script>
         <script type="text/javascript" charset="utf-8">
             //获取用户信息
-            getLocVal();
-            $("#user_").html('【当前用户：' + appcanUserInfo.userName + ' 】');
+             getLocVal();
+             $("#user_").html(appcanUserInfo.userName);
+             $("#userIcon").html('<img src="' + appcanUserInfo.userIcon + '" alt="" class="img-circle" width="30px" height="30px" onerror="javascript:this.src=\'images/person.png\'"/>');
             function search() {
                 culePageViewInstance.search()
-            }
-
-            function search1() {
-                culePage1ViewInstance.search()
-            }
-
-            function wordDynamic(dynamicId, uId, uName, aobj, cnt, f) {
-                dynamicEditViewInstance.wordDynamic(dynamicId, uId, uName, aobj, cnt, f)
-            }
-
-            function addWord(dynamicId, uId, uName, f) {
-                dynamicEditViewInstance.addWord(dynamicId, uId, uName, f)
             }
              var btn=btnHandler.btns;
              var isAssignNum = btn.indexOf("pageIsAssign");

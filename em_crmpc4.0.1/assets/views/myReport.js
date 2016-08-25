@@ -21,6 +21,9 @@ var myReportListView = Backbone.View.extend({
         'click #exportFile' : 'exportFile',
         'click #cancel' : "cancel",
         'click #clear' : "clear",
+        'click #transfer':function(){
+            this.transfer(this.model.get("id"));
+        },
         "click #dynamic":function(){
             this.dynamic(objId)
         },
@@ -146,6 +149,7 @@ var myReportListView = Backbone.View.extend({
             notExamineState:1
         };
         new DataTable({
+            el : 'datatableEnterprise',
             id : '#datatableEnterprise',
             paging : true,
             pageSize : 10,
@@ -263,9 +267,13 @@ var myReportListView = Backbone.View.extend({
             }],
             complete : function(list) {
                 self.collection.set(list);
+            },
+            dataTableCb:function(n){
+                self.pageNo = n;
             }
         });
     },
+     pageNo:1,
     //导出
     exportFile : function() {
         var business = $.trim($("#business").val());
@@ -410,6 +418,7 @@ var myReportListView = Backbone.View.extend({
     //弹出窗口控制
     myReportDetail:function(id){
         var self=this;
+        self.model.set("id",id)
         var pushRight = document.getElementById( 'pushRight' );
             classie.toggle( pushRight, 'cbp-spmenu-open' );
              $("#mask").css("height",$(document).height());     
@@ -422,7 +431,6 @@ var myReportListView = Backbone.View.extend({
         var pushRight = document.getElementById( 'pushRight' );
             classie.toggle( pushRight, 'cbp-spmenu-open' );
             $("#mask").hide();
-            self.load();
     },
     myReportDetailList : function(id) {
         var self = this;
@@ -432,13 +440,15 @@ var myReportListView = Backbone.View.extend({
         $("#clue").removeClass("active");
         $.fn.editable.defaults.mode = 'inline';
         $("#detailpartdiv").html(myReportDetailTemplate);
+        if(window.screen.width>1440){
+            $("#partnerDetail").css("max-height","850px")
+        }else{
+            $("#partnerDetail").css("max-height","500px")
+        }
         var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
         html += handlerRow(id, "edit");
         $("#buttons").html(html);
-        $('[href="#transfer/' + id + '"]').html("<i class='fa fa-retweet' aria-hidden='true'></i>转移线索");
-        $('[href="#transfer/' + id + '"]').click(function(){
-            self.transfer(id);
-        })
+       $('#transfer').html("<i class='fa fa-retweet' aria-hidden='true'></i>转移线索");
         self.model.set({
             id : id
         });
@@ -509,7 +519,7 @@ var myReportListView = Backbone.View.extend({
                     break;
                 }
                 $("#e_opptStat").html(sta);
-                $("#e_vndtAmt").html(self.milliFormat(info.vndtAmt));
+                $("#e_vndtAmt").html(info.vndtAmt);
                 if (info.startDate == "" || info.startDate==null) {
                     $("#e_startDate").html("");
                 } else {

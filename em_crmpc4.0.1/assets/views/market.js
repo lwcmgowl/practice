@@ -88,6 +88,7 @@ var marketListView = Backbone.View.extend({
             }
             if (code == 13) {
                 self.load();
+                $('.dropdown').removeClass('open');
             }
         }
     },
@@ -318,47 +319,38 @@ var marketListView = Backbone.View.extend({
                 "title" : "客户名称"
             },{
                 "data" : "contactName",
-                "width" : "100px",
                 "title" : "联系人"
             }, {
                 "data" : "mobile",
-                "class" : "tel",
                 "tip" : true,
-                "width" : "110px",
                 "title" : "手机"
             }, {
                 "data" : "teleNo",
-                "class" : "tel",
                 "tip" : true,
-                "width" : "120px",
                 "title" : "电话"
             }, {
                 "data" : "dataSource",
-                "width" : "80px",
                 "title" : "数据来源"
             }, {
-                "data" : "conferenceName",
-                "class" : "ut-s",
-                "tip" : true,
-                "width" : "80px",
-                "title" : "会议名称"
-            }, {
                 "data" : "professionName",
+                 "tip" : true,
                 "title" : "行业类别"
             }, {
                 "data" : "regionName",
-                "class" : "ut-s",
                 "tip" : true,
-                width:"80px",
                 "title" : "所属团队"
             }, {
                 "data" : "province",
-                "width" : "80px",
+                 "tip" : true,
                 "title" : "所属省份"
             }, {
                 "data" : "marketUserName",
-                "width" : "60px",
+                 "tip" : true,
                 "title" : "负责人"
+            },{
+                "data" : "createdAt",
+                 "tip" : true,
+                "title" : "创建时间"
             }],
             columnDefs : [{
                 targets : 0,
@@ -371,24 +363,17 @@ var marketListView = Backbone.View.extend({
                 targets : 4,
                 render : function(i, j, c) {
                     if (c.dataSource)
-                        return '<div class="ut-s">' + appcan.clueSources[c.dataSource] + '</div>';
+                        return '<div class="ut-s" title='+appcan.clueSources[c.dataSource]+'>' + appcan.clueSources[c.dataSource] + '</div>';
                     else
                         return '';
                 }
-            }, {
-                targets : 10,
+            },{
+                targets : 9,
                 render : function(i, j, c) {
-                    //editType 1 可编辑 2 不可编辑
-                    var editType = 2;
-                    var html = '<a class="btn btn-default btn-xs" href="#dynamicOffical/' + c.id + '/01/' + editType + '/' + encodeURIComponent(c.companyName) + '">跟进动态</a> ' +
-                    //'<a href="#" onclick="plroleof(0,\'' + encodeURIComponent(JSON.stringify(c)) + '\')">提交上报</a> '
-                    '<a class="btn btn-default btn-xs" href="#marketDetail/' + c.id + '">查看</a> '
-                    // +      '<a href="marketing_add.html?id='+c.id+'" id="edit">编辑</a> '
-                    //                                          + '<a href="#" onclick="delMarket(\''+c.id+'\')">删除</a> ';
-                    +'<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></button><ul class="dropdown-menu center">'
-                    html += handlerRow(c.id + '-1');
-                    html += '</ul></div>';
-                    return html;
+                     if (c.createdAt)
+                        return toDateString(c.createdAt);
+                    else
+                        return '';
                 }
             }],
             complete : function(list) {

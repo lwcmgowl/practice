@@ -32,16 +32,6 @@ var cluesListViewService = {
         });
     },
     exportFile : function(data, url) {   //导出
-        var data = {
-                    "entityType" : "exportClue",
-                    "dataType" : "1",
-                    "profession":$("#profession").val(),
-                    "region" : $("#region").val(),
-                    "clueState" : $("#clueState").val(),
-                    "companyName" : $.trim($("#csmName").val()),
-                    "salesQuery":$.trim($('#people').val()),
-                    "submitState":1
-                };      
         ajax({
             url : "/clue/exportClue",   //url,
             data : data,

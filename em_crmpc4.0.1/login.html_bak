@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="renderer" content="webkit" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="keyword" content="协同办公,CRM, 销售机会, 营销数据库, 营销, 客户管理, 线索,商机, 销售">
+        <link rel="shortcut icon" href="img/favicon.png">
+        <title>CRM应用平台</title>
+        <!-- Bootstrap core CSS -->
+        <link href="assets/css/login.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <div  data-import="assets/templates/staff/loginContent.html"></div>
+        <script src="js/lib/jquery.js"></script>
+        <script src="js/lib/underscore.js"></script>
+        <script src="js/lib/backbone.js"></script>
+        <script src="js/lib/backbone.stickit.js"></script>
+        <script src='js/lib/jquery.cookie.js'></script>
+        <script src='js/lib/jquery.hoverIntent.minified.js'></script>
+        <script src="js/lib/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="js/lib/jquery.md5.js"></script>
+        <script src="js/lib/template.import.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/assets/common/localStorage.js"></script>
+		<script type="text/javascript" charset="utf-8">
+            var ip = window.location.href;
+            var crmip = ip.split("//")[1].split("/");
+            var topindex = ip.split("//")[0] + "//" + crmip[0];
+            var lengthstr = ip.length;
+            var ino=ip.indexOf("em_crmpc4.0.1");
+            var endindex = ip.substr(ino,lengthstr);
+            var dataIpindex = ip.replace(topindex, "").replace(endindex, "");
+             var tmpData = $.extend({
+                    "crmurlindex" : dataIpindex
+                },dataIpindex);
+            $.storage('crmurlindex', tmpData, 24 * 60 * 60 * 1000);
+
+        </script>
+        <script src="assets/global.js"></script>
+        <script src="js/assets/common/init.js"></script>
+        <script src="assets/services/login.js"></script>
+        <script src="assets/models/login.js"></script>
+        <script src="assets/views/loginContent.js"></script>
+    </body>
+
+</html>

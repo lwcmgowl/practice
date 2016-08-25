@@ -92,9 +92,11 @@
         <script src="js/lib/bootstrap-editable.min.js"></script>
         <script src="js/lib/jquery.webui-popover.min.js"></script>
         <script src="js/lib/classie.js"></script>
-    </body>
-    <script>
+        <script type="text/javascript" charset="utf-8">
+          //获取用户信息
              getLocVal();
-            $("#user_").html('【当前用户：'+appcanUserInfo.userName+' 】');
-    </script>
+             $("#user_").html(appcanUserInfo.userName);
+             $("#userIcon").html('<img src="' + appcanUserInfo.userIcon + '" alt="" class="img-circle" width="30px" height="30px" onerror="javascript:this.src=\'images/person.png\'"/>');
+       </script>
+    </body>
 </html>

@@ -2,7 +2,7 @@
 var marketTemplate = loadTemplate("assets/templates/staff/contact.html");
 //列表容器VIEW
 var peoples = [];
-var marketListView = Backbone.View.extend({
+var customerContactChanceView = Backbone.View.extend({
     initialize : function() {
         this.stickit();
     },
@@ -113,7 +113,7 @@ var marketListView = Backbone.View.extend({
             columnDefs : [{
                 targets : 0,
                 render : function(i, j, c) {
-                     var html = "<a href='javascript:;' onclick='marketListViewInstances.contactDetail(\"" + c.id + "\")' title=" + c.contactName + ">" + c.contactName+"</a>";
+                     var html = "<a href='javascript:;' onclick='customerContactViewInstance.contactDetail(\"" + c.id + "\")' title=" + c.contactName + ">" + c.contactName+"</a>";
                         return html;
                 }
             },{
@@ -126,7 +126,7 @@ var marketListView = Backbone.View.extend({
                 render : function(i, j, c) {
                     var html="";
                     if (flag == 1){
-                        html += "<a href='javascript:;' onclick='marketListViewInstances.Cancelgl("+c.relationId+")'>移出</a>";
+                        html += "<a href='javascript:;' onclick='customerContactViewInstance.Cancelgl("+c.relationId+")'>移出</a>";
                       }
                     return html;
                 }
@@ -208,8 +208,8 @@ var marketListView = Backbone.View.extend({
             $("#contactDynamic").removeClass("active");
             var opptcontactDetails=["assets/services/cusOpptcontactDetails.js", "assets/models/opptcontactDetails.js", "assets/views/opptcontactDetails.js"];
              loadSequence(opptcontactDetails,function(){
-                 var marketdetailInstance = new opprotContactdetailView();
-                marketdetailInstance.load(id);
+                 var opprotContactInstance = new opprotContactdetailView();
+                opprotContactInstance.load(id);
             });
         
     },
@@ -276,7 +276,7 @@ var marketListView = Backbone.View.extend({
                 targets : 6,
                 width : "200px",
                 render : function(i, j, c) {
-                    var html = '<a href="javascript:;" onclick="marketListViewInstances.Radiopersonnel(\'' + c.id + '\',\'' + c.contactName + '\')">加入</a> &nbsp;'
+                    var html = '<a href="javascript:;" onclick="customerContactViewInstance.Radiopersonnel(\'' + c.id + '\',\'' + c.contactName + '\')">加入</a> &nbsp;'
                     return html;
                 }
             }]
@@ -300,7 +300,7 @@ var marketListView = Backbone.View.extend({
             }
         }
         peoples.push(Personnel);
-        var str = '<div onclick="marketListViewInstances.remove(this,' + (peoples.length - 1) + ');">' + name + '<img src="img/del.png"></div>';
+        var str = '<div onclick="customerContactViewInstance.remove(this,' + (peoples.length - 1) + ');">' + name + '<img src="img/del.png"></div>';
         $("#xzpeople").append(str);
     },
    remove: function (obj,index){
@@ -346,4 +346,4 @@ var marketListView = Backbone.View.extend({
         });
     }
 });
-var marketListViewInstances= new marketListView();
+var customerContactViewInstance= new customerContactChanceView();

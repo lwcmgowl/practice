@@ -120,7 +120,9 @@ function addDynamic() {
             $.success("创建成功！", null, null, function() {
                 $('#dynamicContent').val('');
                 $('#dynamicType option[value=00]').attr('selected', true);
-                getDynamic()
+                 var word = $("#wordCount").find(".word");
+                     word.text(500);
+                 getDynamic()
                 //window.location.href="Datarights_list.html";
             });
         }
@@ -131,7 +133,6 @@ function getDynamic() {
     var data = {
         "objEntityId" : objEntityId,
         "objEntityTypeId" : objEntityTypeId
-
     };
     new DataDynamic({
         id : '#list',
@@ -241,7 +242,7 @@ function DataDynamic(options) {
                 if (i == begin)
                     str = '<ul class="list-group" >'
 
-                str += '<li class="list-group-item bg-primary"><div class="col-sm-2">' + toDynamicDate(dataSrc[i].updatedAt, 'm-d-h-m') + '</div>' + '<div class="col-sm-2">' + dataSrc[i].userName + '</div>' + '<div class=" text-right">';
+                str += '<li class="list-group-item bg-primary"><div class="col-sm-3">' + toDynamicDate(dataSrc[i].updatedAt, 'm-d-h-m') + '</div>' + '<div class="col-sm-2">' + dataSrc[i].userName + '</div>' + '<div class=" text-right">';
 
                 if (dataSrc[i].userId != appcanUserInfo.userId)
                     str += '<a href="javascript:;" name="' + i + '" onclick="wordReply(' + pageId.split('dynamic')[1] + ',\'' + dataSrc[i].userId + '\',\'' + encodeURIComponent(dataSrc[i].userName) + '\')">回复</a>　';

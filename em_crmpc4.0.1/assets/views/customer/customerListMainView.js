@@ -86,6 +86,7 @@ var customerListMainView = Backbone.View.extend({
             }
             if (code == 13) {
                 customerListMainViewInstance.load();
+                $('.dropdown').removeClass('open');
             }
         }
     },
@@ -155,6 +156,9 @@ var customerListMainView = Backbone.View.extend({
                 "data" : "csmName",
                 "title" : "客户名称"
             }, {
+                "data" : "csmStatId",
+                "title" : "客户状态"
+            }, {
                 "data" : "level",
                 "title" : "客户级别"
             }, {
@@ -169,9 +173,10 @@ var customerListMainView = Backbone.View.extend({
             }, {
                 "data" : "salesUserName",
                 "title" : "负责人"
-            }, {
-                "data" : "csmStatId",
-                "title" : "客户状态"
+            },{
+                "data" : "createdAt",
+                 "tip" : true,
+                "title" : "创建时间"
             }],
             columnDefs : [{
                 targets : 0,
@@ -185,61 +190,39 @@ var customerListMainView = Backbone.View.extend({
                              return html;
                         };
                 }
-            },{
+            }, {
                 targets : 1,
-                render : function(i, j, c) {
-                    if (c.level)
-                        return appcan.customerlevel[parseInt(c.level)];
-                    else
-                        return '';
-                }
-            }, {
-                targets : 3,
-                render : function(i, j, c) {
-                    if (c.csmNature)
-                        return appcan.customerproperty[parseInt(c.csmNature)];
-                    else
-                        return '';
-                }
-            }, {
-                targets : 6,
                 render : function(i, j, c) {
                     if (c.csmStatId)
                         return appcan.csmStat[parseInt(c.csmStatId)];
                     else
                         return '';
                 }
-            }
-            // , {
-                // targets : 7,
-                // render : function(i, j, c) {
-                    // var dynamicParam = {
-                        // "objEntityId" : c.id,
-                        // "companyName" : encodeURIComponent(c.csmName),
-                        // "objEntityTypeId" : "operatelog",
-                        // "cusotm" : 1
-                    // };
-// 
-                    // var customerAndChanceParam = {
-                        // "customId" : c.id,
-                        // "csmName" : decodeURI(c.csmName),
-                        // "type" : "2"
-                    // };
-                    // var hrefDynamic = "#dynamic/" + c.id + "/" + encodeURIComponent(c.csmName) + "/operatelog/1";
-                    // var hrefDynamicURL = "<a class='btn btn-default btn-xs' id='dynamic' href='" + hrefDynamic + "' >动态</a> &nbsp;";
-                    // var hrefDynamic = "#dynamic/" + c.id + "/" + encodeURIComponent(c.csmName) + "/operatelog/2/1";
-                    // var hrefDynamicURL = "<a class='btn btn-default btn-xs'  href='" + hrefDynamic + "' >跟进动态</a> &nbsp;";                      var detail = "#detail/" + c.id;
-                    // var detailURL = "<a class='btn btn-default btn-xs'  href='" + detail + "' >查看</a> &nbsp";
-                    // var chance = "#mystaffchance/" + c.id + "/" + decodeURI(c.csmName)+"/2";
-                    // var chanceURL = "<a class='btn btn-default btn-xs'  href='" + chance + "'>机会</a> &nbsp";
-                    // var customer = "#customer/" + c.id + "/" + decodeURI(c.csmName)+"/2/null";
-                    // var customerURL = "<a class='btn btn-default btn-xs'  href='" + customer + "'>联系人</a> &nbsp";
-                    // //拼装 html
-                    // var html = customerURL + chanceURL + detailURL;
-                    // return html;
-                // }
-            // }
-            ],
+            },{
+                targets : 2,
+                render : function(i, j, c) {
+                    if (c.level)
+                        return appcan.customerlevel[parseInt(c.level)];
+                    else
+                        return '';
+                }
+            },{
+                targets : 4,
+                render : function(i, j, c) {
+                    if (c.csmNature)
+                        return appcan.customerproperty[parseInt(c.csmNature)];
+                    else
+                        return '';
+                }
+            },{
+                targets : 7,
+                render : function(i, j, c) {
+                     if (c.createdAt)
+                        return toDateString(c.createdAt);
+                    else
+                        return '';
+                }
+            }],
             complete : function(list) {
                 self.collection.set(list);
             }

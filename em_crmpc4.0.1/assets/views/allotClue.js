@@ -13,25 +13,24 @@ var allotClueView = Backbone.View.extend({
         this.getIndustryList();
         $("#bigRegions").html("<option value=''>选择所属团队</option>" + getRegionOption());
         document.onkeypress = function(e) {
-    var code;
-    if (!e) {
-        e = window.event;
-    }
-    if (e.keyCode) {
-        code = e.keyCode;
-    } else if (e.which) {
-        code = e.which;
-    }
-    if (code == 13) {
-        allotClueViewObj.search();
-    }
-};
+            var code;
+            if (!e) {
+                e = window.event;
+            }
+            if (e.keyCode) {
+                code = e.keyCode;
+            } else if (e.which) {
+                code = e.which;
+            }
+            if (code == 13) {
+                allotClueViewObj.search();
+                $('.dropdown').removeClass('open');
+            }
+        };
     },
     template : allotClueTemplate,
     bindings : {
-        // '#industrycategory':{
-        // 	observe:''
-        // }
+
     },
     events : {
         'click #exportFile' : function() {
@@ -40,15 +39,25 @@ var allotClueView = Backbone.View.extend({
         'click #searchBtn' : function() {
             this.search();
         },
-        'click #clear':'clear'
+        'click #clear' : 'clear',
+        'click #assign' : 'assign',
+        "click #mask" : function() {
+            this.hideDetail();
+        },
+        "click #clueDynamic" : function() {
+            this.assignClueDynamic()
+        },
+        "click #clueInfo" : function() {
+            this.assignClueDetailList(this.model.get("id"));
+        },
     },
-     //查询重置
+    //查询重置
     clear : function() {
         $('select,input').val('');
         this.load();
     },
     search : function() {
-        var self=this;
+        var self = this;
         var dataObj = {
             "assigner" : appcanUserInfo.userId,
             "profession" : $('#industrycategory').val(),
@@ -57,54 +66,63 @@ var allotClueView = Backbone.View.extend({
             "companyName" : $.trim($('#csmName').val()),
             "dataType" : 1,
             "submitState" : $('#submitState').val(),
-           };
-                new DataTable({
-                    id : '#datatableOffical',
-                    paging : true,
-                    pageSize : 10,
-                    ajax : {
-                        url : '/clue/page',
-                        data : dataObj
-                    },
-                    columns : [{
-                        "data" : "contactName",
-                        "width" : "114px",
-                        "title" : "联系人"
-                    }, {
-                        "data" : "mobile",
-                        "width" : "114px",
-                        "title" : "手机"
-                    }, {
-                        "data" : "teleNo",
-                        "width" : "114px",
-                        "title" : "电话"
-                    }, {
-                        "data" : "companyName",
-                        "title" : "客户名称"
-                    }, {
-                        "data" : "professionName",
-                        "width" : "80px",
-                        "title" : "行业类别"
-                    }, {
-                        "data" : "regionName",
-                        "title" : "所属团队"
-                    }, {
-                        "data" : "marketUserName",
-                        "title" : "线索上报人"
-                    }],
-                    columnDefs : [{
-                        targets : 7,
-                        render : function(i, j, c) {
-                            var html = "<a class='btn btn-default btn-xs' href='#getDynamic/" + c.id + "/02/2/" + encodeURIComponent(c.companyName) + "'>跟进动态</a>&nbsp" + "<a class='btn btn-default btn-xs' href='#clueDetail/" + c.id + "' >查看</a> " + '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></button><ul class="dropdown-menu center">'
-                            html += handlerRow(c.id);
-                            html += '</ul></div>';
-                            return html;
-                        }
-                    }],
-                    complete : function(list) {
-                        self.collection.set(list);
-                    }
-                });
+        };
+        new DataTable({
+            id : '#datatableOffical',
+            paging : true,
+            pageSize : 10,
+            ajax : {
+                url : '/clue/page',
+                data : dataObj
+            },
+            columns : [{
+                "data" : "companyName",
+                "title" : "客户名称"
+            }, {
+                "data" : "contactName",
+                "title" : "联系人"
+            }, {
+                "data" : "mobile",
+                "title" : "手机"
+            }, {
+                "data" : "teleNo",
+                "title" : "电话"
+            }, {
+                "data" : "professionName",
+                "title" : "行业类别"
+            }, {
+                "data" : "regionName",
+                "title" : "所属团队"
+            }, {
+                "data" : "marketUserName",
+                "title" : "线索上报人"
+            }, {
+                "data" : "salesUserName",
+                "title" : "线索负责人"
+            }, {
+                "data" : "clueState",
+                "title" : "分配状态"
+            }],
+            columnDefs : [{
+                targets : 0,
+                render : function(i, j, c) {
+                    var html = "<a href='javascript:;' onclick='allotClueViewObj.assignClueDetail(\"" + c.id + "\")' title=" + c.companyName + ">" + c.companyName + "</a>";
+                    return html;
+
+                }
+            }, {
+                targets : 8,
+                render : function(i, j, c) {
+                    if (c.clueState)
+                        return appcan.submitState[parseInt(c.submitState)];
+                    else
+                        return '';
+                }
+            }],
+            complete : function(list) {
+                self.collection.set(list);
+            }
+        });
     },
     getList : function() {
         this.render();
@@ -122,6 +140,49 @@ var allotClueView = Backbone.View.extend({
             error : function(cols, error, options) {
             }
         });
+    },
+    assignClueDetail : function(id) {
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.addClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").css("height", $(document).height());
+        $("#mask").css("width", $(document).width());
+        $("#mask").show();
+        self.model.set("id", id);
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
+        html += handlerRow(id, "edit");
+        $("#buttons").html(html);
+        self.assignClueDetailList(id);
+    },
+    assignClueDetailList : function(id) {
+        var self = this;
+        $("#clueInfo").addClass("active");
+        $("#clueDynamic").removeClass("active");
+        var flag = 3;
+        myResponsibleCluesListDetail = ["assets/services/myResponsibleCluesListDetail.js", "assets/models/myResponsibleCluesListDetail.js", "assets/views/myResponsibleCluesListDetail.js"];
+        loadSequence(myResponsibleCluesListDetail, function() {
+            var myResponsibleCluesListDetailInstance = new myResponsibleCluesListDetailView();
+            myResponsibleCluesListDetailInstance.load(id, flag);
+        });
+
+    },
+    assignClueDynamic : function() {
+        $("#clueInfo").removeClass("active");
+        $("#clueDynamic").addClass("active");
+        var objEntityTypeId = "02";
+        var editType = 2;
+        var objId = this.model.get("id");
+        var dynamicOffical = ['assets/services/dynamicOfficalTest.js', 'assets/models/dynamicOfficalTest.js', 'assets/views/dynamicOfficalTest.js'];
+        loadSequence(dynamicOffical, function() {
+            dynamicViewObj.getDynamicData(objId, objEntityTypeId, editType);
+        });
+
+    },
+    hideDetail : function() {
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.removeClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").hide();
     },
     profession : function(arr) {
         var optionHTML = "";
@@ -143,7 +204,7 @@ var allotClueView = Backbone.View.extend({
         var dataObj = {
             "entityType" : "allocatedNotFenpei",
             "assigner" : appcanUserInfo.userId,
-             "submitState" : $('#submitState').val(),
+            "submitState" : $('#submitState').val(),
             "profession" : $('#industrycategory').val(),
             "region" : $('#bigRegions').val(),
             "companyName" : $.trim($('#csmName').val()),
@@ -160,9 +221,11 @@ var allotClueView = Backbone.View.extend({
             }
         });
     },
-    assign : function(id) {
-        var item  = this.collection.get(id).toJSON();
-        this.getCluePerson(item);
+    assign : function() {
+        var self=this;
+        var id = self.model.get("id");
+        var item = self.collection.get(id).toJSON();
+        self.getCluePerson(item);
         bootbox.dialog({
             message : $("#organizationTemplate").html(),
             title : '分配线索负责人',
@@ -188,9 +251,8 @@ var allotClueView = Backbone.View.extend({
                             data : param,
                             success : function(data) {
                                 $.success("调整成功！", null, null, function() {
-                                    appRouter.navigate("unallot", {
-                                        trigger : true
-                                    });
+                                   self.search();
+                                   self.hideDetail();
                                 });
                             }
                         });
@@ -200,9 +262,7 @@ var allotClueView = Backbone.View.extend({
                     label : "取消",
                     className : "btn-default",
                     callback : function() {
-                        appRouter.navigate("unallot", {
-                            trigger : true
-                        });
+                        
                     }
                 }
             },
@@ -229,13 +289,13 @@ var allotClueView = Backbone.View.extend({
                     //员工号
                     var fullName = perArr[i].fullName;
                     //真实姓名
-                    if(fullName){
-                         var salesUserId = '<option value="' + staffId + '">' + fullName + '</option>';
-                         $("#salesUserId").append(salesUserId);
+                    if (fullName) {
+                        var salesUserId = '<option value="' + staffId + '">' + fullName + '</option>';
+                        $("#salesUserId").append(salesUserId);
                     }
                 }
             }
         });
     }
 });
-var allotClueViewObj = new allotClueView(); 
+var allotClueViewObj = new allotClueView();

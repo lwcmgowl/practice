@@ -132,6 +132,7 @@ var myReportListView = Backbone.View.extend({
             region : $("#bigRegions").val()
         };
         new DataTable({
+            el:"datatableEnterprise",
             id : '#datatableEnterprise',
             paging : true,
             pageSize : 10,
@@ -257,9 +258,13 @@ var myReportListView = Backbone.View.extend({
             }],
             complete : function(list) {
                 self.collection.set(list);
+            },
+            dataTableCb:function(n){
+                self.pageNo = n;
             }
         });
     },
+     pageNo:1,
     //导出
     exportFile : function() {
         var business = $.trim($("#business").val());
@@ -375,9 +380,29 @@ var myReportListView = Backbone.View.extend({
                     $("#transferTeam").attr("disabled", "disabled");
                     $("#transferPerson").attr("disabled", "disabled");
                     $("#e_companyName").attr("disabled", "disabled");
-                    $("#transferTeam").val(self.model.get("disabledRegionId"));
-                    $("#transferPerson").val(self.model.get("disabledSalesUserId"));
                 }  
+            }
+        });
+    },
+    //对比客户名称
+     searchCompany : function(companyName) {
+        var self = this;
+        var data = {
+            csmName : $.trim(companyName)
+        };
+        ajax({
+            url : "/opport/custom/viewNameCheck",
+            data : data,
+            success : function(data) {
+                var msg = data.msg.message;
+                var state=data.msg.state;
+                if (state == 0) {
+                    $("#notEmpty").addClass("hassuccess");
+                    $("#notEmpty").removeClass("haserror");
+                } else {
+                    $("#notEmpty").addClass("haserror");
+                }
+                $("#notEmpty").html(msg);
             }
         });
     },
@@ -421,30 +446,6 @@ var myReportListView = Backbone.View.extend({
             }
         });
     },
-    //对比客户名称
-    searchCompany : function(companyName) {
-        var self = this;
-        var data = {
-            csmName : $.trim(companyName)
-        };
-        ajax({
-            url : "/opport/custom/viewNameCheck",
-            data : data,
-            success : function(data) {
-                var msg = data.msg.message;
-                var state=data.msg.state;
-                self.model.set("disabledRegionId",data.msg.regionId);
-                self.model.set("disabledSalesUserId",data.msg.salesUserId);
-                if (state == 0) {
-                    $("#notEmpty").addClass("hassuccess");
-                    $("#notEmpty").removeClass("haserror");
-                } else {
-                    $("#notEmpty").addClass("haserror");
-                }
-                $("#notEmpty").html(msg);
-            }
-        });
-    },
     //获取团队
     myReportDetail:function(id){
         var self=this;
@@ -460,7 +461,6 @@ var myReportListView = Backbone.View.extend({
         var pushRight = document.getElementById( 'pushRight' );
             classie.toggle( pushRight, 'cbp-spmenu-open' );
             $("#mask").hide(); 
-             self.load();
     },
     myReportDetailList : function(id) {
         var self = this;
@@ -470,6 +470,11 @@ var myReportListView = Backbone.View.extend({
         $("#clue").removeClass("active");
         $.fn.editable.defaults.mode = 'inline';
         $("#detailpartdiv").html(myReportDetailTemplate);
+         if(window.screen.width>1440){
+            $("#partnerDetail").css("max-height","850px")
+        }else{
+            $("#partnerDetail").css("max-height","500px")
+        }
         var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
         html += handlerRow(id, "edit");
         $("#buttons").html(html);

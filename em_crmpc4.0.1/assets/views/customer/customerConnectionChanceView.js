@@ -560,7 +560,7 @@ var customerConnectionChanceMainView = Backbone.View.extend({
         var csChContactId=self.model.get("cusChanceId");
         var opportContact=["assets/services/customerContact.js", "assets/models/contact.js", "assets/views/customerContact.js?"+Date.parse(new Date())];
         loadSequence(opportContact,function(){
-                marketListViewInstances.initinfo(csChContactId,objId,flag);
+                customerContactViewInstance.initinfo(csChContactId,objId,flag);
             });
         
     },

@@ -25,6 +25,14 @@ var loginView = Backbone.View.extend({//options...
         $.warning(this.model.validationError);
         return false;
         }
+        var userinfo = {};
+        userinfo.loginName = $('#loginName').val();
+        userinfo.loginpwd = $('#loginPass').val();
+        var tmpData2 = $.extend({
+            "userId" : ""
+        }, userinfo);
+        var saveTime=24 * 60 * 60 * 1000;
+        $.storage('userinfo', tmpData2, saveTime);
         this.model.save({}, {
             success : function(cols, resp, options) {
                 var saveTime = 24*60;
@@ -69,3 +77,6 @@ document.onkeypress = function(e) {
     }
 }
 var loginViewInstance = new loginView();
+$("#submitbtn").click(function() {
+    loginViewInstance.submitLogin();
+});

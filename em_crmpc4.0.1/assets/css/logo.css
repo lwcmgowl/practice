@@ -1,0 +1,118 @@
+﻿*{font-family: "微软雅黑";}
+.row{margin-left: 0px;margin-right: 0px;}
+.header-top {position: relative;width: 100%;height: 90px;margin: 0 auto;background: #1672d5;}
+.header-top img {position: absolute;left: 75px;}
+.mainstation{position: absolute;right: 0;bottom: 27px;
+    width: 140px;
+    height: 30px;border-radius: 3px;text-align: center;
+	line-height: 30px;color: #fff;}
+.mainstation:hover{color: #fff;text-decoration: none;}
+.main{background:url(../../images/logo_bg.jpg) no-repeat;width: 100%;background-size: cover;overflow: hidden;}
+.cont{width: 1200px;margin-left: auto;margin-right: auto;}
+p{margin-bottom: 0px;}
+.l-title{width: 760px;float: left;margin-left: 20px;margin-top: 165px;}
+.l-title p{color: #fff;}
+.l-title p:nth-child(1){font-size: 50px;line-height: 50px;margin-bottom: 16px;}
+.l-title p:nth-child(2){font-size: 30px;line-height: 30px;margin-bottom: 36px;}
+.l-title p:nth-child(3){font-size: 20px;line-height: 20px;}
+#remember-me {
+	border: 1px solid #ededed;
+    border-radius: 1px;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 0px;
+}
+.logo-input{width: 400px;background-color: #fff;border-radius: 4px;float: left;margin-top: 120px;}
+.foot-bot{height: 99px;background-color: rgba(137, 137, 139, 0.2);border-bottom:1px solid rgba(153, 153, 153, 0.5) ;border-top:1px solid rgba(153, 153, 153, 0.5);margin-top: 43px;}
+.logo-group{width: 350px;margin: 0 auto;}
+.logo-group .welcome{text-align: center;color: #333;font-size: 24px;margin-top: 40px;margin-bottom: 30px;}
+.logo-group input{border-radius: 3px;border: 1px solid #ededed;width: 100%;height: 35px;padding-left: 20px;padding-right: 20px;}
+.logo-group input:focus{border-radius: 3px;border: 1px solid #a2c2eb;width: 100%;height: 35px;}
+.logo-group .warning,.logo-group .warning-pwd{height: 25px;padding-left: 20px;color: #ff5d5d;font-size: 12px;line-height: 25px;}
+.logo-group .remember{border: 1px solid #ededed;border-radius: 1px;width: 16px;height: 16px;float: left;}
+.logo-group span{margin-left: 10px;font-size: 14px;color: #333;line-height: 16px;display: block;float: left;}
+.logo-btn{letter-spacing: 10px;width: 100%;height: 35px;border-radius: 3px;background-color: #4585d7;color: #fff;font-size: 18px;line-height: 35px;text-align: center;margin-top: 20px;}
+.logo-btn:active{background-color: #375e8f;}
+.logo-btn:hover{cursor: pointer;}
+.to-register{display: block;float: right;}
+.to-register:hover{color:#1672d5;}
+.forget-link{display: block;float: left;}
+.forget-link:hover{color:#1672d5;}
+.logo-group a{font-size: 14px;line-height: 14px;color: #333;margin-top: 10px;margin-bottom: 40px;}
+.foot-bot{font-size: 12px;color: #fff;text-align: center;}
+.foot-bot .copyright{margin-top: 32px;line-height: 12px;}
+.copyright span{display: inline-block;margin-left: 10px;margin-right: 10px;}
+.link-list{padding-left: 0px;}
+.link-list li{display: inline-block;margin-top: 20px;font-size: 12px;color: #fff;line-height: 12px;}
+.link-list li a{margin-left: 12px;margin-right: 13px;font-size: 12px;color: #fff;line-height: 14px;}
+.link-list li span{font-size: 12px;color: #fff;line-height: 12px;}
+.none{display: none;}
+
+/*忘记密码*/
+.forget-input{width: 400px;height: 280px;background-color: #fff;border-radius: 4px;float: left;margin-top: 80px;}
+.forget-group{width: 350px;margin: 0 auto;}
+.forget-input .forget{text-align: center;color: #333;font-size: 24px;margin-top: 30px;margin-bottom: 20px;}
+.forget-input input{border-radius: 3px;border: 1px solid #ededed;width: 100%;height: 35px;padding-left: 20px;padding-right: 20px;}
+.forget-input input:focus{border-radius: 3px;border: 1px solid #a2c2eb;height: 35px;}
+.forget-input .check{width: 220px;float: left;}
+.forget-group .warning-mail,.forget-group .warning-check{height: 25px;padding-left: 20px;color: #ff5d5d;font-size: 12px;line-height: 25px;}
+.check-num{border-radius: 3px;border: 1px solid #ededed;width: 110px;margin-left: 20px;float: left;height: 35px;background-color: #efefef;}
+.send-btn{letter-spacing: 10px;width: 100%;height: 35px;border-radius: 3px;background-color: #4585d7;color: #fff;font-size: 18px;line-height: 35px;text-align: center;}
+.send-btn:active{background-color: #375e8f;}
+.send-btn:hover{cursor: pointer;}
+.modal-header{text-align: center;border-bottom: 0px;padding-top: 30px;}
+.modal-title{font-size: 18px;color: #333;}
+.modal-header .close {margin-top: -15px;}
+.sendEmal-content{text-align: center;margin-top: 15px;}
+.sendEmal-content p{font-size: 14px;color: #666;}
+.goToMail-btn{width: 300px;height: 40px;border-radius: 3px;background-color: #4585d7;color: #fff;font-size: 18px;line-height: 40px;text-align: center;margin-top: 30px;margin-bottom: 40px;margin-left: auto;margin-right: auto;}
+.goToMail-btn:active{background-color: #375e8f;}
+.goToMail-btn:hover{cursor: pointer;}
+.modal-dialog1{width: 510px;}
+
+/*注册*/
+.register-input{width: 400px;background-color: #fff;border-radius: 4px;float: left;margin-top: 80px;}
+.register-group{width: 350px;margin: 0 auto;}
+.register-input .register{text-align: center;color: #333;font-size: 24px;margin-top: 30px;margin-bottom: 20px;}
+.register-input input{border-radius: 3px;border: 1px solid #ededed;width: 75%;height: 35px;padding-left: 10px;padding-right: 20px;}
+.register-input input:focus{border-radius: 3px;border: 1px solid #a2c2eb;height: 35px;}
+.register-input .reg-check{width: 130px;float: left;}
+.register-input .reg-check-num{border-radius: 3px;border: 1px solid #ededed;width: 110px;margin-left: 20px;float: left;height: 35px;}
+.register-input .reg-check-num1{font-size: 14px;border-radius: 3px;border: 1px solid #ededed;width: 110px;margin-left: 20px;float: left;height: 35px; letter-spacing: 0px;}
+.register-input .agree-clause{border: 1px solid #ededed;border-radius: 1px;width: 16px;height: 16px;float: left;}
+.register-input span{margin-left: 10px;font-size: 14px;color: #333;line-height: 16px;display: block;float: left;}
+.register-btn{letter-spacing: 10px;width: 100%;height: 35px;border-radius: 3px;background-color: #4585d7;color: #fff;font-size: 18px;line-height: 35px;text-align: center;}
+.register-btn:active{background-color: #375e8f;}
+.register-btn:hover{cursor: pointer;}
+.register-input .to-logo{display: block;float: right;    text-decoration: none;}
+.to-logo:hover{text-decoration: underline;color:#1672d5;}
+.register-input a{font-size: 14px;line-height: 14px;color: #333;margin-top: 10px;margin-bottom: 30px;}
+.register-input a:hover{color:#1672d5;}
+.modal-dialog2{width: 740px;}
+.sendEmal-content1 .content{width: 640px;margin: 0 auto;}
+.sendEmal-content1 .content img{margin-top: 5px;float: left;margin-bottom: 40px;}
+.check-email-btn{width: 172px;height: 35px;background-color: #4585d7;border-radius: 3px;color: #fff;font-size: 14px;color: #fff;line-height: 35px;text-align: center;margin-bottom: 28px;margin-top: 18px;}
+.check-email-btn:active{background-color: #375e8f;}
+.check-email-btn:hover{cursor: pointer;}
+.content-des{border-left: 1px solid #d0d0d0;float: left;padding-left: 30px;margin-left: 25px;margin-top: 5px;margin-bottom: 40px;}
+.content-des p:nth-child(1){font-size: 14px;line-height: 14px;margin-bottom: 12px;}
+.content-des p:nth-child(2){font-size: 14px;line-height: 14px;}
+.content-des p:nth-child(4){font-size: 14px;line-height: 14px;margin-bottom: 20px;}
+.content-des p:nth-child(5){font-size: 12px;color: #999;line-height: 12px;margin-bottom: 15px}
+.content-des p:nth-child(7){font-size: 12px;color: #999;line-height: 12px;}
+.content-des p:nth-child(6){font-size: 12px;color: #999;line-height: 12px;margin-bottom: 15px}
+.content-des p:nth-child(6) span{font-size: 12px;color: #4585d7 !important;}
+.warning-call,.warning-enterprise,.warning-regMail,.warning-regName,.warning-regPwd,.warning-regPwdAgain,.warning-regCheck,.warning-agreeClause{height: 25px;padding-left: 20px;color: #ff5d5d;font-size: 12px;line-height: 25px;}
+.cloudbtn {
+    margin-left: 20px;
+}
+.email-a,.password-a{
+	margin-bottom:10px;margin-top:10px;margin-right:30px
+}
+.callNum-a,.code-a{
+	margin-bottom:10px;margin-top:10px;margin-right:25px
+}
+.enterprise-a,.passwords-a{
+	margin-bottom:10px;margin-top:10px;margin-right: 20px;
+}

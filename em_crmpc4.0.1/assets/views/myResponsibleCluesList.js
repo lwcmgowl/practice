@@ -83,6 +83,7 @@ var myResponsibleCluesListView = Backbone.View.extend({
             }
             if (code == 13) {
                 myResponsibleCluesListViewInstance.load();
+                 $('.dropdown').removeClass('open');
             }
         }
     },
@@ -99,87 +100,87 @@ var myResponsibleCluesListView = Backbone.View.extend({
                     className : "btn-success",
                     callback : function() {
                         var loginId = appcanUserInfo.userId;
-                        var companyName = $("#companyName").val();
+                        var companyName = $("#acompanyName").val();
                         if (!isDefine(companyName)) {
                             $.danger("请输入客户名称");
-                            $("#companyName").parent().addClass("has-error");
-                            $("#companyName").focus();
+                            $("#acompanyName").parent().addClass("has-error");
+                            $("#acompanyName").focus();
                             return false;
                         } else if (!reg1.test(companyName)) {
                             $.danger("客户名称格式有误");
-                            $("#companyName").parent().addClass("has-error");
-                            $("#companyName").focus();
+                            $("#acompanyName").parent().addClass("has-error");
+                            $("#acompanyName").focus();
                             return false;
                         } else {
-                            self.changeClass("companyName", true);
+                            self.changeClass("acompanyName", true);
                         }
                         var conferenceName = "";
-                        if ($("#dataSource").find("option:selected").text() == "行业会议") {
-                            conferenceName = $.trim($("#meeting").val());
+                        if ($("#adataSource").find("option:selected").text() == "行业会议") {
+                            conferenceName = $.trim($("#ameeting").val());
                             if (conferenceName == '') {
                                 $.danger("请填写会议名称");
-                                $("#meeting").parent().addClass("has-error");
-                                $("#meeting").focus();
+                                $("#ameeting").parent().addClass("has-error");
+                                $("#ameeting").focus();
                                 return false;
                             } else {
-                                self.changeClass("meeting", true);
+                                self.changeClass("ameeting", true);
                             }
                         }
-                        var contactName = $("#contactName").val();
+                        var contactName = $("#acontactName").val();
                         if (contactName === '') {
                             $.danger("姓名不能为空");
-                            $("#contactName").parent().addClass("has-error");
-                            $("#contactName").focus();
+                            $("#acontactName").parent().addClass("has-error");
+                            $("#acontactName").focus();
                             return false;
                         } else if (!patrn.exec(contactName)) {
                             $.danger("姓名格式有误");
-                            $("#contactName").parent().addClass("has-error");
-                            $("#contactName").focus();
+                            $("#acontactName").parent().addClass("has-error");
+                            $("#acontactName").focus();
                             return false;
                         } else {
-                            self.changeClass("contactName", true);
+                            self.changeClass("acontactName", true);
                         }
-                        var mobile = $("#mobile").val();
-                        var teleNo = $("#teleNo").val();
+                        var mobile = $("#amobile").val();
+                        var teleNo = $("#ateleNo").val();
                         if (mobile === '' && teleNo === '') {
                             $.danger("请填写手机号或者座机号");
-                            $("#mobile").parent().addClass("has-error");
-                            $("#mobile").focus();
-                            $("#teleNo").parent().addClass("has-error");
-                            $("#teleNo").focus();
+                            $("#amobile").parent().addClass("has-error");
+                            $("#amobile").focus();
+                            $("#ateleNo").parent().addClass("has-error");
+                            $("#ateleNo").focus();
                             return false;
                         } else if (!mob.test(mobile) && !tele.test(teleNo)) {
                             $.danger("手机号或者座机号格式有误!");
-                            $("#mobile").parent().addClass("has-error");
-                            $("#mobile").focus();
-                            $("#teleNo").parent().addClass("has-error");
-                            $("#teleNo").focus();
+                            $("#amobile").parent().addClass("has-error");
+                            $("#amobile").focus();
+                            $("#ateleNo").parent().addClass("has-error");
+                            $("#ateleNo").focus();
                             return false;
                         } else {
-                            $("#teleNo").parent().removeClass("has-error");
-                            $("#mobile").parent().removeClass("has-error");
+                            $("#ateleNo").parent().removeClass("has-error");
+                            $("#amobile").parent().removeClass("has-error");
                         }
-                        var QQ = $("#QQ").val();
-                        var weChat = $("#weChat").val();
-                        var email = $("#email").val();
+                        var QQ = $("#aQQ").val();
+                        var weChat = $("#aweChat").val();
+                        var email = $("#aemail").val();
                         if (email === '') {
 
                         } else if (!pattern.test(email)) {
                             $.danger("电子邮件格式不正确!");
-                            $("#email").parent().addClass("has-error");
-                            $("#email").focus();
+                            $("#aemail").parent().addClass("has-error");
+                            $("#aemail").focus();
                             return false;
                         } else {
-                            $("#email").parent().removeClass("has-error");
+                            $("#aemail").parent().removeClass("has-error");
                         }
-                        var department = $("#department").val();
-                        var post = $("#post").val();
-                        var dataSource = $("#dataSource").val() != "00" ? $("#dataSource").val() : "";
-                        var productType = $("#productType").val() != "00" ? $("#productType").val() : "";
-                        var closeReason = $("#closeReason").val() != "00" ? $("#closeReason").val() : "";
-                        var level = $("#level").val() != "00" ? $("#level").val() : "";
-                        var csmNature = $("#csmNature").val() != "00" ? $("#csmNature").val() : "";
-                        var csmScale = $("#csmScale").val() != "00" ? $("#csmScale").val() : "";
+                        var department = $("#adepartment").val();
+                        var post = $("#apost").val();
+                        var dataSource = $("#adataSource").val() != "00" ? $("#dataSource").val() : "";
+                        var productType = $("#aproductType").val() != "00" ? $("#productType").val() : "";
+                        var closeReason = $("#acloseReason").val() != "00" ? $("#closeReason").val() : "";
+                        var level = $("#alevel").val() != "00" ? $("#level").val() : "";
+                        var csmNature = $("#acsmNature").val() != "00" ? $("#csmNature").val() : "";
+                        var csmScale = $("#acsmScale").val() != "00" ? $("#csmScale").val() : "";
                         var region = $("#_region").val();
                         if (!isDefine(region) || region.indexOf("选择") > 0) {
                             $.danger("请选择所属团队");
@@ -203,41 +204,41 @@ var myResponsibleCluesListView = Backbone.View.extend({
                         } else {
                             $("#s_province").parent().removeClass("has-error");
                         }
-                        var address = $("#address").val();
-                        var postcode = $("#postcode").val();
+                        var address = $("#aaddress").val();
+                        var postcode = $("#apostcode").val();
                         if (postcode === '') {
 
                         } else if (!re2.test(postcode)) {
                             $.danger("邮编格式不正确!");
-                            $("#postcode").parent().addClass("has-error");
-                            $("#postcode").focus();
+                            $("#apostcode").parent().addClass("has-error");
+                            $("#apostcode").focus();
                             return false;
                         } else {
-                            $("#postcode").parent().removeClass("has-error");
+                            $("#apostcode").parent().removeClass("has-error");
                         }
-                        var website = $("#website").val();
+                        var website = $("#awebsite").val();
                         if (website === '') {
 
                         } else if (!Expression.test(website)) {
                             $.danger("官网格式不正确!");
-                            $("#website").parent().addClass("has-error");
-                            $("#website").focus();
+                            $("#awebsite").parent().addClass("has-error");
+                            $("#awebsite").focus();
                             return false;
                         } else {
-                            $("#website").parent().removeClass("has-error");
+                            $("#awebsite").parent().removeClass("has-error");
                         }
-                        var fax = $("#fax").val();
+                        var fax = $("#afax").val();
                         if (fax === '') {
 
                         } else if (!patternfax.test(fax)) {
                             $.danger("公司传真格式有误!例如:010-xxxxxxx");
-                            $("#fax").parent().addClass("has-error");
-                            $("#fax").focus();
+                            $("#afax").parent().addClass("has-error");
+                            $("#afax").focus();
                            return false;
                         } else {
-                            $("#fax").parent().removeClass("has-error");
+                            $("#afax").parent().removeClass("has-error");
                         }
-                        var remark = $("#remark").val();
+                        var remark = $("#aremark").val();
                         var clueState = $("#_clueState").val();
                         if (clueState != 3) {
                             closeReason = "";
@@ -299,30 +300,31 @@ var myResponsibleCluesListView = Backbone.View.extend({
                 $("#_region").html("<option value=''>选择所属团队</option>" + getRegionOption());
                 $("#myself").html(appcanUserInfo.userName);
                 $("#s_province").html('<option value="">选择所属省份</option>' + getOption(appcan.province))//加载所属大区省市选项
-                selectOpt("dataSource", appcan.clueSources);
+                selectOpt("adataSource", appcan.clueSources);
                 //数据来源
-                selectOpt("productType", appcan.producttype);
+                selectOpt("aproductType", appcan.producttype);
                 //产品类型
-                selectOpt("level", appcan.customerlevel);
+                selectOpt("alevel", appcan.customerlevel);
                 //客户级别
-                selectOpt("profession", appcan.customerlevel);
+                selectOpt("aprofession", appcan.customerlevel);
                 //行业类别
-                selectOpt("csmNature", appcan.customerproperty);
+                selectOpt("acsmNature", appcan.customerproperty);
                 //客户性质
-                selectOpt("csmScale", appcan.customersize);
+                selectOpt("acsmScale", appcan.customersize);
                 //客户规模
-                $('#dataSource').change(function() {
-                    var meeting = $('#dataSource option:selected').text();
+                $("#aconferenceName").css("display", "none");
+                $('#adataSource').change(function() {
+                    var meeting = $('#adataSource option:selected').text();
                     if (meeting === "行业会议") {
-                        $("#conferenceName").css("display", "block");
+                        $("#aconferenceName").css("display", "block");
                     } else {
-                        $("#conferenceName").css("display", "none");
+                        $("#aconferenceName").css("display", "none");
                     }
                 });
                 for (var k = 0; k < appcan.clueState.length; k++) {
                     var str = '<option value="' + k + '">' + appcan.clueState[k] + '</option>';
                     if (k == 2) {
-                        $("#closeReason1").hide();
+                        $("#acloseReason1").hide();
                     } else {
                         $("#_clueState").append(str);
                     }
@@ -330,10 +332,10 @@ var myResponsibleCluesListView = Backbone.View.extend({
                 $('#_clueState').change(function() {
                     var clueState = $('#_clueState').val();
                     if (Number(clueState) == 3) {
-                        $("#closeReason1").show();
-                        selectOpt("closeReason", appcan.closeReason);
+                        $("#acloseReason1").show();
+                        selectOpt("acloseReason", appcan.closeReason);
                     } else {
-                        $("#closeReason1").hide();
+                        $("#acloseReason1").hide();
                     }
                 });
 
@@ -363,8 +365,8 @@ var myResponsibleCluesListView = Backbone.View.extend({
             "clueState" : $('#clueState').val(),
             "companyName" : $.trim($('#csmName').val()),
             "dataType" : 1,
-            "salesUserId" : loginId
-            // "notClueState" : 2
+            "salesUserId" : loginId,
+            "notClueState" : 2
         };
         new DataTable({
             id : '#datatable',
@@ -379,22 +381,31 @@ var myResponsibleCluesListView = Backbone.View.extend({
                 "title" : "客户名称"
             }, {
                 "data" : "contactName",
+                 "tip" : true,
                 "title" : "联系人"
             }, {
                 "data" : "mobile",
+                 "tip" : true,
                 "title" : "手机"
             }, {
                 "data" : "teleNo",
+                 "tip" : true,
                 "title" : "电话"
             }, {
                 "data" : "professionName",
+                 "tip" : true,
                 "title" : "行业类别"
             }, {
                 "data" : "regionName",
+                 "tip" : true,
                 "title" : "所属团队"
             }, {
                 "data" : "clueState",
                 "title" : "线索状态"
+            },{
+                "data" : "createdAt",
+                 "tip" : true,
+                "title" : "创建时间"
             }],
             columnDefs : [{
                 targets : 0,
@@ -408,6 +419,14 @@ var myResponsibleCluesListView = Backbone.View.extend({
                 render : function(i, j, c) {
                     if (c.clueState)
                         return appcan.clueState[parseInt(c.clueState)];
+                    else
+                        return '';
+                }
+            },{
+                targets : 7,
+                render : function(i, j, c) {
+                     if (c.createdAt)
+                        return toDateString(c.createdAt);
                     else
                         return '';
                 }
@@ -660,14 +679,14 @@ var myResponsibleCluesListView = Backbone.View.extend({
                         var dataSource = $("#chanceDataSource").val() != "00" ? $("#dataSource").val() : "";
                         var conferenceName = "";
                         if ($("#chanceDataSource").find("option:selected").text() == "行业会议") {
-                            conferenceName = $.trim($("#meeting").val());
+                            conferenceName = $.trim($("#chanceMeeting").val());
                             if (conferenceName == '') {
                                 $.danger("请填写会议名称");
-                                $("#meeting").parent().addClass("has-error");
-                                $("#meeting").focus();
+                                $("#chanceMeeting").parent().addClass("has-error");
+                                $("#chanceMeeting").focus();
                                 return false;
                             } else {
-                                $("#meeting").parent().removeClass("has-error");
+                                $("#chanceMeeting").parent().removeClass("has-error");
                             }
                         }
                         var productType = $("#chanceProductType").val() != "00" ? $("#productType").val() : "";
@@ -687,7 +706,7 @@ var myResponsibleCluesListView = Backbone.View.extend({
                             url : "/clue/toopp",
                             data : data,
                             success : function(data) {
-                                $.success("转为机会成功！", null, null, function() {
+                                $.success("转为商机成功！", null, null, function() {
                                     self.load();
                                     self.hideDetail();
                                 });
@@ -726,34 +745,15 @@ var myResponsibleCluesListView = Backbone.View.extend({
                 //数据来源
                 selectOpt("chanceProductType", appcan.producttype);
                 //产品类型
-                $("#conferenceName").hide();
+                $("#chanceConferenceName").hide();
                 $('#chanceDataSource').change(function() {
-                    var meeting = $('#dataSource option:selected').text();
+                    var meeting = $('#chanceDataSource option:selected').text();
                     if (meeting === "行业会议") {
-                        $("#conferenceName").css("display", "block");
+                        $("#chanceConferenceName").css("display", "block");
                     } else {
-                        $("#conferenceName").css("display", "none");
+                        $("#chanceConferenceName").css("display", "none");
                     }
                 })
-                $("#vndtAmt").on('keyup', function(event) {
-                    var $amountInput = $(this);
-                    //响应鼠标事件，允许左右方向键移动
-                    event = window.event || event;
-                    if (event.keyCode == 37 | event.keyCode == 39) {
-                        return;
-                    }
-                    //先把非数字的都替换掉，除了数字和.
-                    $amountInput.val($amountInput.val().replace(/[^\d.]/g, "").
-                    //只允许一个小数点
-                    replace(/^\./g, "").replace(/\.{2,}/g, ".").
-                    //只能输入小数点后两位
-                    replace(".", "$#$").replace(/\./g, "").replace("$#$", ".").replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'));
-                });
-                $("#vndtAmt").on('blur', function() {
-                    var $amountInput = $(this);
-                    //最后一位是小数点的话，移除
-                    $amountInput.val(($amountInput.val().replace(/\.$/g, "")));
-                });
             }
         });
     },

@@ -12,7 +12,7 @@ var marketListView = Backbone.View.extend({
     },
     events : {
         'click #searchcon' : function() {
-            this.load(this.model.get("id"));
+            this.load(this.model.get("opportId"));
         },
          'click #contactDynamic' : function() {
             this.contactDynamic(this.model.get("contactId"));
@@ -20,7 +20,7 @@ var marketListView = Backbone.View.extend({
          'click #contactInfo' : function() {
             this.contactDetail(this.model.get("contactId"));
         },
-        'click #hrefBack' : 'hrefBack',
+        'click #contactHrefBack' : 'hrefBack',
         "click #Radioroleof" : "Radioroleof"
     },
     model : new marketModel(),
@@ -59,12 +59,16 @@ var marketListView = Backbone.View.extend({
         var flag = req.getParameter('flag');
         if (flag != "1") {
             $("#Setcontact").hide();
+        }else{
+            $("#cusAddcontact").hide();
+            $("#exportContactCus").hide();
         }
         var param = {
             "opportId" : id,
             "contactName" : $('#contacName').val()
         };
         new DataTable({
+            el : 'contactTable',
             id : '#contactTable',
             paging : true,
             pageSize : 6,
@@ -106,6 +110,7 @@ var marketListView = Backbone.View.extend({
             columnDefs : [{
                 targets : 0,
                 render : function(i, j, c) {
+                    console.log(c)
                      var html = "<a href='javascript:;' onclick='marketListViewInstances.contactDetail(\"" + c.id + "\")' title=" + c.contactName + ">" + c.contactName+"</a>";
                         return html;
                 }
@@ -128,10 +133,13 @@ var marketListView = Backbone.View.extend({
 
                     return html;
                 }
-            }]
-
+            }],
+            dataTableCb:function(n){
+                self.pageNo = n;
+            }
         });
     },
+    pageNo:1,
     exportFileContact : function() {
             var data = {
                 "entityType" : "exportOppContact",
@@ -186,7 +194,7 @@ var marketListView = Backbone.View.extend({
                     className : "btn-default",
                     callback : function() {
                         peoples = [];
-                         self.load(self.model.get("id"));
+                         self.load(self.model.get("opportId"));
                     }
                 }
             },

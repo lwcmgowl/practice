@@ -79,7 +79,8 @@ function Pagination(option){
         wrapper : 'body',
         currNo : 1,
         total : 1,
-        callback : null
+        callback : null,
+        dataTableCb:null,
     };
 
     //初始化配置
@@ -211,6 +212,7 @@ function Pagination(option){
         
         if(_this.defalut.callback && (typeof _this.defalut.callback === 'function')) {
             _this.defalut.callback(pageNo);
+            // _this.defalut.dataTableCb(pageNo);
         }
     };
 
@@ -314,10 +316,10 @@ function DataTable(options) {
         }
         ths.push('</thead></tr><tbody></tbody>');
         this.$table.html(ths.join(''));
-        this.$table.parent().append('<div class="dataTables_info" role="status" aria-live="polite">共 ' + this.total + ' 条数据</div><nav class="pagination-pos"></nav>');
+        this.$table.parent().append('<div class="dataTables_info '+options.el+'_info" role="status" aria-live="polite">共 ' + this.total + ' 条数据</div><nav class="pagination-pos '+options.el+'_pos"></nav>');
       }
       if(this.total==0){
-          $('.pagination-pos').css('display','none');
+          $('.'+options.el+"_pos").css('display','none');
       }
       return this;
     };
@@ -423,7 +425,7 @@ function DataTable(options) {
       //创建表格
       createBody.call(createHead.call(this),pageNo);
       //渲染分页
-      page.$wrapper = $('.pagination-pos');
+      page.$wrapper = $('.'+options.el+"_pos");
       page.redner();
         
       if(this.complete && typeof this.complete === 'function'){
@@ -435,11 +437,11 @@ function DataTable(options) {
   };
 
   //第一次执行
-  $('.dataTables_info,.pagination-pos').remove();  
+  $('.'+options.el+'_info,.'+options.el+'_pos').remove();  
   initDefault(options);
   //初始化分页
   var cnt = Math.ceil(options.total/options.pageSize);
-  var page =  new Pagination({total:cnt,wrapper:'.pagination-pos', callback:request});
+  var page =  new Pagination({total:cnt,wrapper:'.'+options.el+"_pos", callback:request,dataTableCb:options.dataTableCb});
   page.go(1);
 }
 

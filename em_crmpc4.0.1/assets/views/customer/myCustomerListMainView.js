@@ -89,6 +89,7 @@ var myCustomerListMainView = Backbone.View.extend({
             }
             if (code == 13) {
                 myCustomerListMainViewInstance.load();
+                $('.dropdown').removeClass('open');
             }
         };
     },
@@ -157,6 +158,9 @@ var myCustomerListMainView = Backbone.View.extend({
                 "data" : "csmName",
                 "title" : "客户名称"
             }, {
+                "data" : "csmStatId",
+                "title" : "客户状态"
+            },{
                 "data" : "level",
                 "title" : "客户级别"
             }, {
@@ -171,9 +175,10 @@ var myCustomerListMainView = Backbone.View.extend({
             }, {
                 "data" : "salesUserName",
                 "title" : "负责人"
-            }, {
-                "data" : "csmStatId",
-                "title" : "客户状态"
+            },{
+                "data" : "createdAt",
+                 "tip" : true,
+                "title" : "创建时间"
             }],
             columnDefs : [{
                 targets : 0,
@@ -187,8 +192,17 @@ var myCustomerListMainView = Backbone.View.extend({
                              return html;
                         };
                 }
-            },{
+            }, {
                 targets : 1,
+                width : '80px',
+                render : function(i, j, c) {
+                    if (c.csmStatId)
+                        return appcan.csmStat[parseInt(c.csmStatId)];
+                    else
+                        return '';
+                }
+            },{
+                targets : 2,
                 width : '80px',
                 render : function(i, j, c) {
                     if (c.level)
@@ -197,7 +211,7 @@ var myCustomerListMainView = Backbone.View.extend({
                         return '';
                 }
             }, {
-                targets : 3,
+                targets : 4,
                 width : '80px',
                 render : function(i, j, c) {
                     if (c.csmNature)
@@ -205,12 +219,11 @@ var myCustomerListMainView = Backbone.View.extend({
                     else
                         return '';
                 }
-            }, {
-                targets : 6,
-                width : '80px',
+            },{
+                targets : 7,
                 render : function(i, j, c) {
-                    if (c.csmStatId)
-                        return appcan.csmStat[parseInt(c.csmStatId)];
+                     if (c.createdAt)
+                        return toDateString(c.createdAt);
                     else
                         return '';
                 }

@@ -58,6 +58,7 @@ var marketListView = Backbone.View.extend({
 
         });
         self.load();
+        // $("#datatable").resizableColumns({});
         document.onkeypress = function(e) {
             var code;
             if (!e) {
@@ -70,6 +71,7 @@ var marketListView = Backbone.View.extend({
             }
             if (code == 13) {
                 marketViewInstance.load();
+                $('.dropdown').removeClass('open');
             }
         }
     },
@@ -287,27 +289,37 @@ var marketListView = Backbone.View.extend({
                 "title" : "客户名称"
             }, {
                 "data" : "contactName",
+                 "tip" : true,
                 "title" : "联系人"
             }, {
                 "data" : "mobile",
+                 "tip" : true,
                 "class" : "tel",
                 "title" : "手机"
             }, {
                 "data" : "teleNo",
+                 "tip" : true,
                 "class" : "tel",
                 "title" : "电话"
             }, {
                 "data" : "professionName",
+                 "tip" : true,
                 "title" : "行业类别"
             }, {
                 "data" : "dataSource",
                 "title" : "数据来源"
             }, {
                 "data" : "regionName",
+                 "tip" : true,
                 "title" : "所属团队"
             }, {
                 "data" : "province",
+                 "tip" : true,
                 "title" : "所属省份"
+            },{
+                "data" : "createdAt",
+                 "tip" : true,
+                "title" : "创建时间"
             }],
             columnDefs : [{
                 targets : 0,
@@ -319,8 +331,17 @@ var marketListView = Backbone.View.extend({
             }, {
                 targets : 5,
                 render : function(i, j, c) {
-                    if (c.dataSource)
-                        return '<div class="ut-s">' + appcan.clueSources[c.dataSource] + '</div>';
+                    if (c.dataSource){
+                        return '<div class="ut-s" title='+appcan.clueSources[c.dataSource]+'>' + appcan.clueSources[c.dataSource] + '</div>'; 
+                    }else{
+                       return '';  
+                    }
+                }
+            },{
+                targets : 8,
+                render : function(i, j, c) {
+                     if (c.createdAt)
+                        return toDateString(c.createdAt);
                     else
                         return '';
                 }

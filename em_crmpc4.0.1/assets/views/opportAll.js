@@ -124,9 +124,11 @@ var marketListView = Backbone.View.extend({
             region:$("#bigRegion").val(),
          };
         new DataTable({
+            el : 'datatable',
             id : '#datatable',
             paging : true,
             pageSize : 10,
+            currNo:self.pageNo,
             ajax : {
                 url : '/opport/page',
                 data : param
@@ -209,6 +211,20 @@ var marketListView = Backbone.View.extend({
                         return '';
                 }
             }, {
+                targets : 5,
+                render : function(i, j, c) {
+                    if (c.csmName){
+                        var maxwidth=12;
+                        if(c.csmName.length>maxwidth){
+                         return  c.csmName.substring(0,maxwidth)+"...";
+                        }else{
+                           return c.csmName;
+                        }
+                    }else{
+                        return "";
+                    }
+                }
+            }, {
                 targets : 8,
                 render : function(i, j, c) {
                     if (c.createdAt)
@@ -219,10 +235,14 @@ var marketListView = Backbone.View.extend({
             }],
             complete : function (list) {
               self.collection.set(list);
+            },
+            dataTableCb:function(n){
+                self.pageNo = n;
             }
 
         });
     },
+    pageNo:1,
     exportFile : function() {
         var flag = location.hash;
         var data;

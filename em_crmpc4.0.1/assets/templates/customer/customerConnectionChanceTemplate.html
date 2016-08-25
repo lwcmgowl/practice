@@ -91,56 +91,5 @@
 <script src="js/assets/common/bootbox.js"></script>
 <script src="js/assets/common/jquery.form.js"></script>
 <script type="text/javascript" charset="utf-8">
-	function changeOppt(item){
-           item = JSON.parse(decodeURIComponent(item));
-           curOppt = item.opptStatId;
-           bootbox.dialog({
-                message: $("#organizationTemplate").html(),
-                title: '调整机会阶段',
-                className: "",
-                buttons: {
-                    ok: {
-                        label: "提交",
-                        className: "btn-success",
-                        callback: function () {
-                            var opptStatId1 = $('#opptStatId1').val();
-                            if(opptStatId1=='') {
-                                $.danger('请选择机会阶段');
-                                return false;
-                            }
-                            if(opptStatId1==curOppt) {
-                                $.danger('请调整机会阶段');
-                                return false;
-                            }
-                            var param = {
-                                opptTtl:item.opptTtl,
-                                opptStatId:opptStatId1,
-                                id:item.id,
-                                customId:item.customId
-                            };
-                            ajax({
-                                url : '/custom/opport/adjust',
-                                data : param,
-                                success : function(data) {
-                                    $.success("调整成功！",null, null, function(){
-                                        window.location.reload();
-                                    });
-                                }
-                            });
-                        }
-                    },
-                    "cancel": {
-                        label: "取消",
-                        className: "btn-default",
-                        callback: function () {
-                        }
-                    }
-                },
-                complete: function(){
-                    $("#opptStatId1").html($("#opptStatId").html());  
-                    $('#opptStatId1').val(item.opptStatId); 
-                    $("#csmName1").html($("#csmNameTitle").html())
-                }
-            }); 
-        }
+	
 </script>

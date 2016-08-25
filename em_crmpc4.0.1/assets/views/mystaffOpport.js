@@ -126,6 +126,7 @@ var marketListView = Backbone.View.extend({
             subordinateFlg:'1'
          };
         new DataTable({
+            el : 'datatable',
             id : '#datatable',
             paging : true,
             pageSize : 10,
@@ -190,7 +191,7 @@ var marketListView = Backbone.View.extend({
                 targets : 2,
                 render : function(i, j, c) {
                     if (c.vndtAmt)
-                        return self.milliFormat(c.vndtAmt);
+                        return c.vndtAmt;
                     else
                         return '';
                 }
@@ -210,6 +211,20 @@ var marketListView = Backbone.View.extend({
                     else
                         return '';
                 }
+            },{
+                targets : 5,
+                render : function(i, j, c) {
+                    if (c.csmName){
+                        var maxwidth=12;
+                        if(c.csmName.length>maxwidth){
+                         return  c.csmName.substring(0,maxwidth)+"...";
+                        }else{
+                           return c.csmName;
+                        }
+                    }else{
+                        return "";
+                    }
+                }
             }, {
                 targets : 8,
                 render : function(i, j, c) {
@@ -218,22 +233,17 @@ var marketListView = Backbone.View.extend({
                     else
                         return '';
                 }
-            }
-            // ,{
-                // targets : 9,
-                // render : function(i, j, c) {
-                    // var html = '<a class="btn btn-default btn-xs" href="#dynamicEdit/' + c.id + '/03/2/' + encodeURIComponent(c.csmName) + '">跟进动态</a> '+ '<a class="btn btn-default btn-xs" href="#detailOpport/' + c.id + '">查看</a> ' + '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></button><ul class="dropdown-menu center">'
-                        // html += handlerRow(c.id);
-                    // return html;
-                // }
-            // }
-            ],
+            }],
              complete : function (list) {
               self.collection.set(list);
+            },
+            dataTableCb:function(n){
+                self.pageNo = n;
             }
 
         });
     },
+    pageNo:1,
     exportFile : function() {
             var data = {
                 "entityType" : "exportOpport",

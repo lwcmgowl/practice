@@ -73,10 +73,11 @@
         <script src="js/assets/common/ajaxfileupload.js"></script>
         <script src="assets/routers/summary.js"></script>
         <script src="assets/routers/staff.js"></script>
-         <script type="text/javascript" charset="utf-8">
+        <script type="text/javascript" charset="utf-8">
           //获取用户信息
              getLocVal();
-            $("#user_").html('【当前用户：'+appcanUserInfo.userName+' 】');
+             $("#user_").html(appcanUserInfo.userName);
+             $("#userIcon").html('<img src="' + appcanUserInfo.userIcon + '" alt="" class="img-circle" width="30px" height="30px" onerror="javascript:this.src=\'images/person.png\'"/>');
        </script>
     </body>
 </html>

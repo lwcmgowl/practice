@@ -16,26 +16,35 @@ var myResponsibleCluesListDetailView = Backbone.View.extend({
     load : function(direction,flag) {
         var self = this;
         self.render();
+         if(window.screen.width>1440){
+            $("#partnerDetail").css("max-height","850px")
+        }else{
+            $("#partnerDetail").css("max-height","500px")
+        }
         $.fn.editable.defaults.mode = 'inline';
         this.model.fetch({
             success : function(cols, resp, options) {
              var detail = resp.msg.item;
+              $(".field_edit_pen").click(function(){
+                    self.fieldshow();
+                })
                  $("#contactTitle").html(detail.contactName);
-                $("#contactNameDetail").html(detail.companyName+'<span id="contactMobi"></span><b>|<b><span id="contactTele"></span>');
-                if(detail.mobile){
+               $("#contactNameDetail").html(detail.companyName+'<span id="contactMobi" style="margin-left:10px;margin-right:10px;"></span><span id="division">|</span><span id="contactTele" style="margin-left:10px;"></span>');
+                if(detail.mobile && detail.teleNo){
                    $("#contactMobi").show();
-                   $("#contactMobi").html(detail.mobile); 
-                }else{
-                    $("#contactMobi").hide();
-                    $("#contactNameDetail b").hide();
-                }
-                if(detail.teleNo){
+                   $("#contactMobi").html(detail.mobile);
+                   $("#contactTele").show();
+                   $("#contactTele").html(detail.teleNo); 
+                };
+                if(detail.teleNo && !detail.mobile){
                     $("#contactTele").show();
-                    $("#contactNameDetail b").show();
                     $("#contactTele").html(detail.teleNo);
-                }else{
-                    $("#contactTele").hide();
-                    $("#contactNameDetail b").hide();
+                    $("#division").hide();
+                };
+                if(!detail.teleNo && detail.mobile){
+                   $("#contactMobi").show();
+                   $("#contactMobi").html(detail.mobile);
+                   $("#division").hide();
                 };
             $("#companyName").html(detail.companyName);
              $("#companyName").editable({
@@ -95,7 +104,7 @@ var myResponsibleCluesListDetailView = Backbone.View.extend({
                    validate : function(value) {
                         if ($.trim(value) == ''){
                             return '手机号码不能为空!';
-                        }else if($.trim(value).length>=11){
+                        }else if($.trim(value).length>=12){
                             return '手机号码字符个数超过限制!';
                         }
                     },
@@ -120,7 +129,7 @@ var myResponsibleCluesListDetailView = Backbone.View.extend({
                    validate : function(value) {
                         if ($.trim(value) == ''){
                             return '电话号码不能为空!';
-                        }else if($.trim(value).length>=11){
+                        }else if($.trim(value).length>=20){
                             return '电话号码字符个数超过限制!';
                         }
                     },
@@ -284,8 +293,6 @@ var myResponsibleCluesListDetailView = Backbone.View.extend({
                          success : function(response) {
                         if (response.status == "000") {
                             $.success("编辑成功!")
-                            self.load();
-                            self.myReportDetailList(id)
                         }
                         },
                         error : function(response) {
@@ -321,8 +328,6 @@ var myResponsibleCluesListDetailView = Backbone.View.extend({
                          success : function(response) {
                         if (response.status == "000") {
                             $.success("编辑成功!")
-                            self.load();
-                            self.myReportDetailList(id)
                         }
                         },
                         error : function(response) {
@@ -764,11 +769,22 @@ var myResponsibleCluesListDetailView = Backbone.View.extend({
             }
                  if(flag){
                        $("#clueDetail .editable").editable('disable');
+                       $(".field_edit_pen").hide();
                    }
                if(detail.clueState==2){
                  $("#buttons a").hide();
                   $("#clueDetail .editable").editable('disable');
+                  $(".field_edit_pen").hide();
              }
+             if(detail.submitState==1){
+                 $("#resubmit").hide();
+                 $("#assign").hide();
+              }
+               $(".form-group a.editable").each(function() {
+                    if ($(this).text() == '' || $(this).text()=="空") {
+                        $(this).parent().hide();
+                    }
+                });
             
             },
             error : function(cols, resp, options) {
@@ -776,6 +792,13 @@ var myResponsibleCluesListDetailView = Backbone.View.extend({
             },
             id : direction
         });
+    },
+     fieldshow : function() {
+          $(".form-group a.editable").each(function() {
+                    if ($(this).text() == '' || $(this).text()=="空") {
+                        $(this).parent().toggle("slow");
+                    }
+                });
     }
 });
 

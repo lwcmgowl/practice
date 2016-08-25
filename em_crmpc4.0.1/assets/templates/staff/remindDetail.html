@@ -63,21 +63,5 @@
     </div>
 
 </section>
-<script type="text/javascript" charset="utf-8">
-            	$("#readAll").click(function(){
-            	    var param={
-            	        objEntityTypeId:"02"
-            	    };
-                   ajax({
-                        url : '/remind/batchEdit',
-                        data : param,
-                        success : function(data) {
-                             $.success("操作成功！",null, null, function(){
-                                        window.location.reload();
-                           });
-                        },
-                    });
-            });
-</script>
 <!-- js placed at the end of the document so the pages load faster -->
 

@@ -16,28 +16,37 @@ var contactDetailView = Backbone.View.extend({
     template : marketdetailTemplate,
     load : function(direction) {
         var self = this;
+        self.render();
         $.fn.editable.defaults.mode = 'inline';
+         if(window.screen.width>1440){
+            $("#partnerDetail").css("max-height","850px")
+        }else{
+            $("#partnerDetail").css("max-height","500px")
+        }
         self.model.fetch({
             success : function(cols, resp, options) {
-               self.render();
                var info=resp.msg.item;
+                $(".field_edit_pen").click(function(){
+                    self.fieldshow();
+                })
                 $("#contactTitle").html(info.contactName);
-                $("#contactNameDetail").html(info.csmName+'<span id="contactMobi"></span><b>|<b><span id="contactTele"></span>');
-                if(info.mobile){
+                $("#contactNameDetail").html(info.csmName+'<span id="contactMobi" style="margin-left:10px;margin-right:10px;"></span><span id="division">|</span><span id="contactTele" style="margin-left:10px;"></span>');
+                if(info.mobile && info.teleNo){
                    $("#contactMobi").show();
-                   $("#contactMobi").html(info.mobile); 
-                }else{
-                    $("#contactMobi").hide();
-                    $("#contactNameDetail b").hide();
-                }
-                if(info.teleNo){
+                   $("#contactMobi").html(info.mobile);
+                   $("#contactTele").show();
+                   $("#contactTele").html(info.teleNo); 
+                };
+                if(info.teleNo && !info.mobile){
                     $("#contactTele").show();
-                    $("#contactNameDetail b").show();
                     $("#contactTele").html(info.teleNo);
-                }else{
-                    $("#contactTele").hide();
-                    $("#contactNameDetail b").hide();
-                }
+                    $("#division").hide();
+                };
+                if(!info.teleNo && info.mobile){
+                   $("#contactMobi").show();
+                   $("#contactMobi").html(info.mobile);
+                   $("#division").hide();
+                };
                for(var i in info){
                 var ele = $('#'+i);
                 if(ele[0]){
@@ -103,7 +112,7 @@ var contactDetailView = Backbone.View.extend({
                    validate : function(value) {
                         if ($.trim(value) == ''){
                             return '电话号码不能为空!';
-                        }else if($.trim(value).length>=11){
+                        }else if($.trim(value).length>=20){
                             return '电话号码字符个数超过限制!';
                         }
                     },
@@ -491,10 +500,16 @@ var contactDetailView = Backbone.View.extend({
                         }
                     }
                 });
+                $(".form-group a.editable").each(function() {
+                    if ($(this).text() == '' || $(this).text()=="空") {
+                        $(this).parent().hide();
+                    }
+                });
                      var req = new Request();
                      var flag = req.getParameter('flag');
                      if(flag!=1){
                          $('#e_contact .editable').editable('disable');
+                          $(".field_edit_pen").hide();
                      }
             },
             error : function(cols, resp, options) {
@@ -503,6 +518,13 @@ var contactDetailView = Backbone.View.extend({
             id : direction
         });
          
+    },
+    fieldshow : function() {
+          $(".form-group a.editable").each(function() {
+                    if ($(this).text() == '' || $(this).text()=="空") {
+                        $(this).parent().toggle("slow");
+                    }
+                });
     }
 });
 

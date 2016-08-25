@@ -1,19 +1,19 @@
 var tplBaseUrl = "";
 var serverIP = ""
-var urlindex="";
-if($.storage('crmurlindex')){
-    urlindex=$.storage('crmurlindex').crmurlindex;
+var urlindex = "";
+if ($.storage('crmurlindex')) {
+    urlindex = $.storage('crmurlindex').crmurlindex;
 }
 var urlIp = urlindex + "crm";
 var appcanUserInfo;
 // var tplBaseUrl = "";
 // var serverIP = "http://127.0.0.1:8080"
- var serverIf = urlindex + "/crm/assert/importMarketingDataTemplate.xls";
+var serverIf = urlindex + "/crm/assert/importMarketingDataTemplate.xls";
 // var urlIp = serverIP + "/crm";
 // var appcanUserInfo;
-var picviewPath = urlindex+"/attachment/file";
-var appId="EPortal";
-var appKey="0647513c-88f1-46c9-b764-b38e19f0e4e6";
+var picviewPath = urlindex + "/attachment/file";
+var appId = "EPortal";
+var appKey = "0647513c-88f1-46c9-b764-b38e19f0e4e6";
 //上传图片
 //登录后返回的用户信息
 var appcan = {
@@ -45,10 +45,10 @@ var appcan = {
         "pageIsAssign" : "已分配",
         // "exportCurrent" : "导出当前",
         "exportAll" : "导出全部",
-        "convert":"转交伙伴",
-        "againExamine":"再次送审商机",
-        "listExamine":"审核信息",
-        "examine":"商机审核"
+        "convert" : "转交伙伴",
+        "againExamine" : "再次送审商机",
+        "listExamine" : "审核信息",
+        "examine" : "商机审核"
 
     },
     //性别
@@ -88,11 +88,13 @@ var appcan = {
     clueState : ["未处理", "已联系", "转商机", "不合格"],
     //动态类型
     dynamicType : ["记录", "打电话", "发邮件", "发短信", "拜访", "会晤", "活动", "商务宴请"],
-    examineStatus:["待审核","通过","驳回"],
+    //分配类型
+    submitState : ["待分配", "已分配"],
+    examineStatus : ["待审核", "通过", "驳回"],
     //代理授权
-    authorization:["独家","排他","普通"],
+    authorization : ["独家", "排他", "普通"],
     //折扣
-    discount:["两折","三折"],
+    discount : ["两折", "三折"],
     //日志客户操作类型
     csmOperateType : {
         "01" : "创建",
@@ -202,9 +204,10 @@ function getRegionOption() {
     }
     return optionHTML;
 }
+
 function getMyRegion() {
     var optionHTML = "";
-    var regions=[];
+    var regions = [];
     if (appcanUserInfo.regionTrade && appcanUserInfo.regionTrade.length > 0) {
         for (var i = 0; i < appcanUserInfo.regionTrade.length; i++) {
             for (var j = i; j < appcanUserInfo.regionTrade.length; j++) {
@@ -219,15 +222,18 @@ function getMyRegion() {
         for (var a = 0; a < appcanUserInfo.regionTrade.length; a++) {
             var reg = appcanUserInfo.regionTrade[a];
             var str = {
-                            text : reg.regionName,
-                            value : reg.regionId
-                        };
+                text : reg.regionName,
+                value : reg.regionId
+            };
             regions.push(str);
             optionHTML += "<option value='" + reg.regionId + "' >" + reg.regionName + "</option>";
         }
 
     }
-    return {optionHTML:optionHTML,regions:regions};
+    return {
+        optionHTML : optionHTML,
+        regions : regions
+    };
 }
 
 //得到大区所对应的行业
@@ -248,7 +254,6 @@ function getInd() {
                         }
                     }
                 }
-
                 for (var j = 0; j < reg1.tradeList.length; j++) {
                     proTHML += "<option value='" + reg1.tradeList[j].id + "'>" + reg1.tradeList[j].name + "</option>";
                 }
@@ -258,9 +263,10 @@ function getInd() {
     $("#profession").html("<option value=''>选择行业类别</option>" + proTHML);
     $("#_profession").html("<option value=''>选择行业类别</option>" + proTHML);
 }
+
 function getPro(reg) {
-    var reg =reg;
-    var proTHML =[];
+    var reg = reg;
+    var proTHML = [];
     if (appcanUserInfo.regionTrade && appcanUserInfo.regionTrade.length > 0) {
         for (var i = 0; i < appcanUserInfo.regionTrade.length; i++) {
             var reg1 = appcanUserInfo.regionTrade[i];
@@ -277,16 +283,16 @@ function getPro(reg) {
 
                 for (var j = 0; j < reg1.tradeList.length; j++) {
                     var str = {
-                            text : reg1.tradeList[j].name,
-                            value : reg1.tradeList[j].id
-                        };
+                        text : reg1.tradeList[j].name,
+                        value : reg1.tradeList[j].id
+                    };
                     proTHML.push(str);
-                   // proTHML += "<option value='" + reg1.tradeList[j].id + "'>" + reg1.tradeList[j].name + "</option>";
+                    // proTHML += "<option value='" + reg1.tradeList[j].id + "'>" + reg1.tradeList[j].name + "</option>";
                 }
             }
         }
     }
-   return proTHML;
+    return proTHML;
 }
 
 //所属省份跟随大区变而变    "东北地区":["辽宁","吉林","黑龙江"]不要了
@@ -379,7 +385,7 @@ function getLocVal() {
     var loginName = userInfo.staff.loginName;
     //登录名
     //登录头像
-    var userIcon=userInfo.staff.userIcon;
+    var userIcon = userInfo.staff.userIcon;
     appcanUserInfo = {
         userId : userId,
         userName : userName,
@@ -387,19 +393,19 @@ function getLocVal() {
         regionTrade : regionTrade,
         loginName : loginName,
         userRole : userRole,
-        userIcon:userIcon
+        userIcon : userIcon
     }
     ajax({
         url : "/remind/remindTotal",
         data : {
-            remindUserId : appcanUserInfo.userId,
-            ifRead:"0"
+            // remindUserId : appcanUserInfo.userId,
+            ifRead : "0"
         },
         success : function(data) {
-            if(data.msg.total==0){
-               $("#tips").html(); 
-            }else{
-               $("#tips").html(data.msg.total); 
+            if (data.msg.total == 0) {
+                $("#tips").html();
+            } else {
+                $("#tips").html(data.msg.total);
             }
         }
     });
@@ -455,7 +461,7 @@ var btnHandlerFn = function(debarBtns) {
                 row += '<a href="javascript:;" class="rowstyle" id="report"><i class="fa fa-paper-plane" aria-hidden="true"></i>提交上报 </a>';
                 break;
             case 'resubmit':
-                row += '<a href="#resubmit/@" class="rowstyle"> 重新提交 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="resubmit"><i class="fa fa-code-fork" aria-hidden="true"></i> 重新提交 </a>';
                 break;
             case 'assign':
                 row += '<a href="javascript:;" class="rowstyle" id="assign"><i class="fa fa-share-alt" aria-hidden="true"></i>分配 </a>';
@@ -482,13 +488,13 @@ var btnHandlerFn = function(debarBtns) {
                 row += '<a href="#contact/@" class="rowstyle"> 联系人 </a>';
                 break;
             case 'transfer':
-               row += '<a href="javascript:;" class="rowstyle" id="transfer"><i class="fa fa-retweet" aria-hidden="true"></i>转移 </a>';
+                row += '<a href="javascript:;" class="rowstyle" id="transfer"><i class="fa fa-retweet" aria-hidden="true"></i>转移 </a>';
                 break;
             case 'convert':
                 row += '<a href="#convert/@" class="rowstyle"> 转交伙伴 </a>';
                 break;
             case 'cancel':
-                row += '<a href="javascript:;" onclick="cancel(@);" id="cancelReport" class="rowstyle"> 取消上报 </a>';
+                row += '<a href="javascript:;"  id="cancelReport" class="rowstyle" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i>取消上报 </a>';
                 break;
             case 'pageNotAssign':
                 top += '<div class="col-xs-1" id="NotAssign"><a class="btn btn-default  btn-primary"  id="pageNotAssign" href="clue_page.html?btns="><i class="fa fa-exchange"></i> 待分配</button></a></div>';
@@ -497,8 +503,8 @@ var btnHandlerFn = function(debarBtns) {
                 top += '<div class="col-xs-1" id="IsAssign"><a class="btn btn-default  btn-primary"  id="pageIsAssign" href="clue_page1.html?btns="><i class="fa fa-tasks"></i> 已分配</button></a></div>';
                 break;
             // case 'exportCurrent':
-                // top += '<div class="col-xs-1" ><button class="btn btn-default" id="exportCurrent"><i class="fa fa-download"></i> 导出当前</button></div>';
-                // break;
+            // top += '<div class="col-xs-1" ><button class="btn btn-default" id="exportCurrent"><i class="fa fa-download"></i> 导出当前</button></div>';
+            // break;
             case 'exportAll':
                 top += '<div class="col-xs-1"><button class="btn btn-default" id="exportAll"><i class="fa fa-cloud-download"></i> 导出全部</button></div>';
                 break;
@@ -509,7 +515,7 @@ var btnHandlerFn = function(debarBtns) {
                 row += '<a href="javascript:;" id="listExamine" class="rowstyle"><i class="fa fa-info-circle" aria-hidden="true"></i> 审核信息</a>';
                 break;
             case 'examine':
-                row += '<a href="javascript:;" id="examine" class="rowstyle"></i><i class="fa fa-file-text-o" aria-hidden="true"></i> 商机审核</a>';
+                row += '<a href="javascript:;" id="examine" class="rowstyle"><i class="fa fa-check-square" aria-hidden="true"></i> 商机审核</a>';
                 break;
 
             }
@@ -545,17 +551,17 @@ function handlerTop(id) {
 }
 
 //表格中的按钮
-function handlerRow(args,regionName,professionName) {
+function handlerRow(args, regionName, professionName) {
     var btnHandler = btnHandlerFn(Array.prototype.slice.call(arguments, 1));
     if (btnHandler && btnHandler.row) {
-         args = args || '';
-         var tijiao = '<a href="#report/@"> 提交上报 </a>';
-         // var para = decodeURIComponent(para);
+        args = args || '';
+        var tijiao = '<a href="#report/@"> 提交上报 </a>';
+        // var para = decodeURIComponent(para);
         var btnRow = btnHandler.row;
-         // var contact = JSON.parse(para);
-         if (regionName == '待确认' || professionName == '待确认') {
-         btnRow = btnHandler.row.replace(tijiao, '');
-         }
+        // var contact = JSON.parse(para);
+        if (regionName == '待确认' || professionName == '待确认') {
+            btnRow = btnHandler.row.replace(tijiao, '');
+        }
         return btnRow.replace(/@/g, args);
     } else {
         return '';
@@ -635,12 +641,29 @@ function loadSequence(urls, callback) {
 }
 
 function logout() {
-    ajax({
-        url : "/uc/logout",
+    $.removeStorage("crmpc");
+    $.removeStorage('oapc');
+    $.ajax({
+        url : urlindex + "/emoa/sso/logout",
+        type : "get",
+        dataType : "json",
+        timeout : "30000",
         success : function(data) {
+            ajax({
+                url : "/uc/logout",
+                success : function(data) {
+                    window.location = 'login.html';
+                },
+                error : function(error) {
+                    window.location = "login.html";
+                }
+            });
+        },
+        error : function(error) {
             window.location = 'login.html';
         }
     });
+
 };
 function getOption(arry) {
     var optionHTML = "";

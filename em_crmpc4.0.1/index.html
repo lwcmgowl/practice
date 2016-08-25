@@ -71,39 +71,98 @@
         <script src="js/assets/common/index.js"></script>
         <script src="js/assets/common/jquery.tree.js"></script>
         <!-- <script src="assets/views/siderbar.js"></script> -->
+
         <script type="text/javascript" charset="utf-8">
             //获取用户信息
-            getLocVal();
-            $("#user_").html(appcanUserInfo.userName);
-            $("#userIcon").html('<img src="/attachment/file'+'/'+appcanUserInfo.userIcon+'" alt=""" class="img-circle" width="30px" height="30px">');
-            var self = this;
-            var t = $.tree('tree');
-            var menus = appcanUserInfo.menus;
-            for (var i = 0,
-                len = menus.length; i < len; i++) {
-                var m = menus[i];
-                t.add(m.id, m.pid, m.name, m);
-            }
-            var $nav = $('#nav-accordion');
-            $nav.append(t.toString());
-            var anyLeaf = $('#nav-accordion .leaf');
-            anyLeaf.click(function() {
-                anyLeaf.removeClass('active');
-                $(this).addClass('active');
-                localStorage.setItem('crmpc_menu', $nav.html());
-                window.location = $(this).data('href');
-            });
+            if ($.storage('crmpc')) {
+                getLocVal();
+                 $("#user_").html(appcanUserInfo.userName);
+                 $("#userIcon").html('<img src="' + appcanUserInfo.userIcon + '" alt="" class="img-circle" width="30px" height="30px" onerror="javascript:this.src=\'images/person.png\'"/>');
+                var self = this;
+                var t = $.tree('tree');
+                var menus = appcanUserInfo.menus;
+                for (var i = 0,
+                    len = menus.length; i < len; i++) {
+                    var m = menus[i];
+                    t.add(m.id, m.pid, m.name, m);
+                }
+                var $nav = $('#nav-accordion');
+                $nav.append(t.toString());
+                var anyLeaf = $('#nav-accordion .leaf');
+                anyLeaf.click(function() {
+                    anyLeaf.removeClass('active');
+                    $(this).addClass('active');
+                    localStorage.setItem('crmpc_menu', $nav.html());
+                    window.location = $(this).data('href');
+                });
 
-            $('#nav-accordion').dcAccordion({
-                eventType : 'click',
-                autoClose : true,
-                saveState : true,
-                disableLink : true,
-                speed : 'slow',
-                showCount : false,
-                autoExpand : true,
-                classExpand : 'dcjq-current-parent'
-            });
+                $('#nav-accordion').dcAccordion({
+                    eventType : 'click',
+                    autoClose : true,
+                    saveState : true,
+                    disableLink : true,
+                    speed : 'slow',
+                    showCount : false,
+                    autoExpand : true,
+                    classExpand : 'dcjq-current-parent'
+                });
+            } else {
+                if ($.storage('userinfo')) {
+                    ajax({
+                        url : "/uc/login",
+                        data : {
+                            name : $.storage('userinfo').loginName,
+                            password : $.storage('userinfo').loginpwd
+                        },
+                        success : function(data) {
+                            if (data.status == "000") {
+                                var tmpData = $.extend({
+                                    "userId" : data.msg.item.staff.staffId
+                                }, data.msg.item);
+                                var saveTime = 7 * 24 * 60 * 60 * 1000;
+                                $.storage('crmpc', tmpData, saveTime);
+                                getLocVal();
+                                $("#user_").html(appcanUserInfo.userName);
+                                $("#userIcon").html('<img src="' + appcanUserInfo.userIcon + '" alt="" class="img-circle" width="30px" height="30px" onerror="javascript:this.src=\'images/person.png\'"/>');
+                                var self = this;
+                                var t = $.tree('tree');
+                                var menus = appcanUserInfo.menus;
+                                for (var i = 0,
+                                    len = menus.length; i < len; i++) {
+                                    var m = menus[i];
+                                    t.add(m.id, m.pid, m.name, m);
+                                }
+                                var $nav = $('#nav-accordion');
+                                $nav.append(t.toString());
+                                var anyLeaf = $('#nav-accordion .leaf');
+                                anyLeaf.click(function() {
+                                    anyLeaf.removeClass('active');
+                                    $(this).addClass('active');
+                                    localStorage.setItem('crmpc_menu', $nav.html());
+                                    window.location = $(this).data('href');
+                                });
+
+                                $('#nav-accordion').dcAccordion({
+                                    eventType : 'click',
+                                    autoClose : true,
+                                    saveState : true,
+                                    disableLink : true,
+                                    speed : 'slow',
+                                    showCount : false,
+                                    autoExpand : true,
+                                    classExpand : 'dcjq-current-parent'
+                                });
+                            } else {
+                                $.warning(data.msg.message);
+                            };
+                        }
+                    });
+                } else {
+                    $.warning("用户登录超时，请重新登录");
+                    window.location = 'login.html';
+                }
+
+            }
 
         </script>
     </body>

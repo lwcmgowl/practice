@@ -86,6 +86,7 @@ var marketListView = Backbone.View.extend({
                 }
                 if (code == 13) {
                     self.load();
+                    $('.dropdown').removeClass('open');
                 }
             }
     },
@@ -135,39 +136,43 @@ var marketListView = Backbone.View.extend({
             columns : [
             {
                 "data" : "companyName",
-                "width" : "150px",
                 "title" : "客户名称"
             },{
                 "data" : "contactName",
-                "width" : "80px",
+                "tip" : true,
                 "title" : "联系人"
             }, {
                 "data" : "mobile",
-                "width" : "150px",
+                "tip" : true,
                 "title" : "手机"
             }, {
                 "data" : "teleNo",
-                "width" : "114px",
+                "tip" : true,
                 "title" : "电话"
             },  {
                 "data" : "dataSource",
+                "tip" : true,
                 "title" : "数据来源"
             }, {
-                "data" : "conferenceName",
-                "class" : "ut-s",
-                "title" : "会议名称"
-            }, {
                 "data" : "professionName",
+                "tip" : true,
                 "title" : "行业类别"
             }, {
                 "data" : "regionName",
+                "tip" : true,
                 "title" : "所属团队"
             }, {
                 "data" : "province",
+                "tip" : true,
                 "title" : "所属省份"
             }, {
                 "data" : "marketUserName",
+                "tip" : true,
                 "title" : "负责人"
+            },{
+                "data" : "createdAt",
+                 "tip" : true,
+                "title" : "创建时间"
             }],
             columnDefs : [{
                 targets : 0,
@@ -182,6 +187,14 @@ var marketListView = Backbone.View.extend({
                 render : function(i, j, c) {
                     if (c.dataSource)
                         return appcan.clueSources[c.dataSource];
+                    else
+                        return '';
+                }
+            },{
+                targets : 9,
+                render : function(i, j, c) {
+                     if (c.createdAt)
+                        return toDateString(c.createdAt);
                     else
                         return '';
                 }

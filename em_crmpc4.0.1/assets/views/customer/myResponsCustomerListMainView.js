@@ -73,6 +73,7 @@ var myResponsCustomerListMainView = Backbone.View.extend({
             }
             if (code == 13) {
                 myResponsCustomerListMainViewInstance.loadlist();
+                $('.dropdown').removeClass('open');
             }
         };
     },
@@ -109,7 +110,7 @@ var myResponsCustomerListMainView = Backbone.View.extend({
             "csmNature" : $('#csmNature').val(),
             "region" : $('#region').val(),
             "csmStatId" : $('#csmStatId').val(),
-            "csmName" : $.trim($('#salesUserId').val())
+            "csmName" : $.trim($('#business').val())
         };
         var type = "exportFile";
         var url = "/custom/exportCustom";
@@ -129,7 +130,7 @@ var myResponsCustomerListMainView = Backbone.View.extend({
             "csmNature" : $('#csmNature').val(),
             "region" : $('#region').val(),
             "csmStatId" : $('#csmStatId').val(),
-            "csmName" : $.trim($('#salesUserId').val())
+            "csmName" : $.trim($('#business').val())
         };
         new DataTable({
             id : '#datatable',
@@ -142,7 +143,10 @@ var myResponsCustomerListMainView = Backbone.View.extend({
             columns : [{
                 "data" : "csmName",
                 "title" : "客户名称"
-            }, {
+            },{
+                "data" : "csmStatId",
+                "title" : "客户状态"
+            },{
                 "data" : "level",
                 "title" : "客户级别"
             }, {
@@ -154,9 +158,10 @@ var myResponsCustomerListMainView = Backbone.View.extend({
             }, {
                 "data" : "regionName",
                 "title" : "所属团队"
-            }, {
-                "data" : "csmStatId",
-                "title" : "客户状态"
+            },{
+                "data" : "createdAt",
+                 "tip" : true,
+                "title" : "创建时间"
             }],
             columnDefs : [{
                 targets : 0,
@@ -170,8 +175,16 @@ var myResponsCustomerListMainView = Backbone.View.extend({
                              return html;
                         };
                 }
-            },{
+            }, {
                 targets : 1,
+                render : function(i, j, c) {
+                    if (c.csmStatId)
+                        return appcan.csmStat[parseInt(c.csmStatId)];
+                    else
+                        return '';
+                }
+            },{
+                targets : 2,
                 render : function(i, j, c) {
                     if (c.level)
                         return appcan.customerlevel[parseInt(c.level)];
@@ -179,18 +192,18 @@ var myResponsCustomerListMainView = Backbone.View.extend({
                         return '';
                 }
             }, {
-                targets : 3,
+                targets : 4,
                 render : function(i, j, c) {
                     if (c.csmNature)
                         return appcan.customerproperty[parseInt(c.csmNature)];
                     else
                         return '';
                 }
-            }, {
-                targets : 5,
+            },{
+                targets : 6,
                 render : function(i, j, c) {
-                    if (c.csmStatId)
-                        return appcan.csmStat[parseInt(c.csmStatId)];
+                     if (c.createdAt)
+                        return toDateString(c.createdAt);
                     else
                         return '';
                 }
@@ -538,10 +551,7 @@ var myResponsCustomerListMainView = Backbone.View.extend({
                             data : param,
                             success : function(data) {
                                 $.success("转交成功！", null, null, function() {
-                                    var self=this;
-                                    var pushRight = document.getElementById( 'pushRight' );
-                                        classie.removeClass( pushRight, 'cbp-spmenu-open' );
-                                        $("#mask").hide();
+                                        self.hideDetail(); 
                                         self.loadlist();
                                    
                                 });
@@ -553,9 +563,7 @@ var myResponsCustomerListMainView = Backbone.View.extend({
                     label : "取消",
                     className : "btn-default",
                     callback : function() {
-                        appRouter.navigate("loadMyResponsCustomerList", {
-                            trigger : true
-                        });
+                      
                     }
                 }
             },
@@ -616,9 +624,7 @@ var myResponsCustomerListMainView = Backbone.View.extend({
                     label : "取消",
                     className : "btn-default",
                     callback : function() {
-                        appRouter.navigate("loadMyResponsCustomerList", {
-                            trigger : true
-                        });
+                        
                     }
                 }
             },

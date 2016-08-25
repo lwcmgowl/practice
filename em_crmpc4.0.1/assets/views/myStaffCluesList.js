@@ -53,7 +53,7 @@ var myStaffCluesListView = Backbone.View.extend({
         var self = this;
         self.render();
         handlerTop('btnWrapper');         
-        $("#region").html("<option value=''>选择所属团队</option>"+getRegionOption(appcan.bigRegions));
+        $("#bigRegions").html("<option value=''>选择所属团队</option>"+getRegionOption(appcan.bigRegions));
         $("#clueState").html("<option value=''>选择线索状态</option>"+getJOption(appcan.clueState));            
         this.model.fetch({
             success : function(cols, resp, options) {               
@@ -67,6 +67,21 @@ var myStaffCluesListView = Backbone.View.extend({
 
         });      
         self.load();
+        document.onkeypress = function(e) {
+            var code;
+            if (!e) {
+                e = window.event;
+            }
+            if (e.keyCode) {
+                code = e.keyCode;
+            } else if (e.which) {
+                code = e.which;
+            }
+            if (code == 13) {
+                myStaffCluesListViewInstance.load();
+                 $('.dropdown').removeClass('open');
+            }
+        }
     },
     //查询重置
     clear : function() {
@@ -77,7 +92,7 @@ var myStaffCluesListView = Backbone.View.extend({
        var param = {
         "clueType":$('#clueType').val(),
         "profession": $('#profession').val(),
-        "region": $('#region').val(),
+        "region": $('#bigRegions').val(),
         "clueState":$('#clueState').val(),
         "companyName":$.trim($('#csmName').val()),
         "salesQuery":$.trim($("#people").val()),
@@ -96,26 +111,37 @@ var myStaffCluesListView = Backbone.View.extend({
             "title": "客户名称"
         },{
             "data": "contactName",
+             "tip" : true,
             "title": "联系人"
         },{
             "data": "mobile",
+             "tip" : true,
             "title": "手机"
         },{
             "data": "teleNo",
+             "tip" : true,
             "title": "电话"
         },{
             "data": "professionName",
+             "tip" : true,
             "title": "行业类别"
         },{
             "data": "regionName",
+            "tip" : true,
             "title": "所属团队"
         },{
             "data": "salesUserName",
+             "tip" : true,
             "title": "线索负责人"
         },{
             "data": "clueState",
+             "tip" : true,
             "title": "线索状态"
-        }],
+        },{
+                "data" : "createdAt",
+                 "tip" : true,
+                "title" : "创建时间"
+         }],
         columnDefs: [{
                 targets : 0,
                 render : function(i, j, c) {
@@ -131,14 +157,14 @@ var myStaffCluesListView = Backbone.View.extend({
                 else return '';
             }
         },{
-            targets: 8,
-            width: "120px",
-            render: function(i, j, c) {
-                var html="<a class='btn btn-default btn-xs' href='#dynamicEdit/"+c.id+"/02/2/"+encodeURIComponent(c.companyName)+"'>跟进动态</a> &nbsp;"
-                        +'<a class="btn btn-default btn-xs" href="#myStaffCluesListDetail/' + c.id + '">查看</a> '
-                return html;
-            }
-        }]
+                targets : 8,
+                render : function(i, j, c) {
+                     if (c.createdAt)
+                        return toDateString(c.createdAt);
+                    else
+                        return '';
+                }
+            }]
     
     });
     },
@@ -192,7 +218,7 @@ var myStaffCluesListView = Backbone.View.extend({
                     "profession": $('#profession').val(),
                     "clueState":$('#clueState').val(),
                     "companyName":$.trim($('#csmName').val()),
-                    "region":$('#region').val(),
+                    "region":$('#bigRegions').val(),
                     "salesQuery":$.trim($("#people").val()),
                     "dataType": '1'
                 };

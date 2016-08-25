@@ -1,50 +1,122 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta name="renderer" content="webkit" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <meta name="keyword" content="协同办公,CRM, 销售机会, 营销数据库, 营销, 客户管理, 线索,商机, 销售">
-        <link rel="shortcut icon" href="img/favicon.png">
-        <title>CRM应用平台</title>
-        <!-- Bootstrap core CSS -->
-        <link href="assets/css/login.css" rel="stylesheet">
-
+        <link rel="icon" href="images/favicon.ico">
+        <title>正益工作</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="正益工场,移动应用开发,协同开发,移动云平台,在线开发,应用交易,互联网+双创平台,源码市场,众包,云端众包,软件项目需求，powered by AppCan。"/>
+        <meta name="description" content="正益工场(powered by AppCan)，移动互联网应用创新创业平台。移动应用开发、企业协同开发、移动技术支撑、移动运营服务、移动项目交易、移动云服务等。"/>
+        <!-- <link rel="icon" href="http://www.appcan.cn/images/favicon.ico" type="image/x-icon" /> -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="assets/css/logo.css" />
+        <link href="assets/css/init.css" rel="stylesheet">
+        <!-- <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/login.js"></script> -->
     </head>
     <body>
-        <div  data-import="assets/templates/staff/loginContent.html"></div>
-        <script src="js/lib/jquery.js"></script>
-        <script src="js/lib/underscore.js"></script>
-        <script src="js/lib/backbone.js"></script>
-        <script src="js/lib/backbone.stickit.js"></script>
-        <script src='js/lib/jquery.cookie.js'></script>
-        <script src='js/lib/jquery.hoverIntent.minified.js'></script>
-        <script src="js/lib/jquery.dcjqaccordion.2.7.js"></script>
-        <script src="js/lib/jquery.md5.js"></script>
-        <script src="js/lib/template.import.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/assets/common/localStorage.js"></script>
-		<script type="text/javascript" charset="utf-8">
-            var ip = window.location.href;
-            var crmip = ip.split("//")[1].split("/");
-            var topindex = ip.split("//")[0] + "//" + crmip[0];
-            var lengthstr = ip.length;
-            var ino=ip.indexOf("em_crmpc4.0.1");
-            var endindex = ip.substr(ino,lengthstr);
-            var dataIpindex = ip.replace(topindex, "").replace(endindex, "");
-             var tmpData = $.extend({
-                    "crmurlindex" : dataIpindex
-                },dataIpindex);
-            $.storage('crmurlindex', tmpData, 24 * 60 * 60 * 1000);
+        <div class="main">
+            <div class="row cont">
+                <div class="l-title">
+                    <!-- <p>正益工作</p>
+                    <p>让每个企业都个性化的移动起来</p> -->
+                    <img src="images/zyworks.png" style="width:400px;height:120px;">
+                    <br/>
+                    <!-- <p>百般武艺，精准施展，移动大潮，尽享红利</p> -->
+                </div>
+                <div class="logo-input">
+                    <div class="row logo-group">
+                        <p class="welcome">
+                            欢迎登录
+                        </p>
+                        <input type="text" class="name" name="loginName" id="loginName"  placeholder="用户名" />
+                        <div class="warning"></div>
+                        <input type="password" class="psd" name="loginPass" id="loginPass" placeholder="密码" />
+                        <div class="warning"></div>
 
-        </script>
-        <script src="assets/global.js"></script>
-        <script src="js/assets/common/init.js"></script>
-        <script src="assets/services/login.js"></script>
-        <script src="assets/models/login.js"></script>
-        <script src="assets/views/loginContent.js"></script>
+                        <div class="warning-pwd"></div>
+                        <input type="checkbox" value="remember-me" id="remember-me" checked="checked">
+                        <span>记住我</span>
+                        <div id="errormsg" style="height:30px;width:300px; color:red;padding-top:8px;padding-bottom:8px;">
+
+                        </div>
+                        <div class="logo-btn" id="submitbtn">
+                            登录
+                        </div>
+                        <span style="margin-left: 3px;margin-bottom: 35px;"></span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="foot-bot">
+                <p class="copyright">
+                    正益移动互联科技股份有限公司版权所有<span>京ICP备11006447号</span>京公网安备:11010802018489
+                </p>
+                <ul class="link-list">
+
+                    <li>
+                        <a href="http://www.appcan.cn/terms_service/aboutus.html" target="_blank">关于我们</a>
+                    </li>
+                    <li>
+                        <span style="color:#fff">|</span><a href="http://enterprise.appcan.cn/news" target="_blank">新闻活动</a>
+                    </li>
+                    <li>
+                        <span style="color:#fff">|</span><a href="http://www.appcan.cn/terms_service/joinus.html" target="_blank">诚聘英才</a>
+                    </li>
+                    <li>
+                        <span style="color:#fff">|</span><a href="http://www.appcan.cn/terms_service/linkus.html" target="_blank">联系我们</a>
+                    </li>
+                    <li>
+                        <span style="color:#fff">|</span><a href="http://www.appcan.cn/terms_service/lawstatement.html" target="_blank">法律声明</a>
+                    </li>
+                    <li>
+                        <span style="color:#fff">|</span><a href="http://www.appcan.cn/terms_service/links.html" target="_blank">合作伙伴</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
     </body>
-
 </html>
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/underscore.js"></script>
+<script src="js/lib/backbone.js"></script>
+<script src="js/lib/backbone.stickit.js"></script>
+<script src="js/lib/jquery.md5.js"></script>
+<script src="js/lib/template.import.js"></script>
+<script src='js/lib/jquery.cookie.js'></script>
+<script src="js/assets/common/localStorage.js"></script>
+<script type="text/javascript" charset="utf-8">
+    var ip = window.location.href;
+    var crmip = ip.split("//")[1].split("/");
+    var topindex = ip.split("//")[0] + "//" + crmip[0];
+    var lengthstr = ip.length;
+    var ino = ip.indexOf("em_crmpc4.0.1");
+    var endindex = "/" + ip.substr(ino, lengthstr);
+    var dataIpindex = ip.replace(topindex, "").replace(endindex, "");
+    var tmpData = $.extend({
+        "oapcurlindex" : dataIpindex
+    }, dataIpindex);
+    var tmpData2 = $.extend({
+        "crmurlindex" : dataIpindex + "/"
+    }, dataIpindex);
+    $.storage('oapcurlindex', tmpData, 24 * 60 * 60 * 1000);
+    $.storage('crmurlindex', tmpData2, 24 * 60 * 60 * 1000);
+    $(function() {
+        var oheight = $(window).height();
+        //$('.main').height(oheight);
+        $("#fan").hover(function() {
+            $("#fan").attr("src", "zyworkimages/fan-hover.png")
+        }, function() {
+            $("#fan").attr("src", "zyworkimages/fan.png")
+        })
+    })
+    $('.cont').css('min-height', '656px'); 
+</script>
+
+<script src="assets/global.js"></script>
+<script src="js/assets/common/init.js"></script>
+<script src="assets/services/login.js"></script>
+<script src="assets/models/login.js"></script>
+<script src="assets/views/loginContent.js"></script>

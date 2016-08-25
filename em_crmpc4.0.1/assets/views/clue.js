@@ -37,13 +37,21 @@ var clueListView = Backbone.View.extend({
         'click #distribution' : function() {
             this.assign();
         },
-        'click #clear' : 'clear'
+        'click #transfer' : 'transfer',
+        'click #assign' : 'assign',
+        'click #cancel' : 'cancel',
+         "click #mask" : function() {
+            this.hideDetail();
+        },
+        "click #clueDynamic" : function() {
+            this.clueManageDynamic()
+        },
+        "click #clueInfo" : function() {
+            this.clueManageDetailList(this.model.get("id"));
+        },
     },
-
     model : new clueModel(),
     template : clueTemplate,
-    // collection : new marketCollection(),
-
     render : function() {
         this.$el.empty();
         this.$el.append($(this.template()));
@@ -56,7 +64,7 @@ var clueListView = Backbone.View.extend({
         $("#bigRegions").html("<option value=''>选择所属团队</option>" + getRegionOption());
         this.model.fetch({
             success : function(cols, resp, options) {
-                $("#industrycategory").html("<option value=''>选择行业类别</option>" + profession(resp.msg.tradeList));
+                $("#profession").html("<option value=''>选择行业类别</option>" + profession(resp.msg.tradeList));
             },
             error : function(cols, resp, options) {
 
@@ -76,6 +84,7 @@ var clueListView = Backbone.View.extend({
             }
             if (code == 13) {
                 clueViewInstance.load();
+                $('.dropdown').removeClass('open');
             }
         }
     },
@@ -88,7 +97,7 @@ var clueListView = Backbone.View.extend({
         var self = this;
         var loginId = appcanUserInfo.userId;
         var param = {
-            "profession" : $('#industrycategory').val(),
+            "profession" : $('#profession').val(),
             "region" : $('#bigRegions').val(),
             "csmName" : $.trim($('#csmName').val()),
             "companyName" : $.trim($('#csmName').val()),
@@ -105,7 +114,10 @@ var clueListView = Backbone.View.extend({
                 url : '/clue/pageNotAuthority',
                 data : param
             },
-            columns : [{
+            columns : [ {
+                "data" : "companyName",
+                "title" : "客户名称"
+            },{
                 "data" : "contactName",
                 "title" : "联系人"
             }, {
@@ -114,9 +126,6 @@ var clueListView = Backbone.View.extend({
             }, {
                 "data" : "teleNo",
                 "title" : "电话"
-            }, {
-                "data" : "companyName",
-                "title" : "客户名称"
             }, {
                 "data" : "professionName",
                 "title" : "行业类别"
@@ -134,6 +143,12 @@ var clueListView = Backbone.View.extend({
                 "title" : "线索状态"
             }],
             columnDefs : [{
+                targets : 0,
+                render : function(i, j, c) {
+                    var html = "<a href='javascript:;' onclick='clueViewInstance.clueManageDetail(\"" + c.id + "\")' title=" + c.companyName + ">" + c.companyName + "</a>";
+                    return html;
+                }
+            },{
                 targets : 8,
                 render : function(i, j, c) {
                     if (c.clueState) {
@@ -182,9 +197,79 @@ var clueListView = Backbone.View.extend({
         });
 
     },
-
-    assign : function(id) {//分配
+   clueManageDetail:function(id){
         var self = this;
+        var pushRight = document.getElementById('pushRight');
+        var info = this.collection.get(id).toJSON();
+        var submitState = parseInt(info.submitState);
+        var salesUserId = info.salesUserId;
+        var clueState = parseInt(info.clueState);
+        var marketUserId = info.marketUserId;
+        classie.addClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").css("height", $(document).height());
+        $("#mask").css("width", $(document).width());
+        $("#mask").show();
+        self.model.set("id", id);
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
+         html += handlerRow(id, 'transfer', 'assign', 'cancel');
+                    var req = new Request();
+                    var btns = req.getParameter('btns');
+                    btns = btns.split(',');
+                    for (var i = 0; i < btns.length; i++) {
+                        if (clueState != 2) {
+                            if (btns[i] == "transfer") {
+                                if (salesUserId != null) {
+                                    html += '<a href="javascript:;" class="rowstyle" id="transfer"><i class="fa fa-retweet" aria-hidden="true"></i>转移 </a>';
+                                }
+                            }
+                            if (btns[i] == "assign") {
+                                if (salesUserId == null) {
+                                    html += '<a href="javascript:;" class="rowstyle" id="assign"><i class="fa fa-share-alt" aria-hidden="true"></i>分配 </a>';
+                                }
+                            }
+                            if (btns[i] == "cancel") {
+                                if (salesUserId == null && marketUserId != null) {
+                                    html += '<a href="javascript:;" class="rowstyle" id="cancel"><i class="fa fa-times-circle" aria-hidden="true"></i>取消上报 </a>';
+                                }
+                            }
+                        }
+                    }
+        $("#buttons").html(html);
+        self.clueManageDetailList(id);
+    },
+    clueManageDetailList:function(id){
+            var self = this;
+            $("#clueInfo").addClass("active");
+            $("#clueDynamic").removeClass("active");
+            var flag=3;
+            myResponsibleCluesListDetail=["assets/services/myResponsibleCluesListDetail.js", "assets/models/myResponsibleCluesListDetail.js", "assets/views/myResponsibleCluesListDetail.js"];
+            loadSequence(myResponsibleCluesListDetail, function() {
+           var myResponsibleCluesListDetailInstance = new myResponsibleCluesListDetailView();
+            myResponsibleCluesListDetailInstance.load(id,flag);
+        });
+        
+    },
+    clueManageDynamic:function(){
+        $("#clueInfo").removeClass("active");
+        $("#clueDynamic").addClass("active");
+        var objEntityTypeId = "02";
+        var editType = 2;
+        var objId = this.model.get("id");
+        var dynamicOffical = ['assets/services/dynamicOfficalTest.js', 'assets/models/dynamicOfficalTest.js', 'assets/views/dynamicOfficalTest.js'];
+        loadSequence(dynamicOffical, function() {
+            dynamicViewObj.getDynamicData(objId, objEntityTypeId, editType);
+        });
+        
+    },
+     hideDetail : function() {
+        var self = this;
+        var pushRight = document.getElementById('pushRight');
+        classie.removeClass(pushRight, 'cbp-spmenu-open');
+        $("#mask").hide();
+    },
+    assign : function() {//分配
+        var self = this;
+        var id=self.model.get("id");
         var info = this.collection.get(id).toJSON();
         this.listDict(info);
         var region = info.region;
@@ -200,8 +285,8 @@ var clueListView = Backbone.View.extend({
                     callback : function() {
                         // var data = {};
                         //行业类别
-                        var region = $("#region").val();
-                        var profession = $('#profession').val();
+                        var region = $("#aregion").val();
+                        var profession = $('#aprofession').val();
                         var assigner = $("#assigner").val();
                         if (assigner == '00') {
                             $("#assigner").parent().addClass("has-error");
@@ -212,10 +297,8 @@ var clueListView = Backbone.View.extend({
                         self.model.fetch({
                             success : function(cols, resp, options) {
                                 $.success("分配成功", null, null, function() {
-                                    // marketViewInstance.load();
-                                    appRouter.navigate("offical", {
-                                        trigger : true
-                                    });
+                                   self.load();
+                                   self.hideDetail();
                                 });
                             },
                             error : function(cols, resp, options) {
@@ -234,22 +317,20 @@ var clueListView = Backbone.View.extend({
                     label : "取消",
                     className : "btn-default",
                     callback : function() {
-                        appRouter.navigate("offical", {
-                            trigger : true
-                        });
+                       
                     }
                 }
             },
             complete : function() {
                 $("#companyName1").html(info.companyName);
-                $("#region").change(function() {
+                $("#tregion").change(function() {
                     if ($("select option").is(":selected")) {
                         region = $(this).val();
                         self.getMarketPerson(region, profession);
                         ;
                     }
                 });
-                $("#profession").change(function() {
+                $("#tprofession").change(function() {
                     if ($("select option").is(":selected")) {
                         profession = $(this).val();
                         self.getMarketPerson(region, profession);
@@ -274,13 +355,13 @@ var clueListView = Backbone.View.extend({
                 for (var i = 0; i < teamList.length; i++) {
                     optionHTML += "<option value='" + teamList[i].id + "' >" + teamList[i].name + "</option>";
                 }
-                $("#region").append(optionHTML);
-                $('#region  option[value=' + region + ']').attr("selected", true)
+                $("#tregion").append(optionHTML);
+                $('#tregion  option[value=' + region + ']').attr("selected", true)
                 for (var i = 0; i < tradeList.length; i++) {
                     tradeHTML += "<option value='" + tradeList[i].id + "' >" + tradeList[i].name + "</option>";
                 }
-                $("#profession").append(tradeHTML);
-                $('#profession  option[value=' + profession + ']').attr("selected", true)
+                $("#tprofession").append(tradeHTML);
+                $('#tprofession  option[value=' + profession + ']').attr("selected", true)
                 self.getMarketPerson(region, profession);
             },
             error : function(cols, resp, options) {
@@ -314,8 +395,9 @@ var clueListView = Backbone.View.extend({
             profession : profession
         });
     },
-    delinfo : function(id) {
+    delinfo : function() {
         var self = this;
+        var id=self.model.get("id");
         this.model.set({
             id : id
         });
@@ -331,9 +413,8 @@ var clueListView = Backbone.View.extend({
                         self.model.destroy({
                             success : function(cols, resp, options) {
                                 $.success("取消上报成功", null, null, function() {
-                                    appRouter.navigate("offical", {
-                                        trigger : true
-                                    });
+                                    self.load();
+                                    self.hideDetail();
                                 });
                             },
                             error : function(cols, resp, options) {
@@ -346,9 +427,7 @@ var clueListView = Backbone.View.extend({
                     label : "取消",
                     className : "btn-default",
                     callback : function() {
-                        appRouter.navigate("offical", {
-                            trigger : true
-                        });
+                        
                     }
                 }
             },
@@ -358,8 +437,9 @@ var clueListView = Backbone.View.extend({
         });
     },
     //转移
-    transfer : function(id) {
+    transfer : function() {
         var self = this;
+        var id=self.model.get("id");
         var info = this.collection.get(id).toJSON();
         this.listDict(info);
         var region = info.region;
@@ -374,8 +454,8 @@ var clueListView = Backbone.View.extend({
                     label : "提交",
                     className : "btn-success",
                     callback : function() {
-                        var region = $("#region").val();
-                        var profession = $('#profession').val();
+                        var region = $("#tregion").val();
+                        var profession = $('#tprofession').val();
                         var assigner = $("#transferPerson").val();
                         if (assigner == '00') {
                             $("#transferPerson").parent().addClass("has-error");
@@ -386,9 +466,8 @@ var clueListView = Backbone.View.extend({
                         self.model.fetch({
                             success : function(cols, resp, options) {
                                 $.success("转移成功", null, null, function() {
-                                    appRouter.navigate("offical", {
-                                        trigger : true
-                                    });
+                                    self.load();
+                                    self.hideDetail();
                                 });
                             },
                             error : function(cols, resp, options) {
@@ -406,22 +485,20 @@ var clueListView = Backbone.View.extend({
                     label : "取消",
                     className : "btn-default",
                     callback : function() {
-                        appRouter.navigate("offical", {
-                            trigger : true
-                        });
+                       
                     }
                 }
             },
             complete : function() {
                 $("#tmplCompanyName").html(info.companyName);
-                $("#region").change(function() {
+                $("#tregion").change(function() {
                     if ($("select option").is(":selected")) {
                         region = $(this).val();
                         self.getMarketPerson1(region, profession);
                         ;
                     }
                 });
-                $("#profession").change(function() {
+                $("#tprofession").change(function() {
                     if ($("select option").is(":selected")) {
                         profession = $(this).val();
                         self.getMarketPerson1(region, profession);
@@ -461,7 +538,7 @@ var clueListView = Backbone.View.extend({
     exportFile : function() {
         var data = {
             "entityType" : "exportClueManage",
-            "profession" : $('#industrycategory').val(),
+            "profession" : $('#profession').val(),
             "region" : $('#bigRegions').val(),
             "companyName" : $.trim($('#csmName').val()),
             "clueState" : $('#clueState').val(),

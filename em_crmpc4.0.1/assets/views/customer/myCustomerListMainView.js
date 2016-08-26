@@ -235,7 +235,8 @@ var myCustomerListMainView = Backbone.View.extend({
     },
       cancel : function() {
         $('.dropdown').removeClass('open');
-        $("#dropdownMenu1").attr("aria-expanded", "false")
+        $("#dropdownMenu1").attr("aria-expanded", "false");
+        self.load();
     },
     //查询重置
     clear : function() {

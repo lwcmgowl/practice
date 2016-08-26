@@ -42,6 +42,7 @@ var marketListView = Backbone.View.extend({
         this.$el.append($(this.template()));
     },
     initinfo : function(direction) {
+        currentpageNumber = 1;
         var self = this;
         self.render();
         handlerTop('btnWrapper');
@@ -253,6 +254,7 @@ var marketListView = Backbone.View.extend({
         var pushRight = document.getElementById( 'pushRight' );
             classie.removeClass( pushRight, 'cbp-spmenu-open' );
             $("#mask").hide();
+             self.load();
     },
     myResponDetailList:function(id){
         var self=this;
@@ -348,7 +350,6 @@ var marketListView = Backbone.View.extend({
                          success : function(response) {
                         if (response.status == "000") {
                             $.success("编辑成功!");
-                            self.load();
                         }
                         },
                         error : function(response) {
@@ -396,6 +397,7 @@ var marketListView = Backbone.View.extend({
                 $('#startDate').editable({
                     type : "text",
                     validate : function(value) {
+                        if($.trim(value)){
                             var  re =/^(\d{4})-(\d{2})-(\d{2})$/; 
                            if(re.test($.trim(value)))//判断日期格式符合YYYY-MM-DD标准 
                            { 
@@ -410,6 +412,7 @@ var marketListView = Backbone.View.extend({
                            if(value.replace(/-/g, '')>$('#sttlDate').text().replace(/-/g, '')){
                             return "预计签单日期不能小于发现日期!"
                         }
+                       }
                     },
                     url : function(value) {
                         return $.post(urlIp + '/opport/edit', {

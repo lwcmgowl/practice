@@ -310,7 +310,7 @@ var marketListView = Backbone.View.extend({
                                     return false;
                                 }
                                 var contactTypeId = $.trim($("#contactTypeId").val());
-                                if (contactTypeId === '00') {
+                                if (contactTypeId === '') {
                                     $.danger("请选择角色关系");
                                     $("#contactTypeId").parent().addClass("has-error");
                                     $("#contactTypeId").focus();

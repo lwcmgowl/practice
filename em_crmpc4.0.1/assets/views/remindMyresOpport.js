@@ -1,5 +1,5 @@
 //加载并初始化模板对象
-var marketTemplate = loadTemplate("assets/templates/staff/mystaffOpport.html");
+var marketTemplate = loadTemplate("assets/templates/staff/opportAll.html");
 var detailOpportTemplate = loadTemplate("assets/templates/staff/detailOpport.html");
 
 //列表容器VIEW
@@ -8,7 +8,7 @@ var marketListView = Backbone.View.extend({
         this.stickit();
     },
     el : '#contentdiv',
-    collection:new BaseTableCollection(),
+    collection : new BaseTableCollection(),
     bindings : {
 
     },
@@ -21,16 +21,16 @@ var marketListView = Backbone.View.extend({
         'click #cancel' : "cancel",
         'click #clear' : "clear",
         'click #exportFile' : 'exportFile',
-        "click #mask":function(){
+         "click #mask":function(){
             this.hideDetail();
         },
          "click #dynamic":function(){
             this.dynamic()
         },
-         "click #businessInfo":function(){
-            this.myStaffDetailList(this.model.get("id"));
+         "click #partner":function(){
+            this.myResponDetailList(this.model.get("id"));
         },
-         "click #contact":function(){
+         "click #clue":function(){
             this.contactList()
         },
     },
@@ -42,15 +42,15 @@ var marketListView = Backbone.View.extend({
         this.$el.append($(this.template()));
     },
     initinfo : function(direction) {
-        currentpageNumber = 1;
         var self = this;
         self.render();
         handlerTop('btnWrapper');
+        $("#add").parent().hide();
         for (var i in appcan.opptStat) {
             var str = '<option value="' + (i) + '">' + appcan.opptStat[i] + '</option>'
             $("#opptStatId").append(str);
         }
-        $("#sandbox-container .input-daterange").datepicker({
+         $("#sandbox-container .input-daterange").datepicker({
             format : 'yyyy-mm-dd',
             weekStart : 0,
             todayHighlight : true,
@@ -62,35 +62,26 @@ var marketListView = Backbone.View.extend({
             todayHighlight : true,
             autoclose : true,
         });
-        ajax({
-            url : "/opport/trade/listTrade",
-            data : {
-            superId:'0'
-          },
-            success : function(data) {
-                var perArr = data.msg.list;
-                $("#bigRegion").html(' <option value="">选择所属团队</option>'+profession(perArr));
-            }
-        });
         self.load();
         document.onkeypress = function(e) {
-                var code;
-                if (!e) {
-                    e = window.event;
-                }
-                if (e.keyCode) {
-                    code = e.keyCode;
-                } else if (e.which) {
-                    code = e.which;
-                }
-                if (code == 13) {
-                    self.load();
-                     $('.dropdown').removeClass('open');
-                     $("#dropdownMenu1").attr("aria-expanded", "false")
-                }
-            };
+            var code;
+            if (!e) {
+                e = window.event;
+            }
+            if (e.keyCode) {
+                code = e.keyCode;
+            } else if (e.which) {
+                code = e.which;
+            }
+            if (code == 13) {
+                marketListViewInstance.load();
+                $('.dropdown').removeClass('open');
+                $("#dropdownMenu1").attr("aria-expanded", "false")
+            }
+        }
+
     },
-    cancel : function() {
+     cancel : function() {
         $('.dropdown').removeClass('open');
         $("#dropdownMenu1").attr("aria-expanded", "false")
     },
@@ -105,81 +96,70 @@ var marketListView = Backbone.View.extend({
         $("#updateDate").val('');
         $("#updateEndDate").val('');
         $("#opptStatId").val('');
-        $("#responsible").val('');
-        $("#bigRegion").val(''),
         this.load();
     },
     load : function() {
-        var self=this;
-         var param = {
+        var self = this;
+        var param = {
             opptTtl : $.trim($('#business').val()),
             csmName:$.trim($("#customer").val()),
-            salesUserName:$.trim($("#responsible").val()),
             beforeStartDate:$("#findDate").val(),
             afterStartDate:$("#findEndDate").val(),
             beforeSttlDate:$("#signingDate").val(),
             afterSttlDate:$("#signingEndDate").val(),
             beforeCreatedAt:$("#updateDate").val(),
             afterCreatedAt:$("#updateEndDate").val(),
-            //salesUserId : appcanUserInfo.userId,
-            opptStatId : $('#opptStatId').val(),
-            region:$("#bigRegion").val(),
-            subordinateFlg:'1'
-         };
+            salesUserId : appcanUserInfo.userId,
+            opptStatId : $('#opptStatId').val()
+            //subordinateFlg : ''
+        };
         new DataTable({
             el : 'datatable',
             id : '#datatable',
             paging : true,
             pageSize : 10,
+            currNo:self.pageNo,
             ajax : {
                 url : '/opport/page',
                 data : param
             },
-           columns:[{
-                        "data" : "opptTtl",
-                        "title" : "商机名称"
-                    }, {
-                        "data" : "opptStatId",
-                        "tip" : true,
-                        "title" : "商机阶段"
-                    }, {
-                        "data" : "vndtAmt",
-                        "tip" : true,
-                        "title" : "预计金额"
-                    }, {
-                        "data" : "startDate",
-                        "tip" : true,
-                        "title" : "发现日期"
-                    }, {
-                        "data" : "sttlDate",
-                        "tip" : true,
-                        "title" : "预计签单日期"
-                    },{
-                        "data" : "csmName",
-                        "tip" : true,
-                        "title" : "客户名称"
-                    },{
-                        "data" : "region",
-                        "tip" : true,
-                        "title" : "所属团队"
-                    },{
-                        "data" : "salesUserName",
-                        "tip" : true,
-                        "title" : "商机负责人"
-                    },{
-                        "data" : "createdAt",
-                        "tip" : true,
-                        "title" : "创建时间"
-                    }],
+            columns : [{
+                "data" : "opptTtl",
+                "title" : "商机名称"
+            }, {
+                "data" : "opptStatId",
+                "tip" : true,
+                "title" : "商机阶段"
+            }, {
+                "data" : "vndtAmt",
+                "tip" : true,
+                "title" : "预计金额"
+            }, {
+                "data" : "startDate",
+                "tip" : true,
+                "title" : "发现日期"
+            }, {
+                "data" : "sttlDate",
+                "tip" : true,
+                "title" : "预计签单日期"
+            }, {
+                "data" : "csmName",
+                "tip" : true,
+                "title" : "客户名称"
+            },{
+                "data" : "createdAt",
+                "tip" : true,
+                "title" : "创建时间"
+            }],
             columnDefs : [{
                 targets : 0,
                 render : function(i, j, c) {
                    var maxwidth=8;
                         if(c.opptTtl.length>maxwidth){
-                             var html = "<a href='javascript:;' onclick='marketListViewInstance.myStaffDetail(\"" + c.id + "\")' title=" + c.opptTtl + ">" + c.opptTtl.substring(0,maxwidth)+"..." + "</a>";
+                             var html = "<a href='javascript:;' onclick='marketListViewInstance.myResDetail(\"" + c.id + "\")' title=" + c.opptTtl + ">" + c.opptTtl.substring(0,maxwidth)+"..." + "</a>";
                               return html;
                         }else{
-                             var html = "<a href='javascript:;' onclick='marketListViewInstance.myStaffDetail(\"" + c.id + "\")' title=" + c.opptTtl + ">" + c.opptTtl + "</a>";
+                             var html = "<a href='javascript:;' onclick='marketListViewInstance.myResDetail(\"" + c.id + "\")' title=" + c.opptTtl + ">" + c.opptTtl + "</a>";
                              return html;
                         };
                 }
@@ -192,7 +172,7 @@ var marketListView = Backbone.View.extend({
                 targets : 2,
                 render : function(i, j, c) {
                     if (c.vndtAmt)
-                        return c.vndtAmt;
+                        return self.milliFormat(c.vndtAmt);
                     else
                         return '';
                 }
@@ -213,82 +193,76 @@ var marketListView = Backbone.View.extend({
                         return '';
                 }
             },{
-                targets : 5,
-                render : function(i, j, c) {
-                    if (c.csmName){
-                        var maxwidth=12;
-                        if(c.csmName.length>maxwidth){
-                         return  c.csmName.substring(0,maxwidth)+"...";
-                        }else{
-                           return c.csmName;
-                        }
-                    }else{
-                        return "";
-                    }
-                }
-            }, {
-                targets : 8,
+                targets : 6,
                 render : function(i, j, c) {
                     if (c.createdAt)
                         return toDateString(c.createdAt);
                     else
                         return '';
                 }
+            }, {
+                targets : 7,
+                render : function(i, j, c) {
+                    var editType = 1;
+                    var html = '<a class="btn btn-default btn-xs" href="#dynamicEdit/' + c.id + '/03/' + editType + '/' + encodeURIComponent(c.csmName) + '">跟进动态</a> ' + '<a class="btn btn-default btn-xs" href="#detailOpport/' + c.id + '">查看</a> ' + '<div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">更多<span class="caret"></span></button><ul class="dropdown-menu center">'
+                    html += handlerRow(c.id);
+                    return html;
+                }
             }],
-             complete : function (list) {
-              self.collection.set(list);
+            complete : function(list) {
+                self.collection.set(list);
             },
             dataTableCb:function(n){
                 self.pageNo = n;
             }
-
         });
     },
     pageNo:1,
     exportFile : function() {
+        var flag = location.hash;
+        if (flag == "#myresOpport") {
             var data = {
-                "entityType" : "exportOpport",
+                "entityType" : "exportOpportFuze",
                 opptTtl : $.trim($('#business').val()),
                 csmName:$.trim($("#customer").val()),
-                salesUserName:$.trim($("#responsible").val()),
                 beforeStartDate:$("#findDate").val(),
                 afterStartDate:$("#findEndDate").val(),
                 beforeSttlDate:$("#signingDate").val(),
                 afterSttlDate:$("#signingEndDate").val(),
                 beforeCreatedAt:$("#updateDate").val(),
                 afterCreatedAt:$("#updateEndDate").val(),
-                //salesUserId : appcanUserInfo.userId,
-                opptStatId : $('#opptStatId').val(),
-                region:$("#bigRegion").val(),
-                subordinateFlg:'1'
+                salesUserId : appcanUserInfo.userId,
+                opptStatId : $('#opptStatId').val()
             }
-        var url = "/opport/exportOpport";
-        marketViewService.exportFile(data, url)
+            var url = "/opport/exportOpport";
+            opportViewService.exportFile(data, url)
+        }
     },
-    myStaffDetail:function(id){
-       var self=this;
-       var pushRight = document.getElementById( 'pushRight' );
+    myResDetail:function(id){
+        var self=this;
+        var pushRight = document.getElementById( 'pushRight' );
             classie.addClass( pushRight, 'cbp-spmenu-open' );
                 $("#mask").css("height",$(document).height());     
                 $("#mask").css("width",$(document).width());     
                 $("#mask").show();
             self.model.set("id",id); 
-            self.myStaffDetailList(id);
+            self.myResponDetailList(id);
     },
-     hideDetail:function(){
+    hideDetail:function(){
         var self=this;
         var pushRight = document.getElementById( 'pushRight' );
             classie.removeClass( pushRight, 'cbp-spmenu-open' );
             $("#mask").hide();
-            self.load();
     },
-    myStaffDetailList:function(id){
+    myResponDetailList:function(id){
         var self=this;
-        $("#businessInfo").addClass("active");
+        $("#partner").addClass("active");
         $("#dynamic").removeClass("active");
-        $("#contact").removeClass("active");
+        $("#clue").removeClass("active");
+        $("#clue").html("联系人信息");
         $.fn.editable.defaults.mode = 'inline';
         $("#detailpartdiv").html(detailOpportTemplate);
+        $("#status").html('商机阶段:<a href="javascript:;" id="topOpptStat" data-type="select"  data-placement="right" data-placeholder="必填" class="editable editable-click" style=" padding-left: 4px;"></a>')
          self.model.set({
             id : id
         });
@@ -376,8 +350,7 @@ var marketListView = Backbone.View.extend({
                          success : function(response) {
                         if (response.status == "000") {
                             $.success("编辑成功!");
-                            self.load();
-                        }
+                          }
                         },
                         error : function(response) {
                             if (response.status == "001") {
@@ -424,6 +397,7 @@ var marketListView = Backbone.View.extend({
                 $('#startDate').editable({
                     type : "text",
                     validate : function(value) {
+                        if($.trim(value)){
                             var  re =/^(\d{4})-(\d{2})-(\d{2})$/; 
                            if(re.test($.trim(value)))//判断日期格式符合YYYY-MM-DD标准 
                            { 
@@ -438,6 +412,7 @@ var marketListView = Backbone.View.extend({
                            if(value.replace(/-/g, '')>$('#sttlDate').text().replace(/-/g, '')){
                             return "预计签单日期不能小于发现日期!"
                         }
+                       }
                     },
                     url : function(value) {
                         return $.post(urlIp + '/opport/edit', {
@@ -639,9 +614,6 @@ var marketListView = Backbone.View.extend({
                     }
                 });
                   $("#salesUserName").html(info.salesUserName);
-                  $('#detailOpport .editable').editable('disable');
-                  $('#topOpptStat').editable('disable');
-                  
             },
             error : function(cols, resp, options) {
 
@@ -651,24 +623,24 @@ var marketListView = Backbone.View.extend({
         });
         
     },
-    //跟进动态
-     dynamic:function(){
-        $("#businessInfo").removeClass("active");
+    //跟进动态标签
+    dynamic:function(){
+        $("#partner").removeClass("active");
         $("#dynamic").addClass("active");
-        $("#contact").removeClass("active");
+        $("#clue").removeClass("active");
          var objEntityTypeId="03";
-         var editType=2;
+         var editType=1;
          var objId=this.model.get("id");
          var dynamicOffical=['assets/services/dynamicOfficalTest.js','assets/models/dynamicOfficalTest.js','assets/views/dynamicOfficalTest.js'];
          loadSequence(dynamicOffical,function(){
                 dynamicViewObj.getDynamicData(objId,objEntityTypeId,editType);
             });
     },
-    //联系人
+    //联系人标签
     contactList:function(){
-        $("#businessInfo").removeClass("active");
+        $("#partner").removeClass("active");
         $("#dynamic").removeClass("active");
-        $("#contact").addClass("active");
+        $("#clue").addClass("active");
         var contactId=this.model.get("id");
         var customId=this.model.get("customId");
         var opportContact=["assets/services/contact.js", "assets/models/contact.js", "assets/views/contact.js"];

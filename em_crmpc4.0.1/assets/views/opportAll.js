@@ -42,6 +42,7 @@ var marketListView = Backbone.View.extend({
         this.$el.append($(this.template()));
     },
     initinfo : function(direction) {
+        currentpageNumber = 1;
         var self = this;
         self.render();
         handlerTop('btnWrapper');
@@ -125,7 +126,7 @@ var marketListView = Backbone.View.extend({
          };
         new DataTable({
             el : 'datatable',
-            id : '#datatable',
+            id : '#opportAllListDatatable',
             paging : true,
             pageSize : 10,
             currNo:self.pageNo,
@@ -280,6 +281,7 @@ var marketListView = Backbone.View.extend({
         var pushRight = document.getElementById( 'pushRight' );
             classie.removeClass( pushRight, 'cbp-spmenu-open' );
             $("#mask").hide();
+            self.load();
     },
     opportAllDetailList:function(id){
          var self=this;

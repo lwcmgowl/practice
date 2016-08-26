@@ -14,6 +14,7 @@ var serverIf = urlindex + "/crm/assert/importMarketingDataTemplate.xls";
 var picviewPath = urlindex + "/attachment/file";
 var appId = "EPortal";
 var appKey = "0647513c-88f1-46c9-b764-b38e19f0e4e6";
+var currentpageNumber = 1;
 //上传图片
 //登录后返回的用户信息
 var appcan = {

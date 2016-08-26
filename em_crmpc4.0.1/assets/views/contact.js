@@ -110,7 +110,6 @@ var marketListView = Backbone.View.extend({
             columnDefs : [{
                 targets : 0,
                 render : function(i, j, c) {
-                    console.log(c)
                      var html = "<a href='javascript:;' onclick='marketListViewInstances.contactDetail(\"" + c.id + "\")' title=" + c.contactName + ">" + c.contactName+"</a>";
                         return html;
                 }
@@ -137,7 +136,7 @@ var marketListView = Backbone.View.extend({
             dataTableCb:function(n){
                 self.pageNo = n;
             }
-        });
+        },1);
     },
     pageNo:1,
     exportFileContact : function() {

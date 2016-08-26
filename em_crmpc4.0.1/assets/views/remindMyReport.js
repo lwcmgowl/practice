@@ -49,7 +49,6 @@ var myReportListView = Backbone.View.extend({
         this.$el.append($(this.template()));
     },
     initinfo : function() {
-        currentpageNumber = 1;
         var self = this;
         self.render();
         handlerTop('btnWrapper');
@@ -432,7 +431,6 @@ var myReportListView = Backbone.View.extend({
         var pushRight = document.getElementById( 'pushRight' );
             classie.toggle( pushRight, 'cbp-spmenu-open' );
             $("#mask").hide();
-            self.load();
     },
     myReportDetailList : function(id) {
         var self = this;
@@ -447,8 +445,8 @@ var myReportListView = Backbone.View.extend({
         }else{
             $("#partnerDetail").css("max-height","500px")
         }
-        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
-        html += handlerRow(id, "edit");
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"></div><a href="javascript:;"id="againExamine"class="rowstyle"><i class="fa fa-history"aria-hidden="true"></i>再次送审商机</a><a href="javascript:;"id="listExamine"class="rowstyle"><i class="fa fa-info-circle"aria-hidden="true"></i>审核信息</a>';
+        // html += handlerRow(id, "edit");
         $("#buttons").html(html);
        $('#transfer').html("<i class='fa fa-retweet' aria-hidden='true'></i>转移线索");
         self.model.set({

@@ -44,7 +44,6 @@ var myReportListView = Backbone.View.extend({
         this.$el.append($(this.template()));
     },
     initinfo : function() {
-        currentpageNumber = 1;
         var self = this;
         self.render();
         handlerTop('btnWrapper');
@@ -462,7 +461,6 @@ var myReportListView = Backbone.View.extend({
         var pushRight = document.getElementById( 'pushRight' );
             classie.toggle( pushRight, 'cbp-spmenu-open' );
             $("#mask").hide(); 
-            self.load();
     },
     myReportDetailList : function(id) {
         var self = this;
@@ -477,8 +475,8 @@ var myReportListView = Backbone.View.extend({
         }else{
             $("#partnerDetail").css("max-height","500px")
         }
-        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"> </div>';
-        html += handlerRow(id, "edit");
+        var html = '<div style="border-bottom: 1px solid #ededed; position: absolute;width: 100%;left: 0;top: 30px;"></div><a href="javascript:;" id="listExamine" class="rowstyle"><i class="fa fa-info-circle" aria-hidden="true"></i> 审核信息</a><a href="javascript:;" id="examine" class="rowstyle"><i class="fa fa-check-square" aria-hidden="true"></i> 商机审核</a>';
+        // html += handlerRow(id, "edit");
         $("#buttons").html(html);
         self.model.set({
             id : id

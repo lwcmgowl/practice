@@ -359,5 +359,5 @@ function DataDynamic(options) {
         wrapper : '.page' + _this.pageId,
         callback : request
     });
-    page.go(1);
+    page.go(1,1);
 }
